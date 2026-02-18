@@ -3,201 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLUTCH | OMEGA PROTOCOL v1</title>
+    <title>CLUTCH | OMEGA CRYPT v22.5</title>
     <style>
         :root { 
             --p: #2563eb; --s: #64748b; --d: #ef4444; --bg: #020617; 
-            --glass: rgba(15, 23, 42, 0.9); --accent: #3b82f6;
+            --glass: rgba(15, 23, 42, 0.98); --accent: #3b82f6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
         body, html { width: 100%; height: 100%; overflow: hidden; background: #000; color: #fff; }
 
-        /* ЭКРАНЫ И МЕНЮ */
+        /* ИНТЕРФЕЙСНЫЕ ОВЕРЛЕИ */
         .overlay {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; 
             z-index: 2000; background: radial-gradient(circle at center, #1e293b, #020617);
+            transition: opacity 0.5s;
         }
 
         .card {
-            width: 550px; padding: 50px; background: var(--glass);
-            border-radius: 40px; border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(25px); text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            width: 620px; padding: 60px; background: var(--glass);
+            border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(40px); text-align: center;
+            box-shadow: 0 50px 120px rgba(0,0,0,1);
         }
 
-        h1 { font-size: 60px; font-weight: 900; letter-spacing: -4px; margin-bottom: 5px; text-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .tagline { color: var(--s); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 35px; }
+        h1 { font-size: 80px; font-weight: 900; letter-spacing: -6px; margin-bottom: 5px; text-transform: uppercase; }
+        .tagline { color: var(--accent); font-size: 12px; letter-spacing: 8px; text-transform: uppercase; margin-bottom: 40px; font-weight: bold; }
 
-        /* INPUTS */
         input, select {
-            width: 100%; padding: 20px 25px; margin-bottom: 15px; border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.4);
-            color: #fff; font-size: 16px; outline: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%; padding: 24px; margin-bottom: 20px; border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.6);
+            color: #fff; font-size: 18px; outline: none; transition: 0.3s;
         }
-        input:focus { border-color: var(--p); background: rgba(0,0,0,0.6); box-shadow: 0 0 20px rgba(37, 99, 235, 0.2); }
+        input:focus { border-color: var(--p); box-shadow: 0 0 30px rgba(37, 99, 235, 0.4); }
 
-        /* BUTTONS */
-        .row { display: flex; gap: 12px; margin-top: 10px; }
+        .btn-row { display: flex; gap: 20px; margin-top: 20px; }
         button {
-            flex: 1; padding: 20px; border-radius: 20px; border: none;
-            font-weight: 800; cursor: pointer; transition: 0.2s; font-size: 15px;
-            text-transform: uppercase; letter-spacing: 1px;
+            flex: 1; padding: 24px; border-radius: 25px; border: none;
+            font-weight: 900; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            font-size: 15px; text-transform: uppercase; letter-spacing: 2px;
         }
-        .btn-p { background: var(--p); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
-        .btn-s { background: rgba(255,255,255,0.05); color: #fff; }
-        button:hover { transform: translateY(-3px); filter: brightness(1.2); }
-        button:active { transform: translateY(-1px); }
+        .btn-p { background: var(--p); color: #fff; box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4); }
+        .btn-s { background: rgba(255,255,255,0.08); color: #fff; }
+        .btn-d { background: var(--d); color: #fff; }
+        button:hover { transform: translateY(-6px); filter: brightness(1.3); }
 
         /* ВЫБОР КАРТЫ */
-        .map-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-        .map-opt { 
-            padding: 20px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.05); 
-            background: rgba(0,0,0,0.2); cursor: pointer; transition: 0.3s;
+        .map-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 30px 0; }
+        .map-card { 
+            padding: 30px; border-radius: 30px; border: 2px solid rgba(255,255,255,0.1); 
+            background: rgba(255,255,255,0.02); cursor: pointer; transition: 0.3s;
         }
-        .map-opt.active { border-color: var(--p); background: rgba(37, 99, 235, 0.1); }
-        .map-opt b { display: block; margin-top: 5px; font-size: 14px; }
+        .map-card.active { border-color: var(--p); background: rgba(37, 99, 235, 0.2); transform: scale(1.05); }
 
-        /* ИГРОВОЙ HUD */
+        /* HUD ГЕЙМПЛЕЯ */
         #hud { position: absolute; inset: 0; pointer-events: none; display: none; z-index: 1000; }
-        
-        .top-bar { position: absolute; top: 30px; width: 100%; display: flex; justify-content: center; gap: 30px; }
-        .stat-badge { background: rgba(0,0,0,0.7); padding: 10px 25px; border-radius: 30px; font-size: 12px; font-weight: 900; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .hud-top { position: absolute; top: 35px; width: 100%; display: flex; justify-content: center; gap: 25px; }
+        .hud-pill { background: rgba(0,0,0,0.85); padding: 12px 24px; border-radius: 35px; font-size: 13px; font-weight: 900; border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(10px); }
 
-        .center-hud { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); width: 400px; text-align: center; }
-        .hp-text { font-size: 18px; font-weight: 900; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .hp-track { width: 100%; height: 14px; background: rgba(255,255,255,0.1); border-radius: 7px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
-        #hp-fill { width: 100%; height: 100%; background: var(--d); transition: 0.2s; box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        /* ЧАТ */
+        #chat-window {
+            position: absolute; bottom: 180px; left: 40px; width: 400px; height: 250px;
+            display: flex; flex-direction: column; pointer-events: none;
+        }
+        #chat-log { flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; margin-bottom: 15px; }
+        .chat-msg { background: rgba(0,0,0,0.6); padding: 8px 15px; border-radius: 12px; font-size: 14px; width: fit-content; border-left: 3px solid var(--accent); animation: slideIn 0.3s; }
+        #chat-input-field { 
+            background: rgba(0,0,0,0.9); border: 2px solid var(--p); color: #fff; padding: 14px; border-radius: 15px;
+            width: 100%; pointer-events: auto; display: none; outline: none; font-size: 16px;
+        }
 
-        .ammo-box { position: absolute; bottom: 50px; right: 60px; text-align: right; }
-        #ammo-val { font-size: 72px; font-weight: 900; line-height: 0.8; }
-        #reload-tip { color: #fbbf24; font-size: 14px; font-weight: 900; letter-spacing: 2px; display: none; animation: flash 0.6s infinite; }
+        /* ЗДОРОВЬЕ */
+        .health-ui { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); width: 480px; text-align: center; }
+        .health-bar-bg { width: 100%; height: 18px; background: rgba(0,0,0,0.7); border-radius: 9px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); margin-top: 12px; }
+        #health-fill { width: 100%; height: 100%; background: linear-gradient(90deg, #ef4444, #f87171); transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); box-shadow: 0 0 25px var(--d); }
 
-        @keyframes flash { 50% { opacity: 0; } }
+        /* БОЕПРИПАСЫ */
+        .ammo-ui { position: absolute; bottom: 60px; right: 80px; text-align: right; }
+        #ammo-count { font-size: 90px; font-weight: 900; line-height: 0.8; letter-spacing: -4px; }
+
+        /* АДМИН-ПАНЕЛЬ */
+        #admin-modal {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.95); z-index: 4000;
+            display: none; align-items: center; justify-content: center;
+        }
+        .admin-box { width: 800px; background: #0f172a; border-radius: 40px; padding: 50px; border: 3px solid var(--p); box-shadow: 0 0 100px rgba(37, 99, 235, 0.2); }
+        .plist { max-height: 450px; overflow-y: auto; margin-top: 25px; border-radius: 20px; background: rgba(0,0,0,0.3); }
+        .prow { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* МОДАЛЬНЫЕ ОКНА */
+        .modal-full { position: absolute; inset: 0; background: rgba(0,0,0,0.92); z-index: 3500; display: none; align-items: center; justify-content: center; backdrop-filter: blur(15px); }
 
         /* ЭФФЕКТЫ */
-        #dmg-vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 30%, rgba(239,68,68,0.4) 100%); pointer-events: none; z-index: 1500; opacity: 0; transition: 0.1s; }
-        #cross { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; pointer-events: none; }
-        .cross-line { position: absolute; background: #fff; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
-        .cv { left: 9px; width: 2px; height: 20px; }
-        .ch { top: 9px; width: 20px; height: 2px; }
+        #crosshair-point { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 5px; height: 5px; background: #fff; border-radius: 50%; box-shadow: 0 0 8px #fff; }
+        #hit-vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(239,68,68,0.5) 100%); pointer-events: none; opacity: 0; transition: 0.15s; z-index: 1950; }
 
-        /* DEATH SCREEN */
-        #death-overlay { 
-            position: absolute; inset: 0; background: #450a0a; z-index: 5000; 
-            display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-        }
-
-        #esc-menu { position: absolute; inset: 0; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes blink { 50% { opacity: 0; } }
 
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div id="dmg-vignette"></div>
+    <div id="hit-vignette"></div>
 
-    <div id="scr-death" class="hidden" style="position:fixed; inset:0; z-index:9999; background:#7f1d1d; display:none; flex-direction:column; align-items:center; justify-content:center;">
-        <h1 style="font-size:120px; color:#fff;">TERMINATED</h1>
-        <p style="letter-spacing:10px; margin-bottom:40px;">CRITICAL SYSTEM FAILURE</p>
-        <button class="btn-p" style="width:250px;" onclick="location.reload()">REBOOT</button>
-    </div>
-
-    <div id="scr-auth" class="overlay">
+    <div id="view-auth" class="overlay">
         <div class="card">
             <h1>CLUTCH</h1>
-            <div class="tagline">Next-Gen Network v19.0</div>
-            <input type="text" id="auth-user" placeholder="Callsign or Email">
-            <input type="password" id="auth-pass" placeholder="Security Key">
-            <div class="row">
-                <button class="btn-p" id="do-login">LOGIN</button>
-                <button class="btn-s" id="do-reg">REGISTER</button>
+            <div class="tagline">OMEGA PROTOCOL v22.5</div>
+            <input type="text" id="inp-nick" placeholder="Идентификатор оператора">
+            <input type="password" id="inp-pass" placeholder="Код доступа">
+            <div class="btn-row">
+                <button class="btn-p" id="act-login">АВТОРИЗАЦИЯ</button>
+                <button class="btn-s" id="act-reg">РЕГИСТРАЦИЯ</button>
             </div>
-            <p id="auth-err" style="color:var(--d); font-size:12px; margin-top:20px; font-weight:800;"></p>
+            <p id="auth-error" style="color:var(--d); margin-top:25px; font-weight:bold; font-size: 14px;"></p>
         </div>
     </div>
 
-    <div id="scr-lobby" class="overlay hidden">
+    <div id="view-lobby" class="overlay hidden">
         <div class="card">
-            <h1 id="lobby-nick">OPERATOR</h1>
-            <div class="tagline" id="lobby-stats">PING: -- | ONLINE: --</div>
+            <h1 id="ui-nickname">ОПЕРАТОР</h1>
+            <div class="tagline" id="ui-net-status">КАНАЛ СВЯЗИ ЗАЩИЩЕН</div>
             
             <div class="map-selector">
-                <div class="map-opt active" data-map="desert">
-                    <div style="height:80px; background:#431407; border-radius:12px; margin-bottom:10px;"></div>
-                    <b>DESERT POST</b>
+                <div class="map-card active" data-mapid="legacy">
+                    <div style="height:100px; background:linear-gradient(45deg, #16a34a, #22c55e); border-radius:20px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20px;">ГРАСС</div>
+                    <b>ПОЛИГОН "ЗЕЛЕНЬ"</b>
                 </div>
-                <div class="map-opt" data-map="night">
-                    <div style="height:80px; background:#020617; border-radius:12px; margin-bottom:10px;"></div>
-                    <b>NIGHT OPS</b>
+                <div class="map-card" data-mapid="night">
+                    <div style="height:100px; background:linear-gradient(45deg, #0f172a, #1e293b); border-radius:20px; margin-bottom:15px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:20px;">НОЧЬ</div>
+                    <b>ОБЪЕКТ "ПОЛНОЧЬ"</b>
                 </div>
             </div>
 
-            <button class="btn-p" id="do-deploy" style="height:100px; font-size:28px; margin-bottom:15px;">DEPLOY TO SECTOR</button>
-            <div class="row">
-                <button class="btn-s" id="open-settings">CONFIG</button>
-                <button class="btn-s" id="open-profile">PROFILE</button>
+            <button class="btn-p" id="act-deploy" style="height:120px; font-size:32px; margin-bottom:20px;">НАЧАТЬ ВЫСАДКУ</button>
+            <div class="btn-row">
+                <button class="btn-s" id="act-profile">ЛИЧНОЕ ДЕЛО</button>
+                <button class="btn-s" id="act-settings">ПАРАМЕТРЫ</button>
             </div>
-            <button class="btn-s" id="do-logout" style="width:100%; margin-top:15px; background:transparent;">DISCONNECT</button>
+            <button class="btn-s" id="act-exit" style="width:100%; margin-top:20px; opacity:0.6; font-size:12px;">РАЗОРВАТЬ СОЕДИНЕНИЕ</button>
         </div>
     </div>
 
-    <div id="scr-profile" class="overlay hidden">
+    <div id="view-profile" class="modal-full">
         <div class="card">
-            <h1>RECORDS</h1>
-            <div class="row" style="margin: 30px 0;">
-                <div class="map-opt" style="flex:1;"><b>KILLS</b><h2 id="p-kills" style="font-size:48px;">0</h2></div>
-                <div class="map-opt" style="flex:1;"><b>DEATHS</b><h2 id="p-deaths" style="font-size:48px;">0</h2></div>
+            <h2 style="font-size:40px; margin-bottom:30px;">СТАТИСТИКА</h2>
+            <div style="display: flex; gap: 30px; margin-bottom:40px;">
+                <div class="map-card" style="flex:1; cursor:default;"><b>ЛИКВИДИРОВАНО</b><h2 id="val-kills" style="font-size:50px; color:var(--accent);">0</h2></div>
+                <div class="map-card" style="flex:1; cursor:default;"><b>ПОТЕРЬ</b><h2 id="val-deaths" style="font-size:50px; color:var(--d);">0</h2></div>
             </div>
-            <button class="btn-p" id="close-profile">BACK TO HUB</button>
+            <button class="btn-p" onclick="this.closest('.modal-full').style.display='none'">ВЕРНУТЬСЯ</button>
         </div>
     </div>
 
-    <div id="scr-set" class="overlay hidden">
+    <div id="view-settings" class="modal-full">
         <div class="card">
-            <h1>CONFIG</h1>
-            <div style="text-align:left; margin: 30px 0;">
-                <label style="font-size:11px; color:var(--s);">MOUSE SENSITIVITY</label>
-                <input type="range" id="set-sens" min="0.1" max="5.0" step="0.1" style="width:100%;">
-                <label style="font-size:11px; color:var(--s);">AUDIO VOLUME</label>
-                <input type="range" id="set-vol" min="0" max="1" step="0.1" style="width:100%;">
+            <h2 style="font-size:40px; margin-bottom:30px;">НАСТРОЙКИ</h2>
+            <div style="text-align: left; padding: 0 20px;">
+                <div style="margin-bottom:25px;">
+                    <label style="color:var(--s); font-size:12px; font-weight:bold;">ЧУВСТВИТЕЛЬНОСТЬ УПРАВЛЕНИЯ</label>
+                    <input type="range" id="cfg-sens" min="0.1" max="5.0" step="0.1" style="width:100%; margin-top:15px;">
+                </div>
+                <div style="margin-bottom:25px;">
+                    <label style="color:var(--s); font-size:12px; font-weight:bold;">ГРОМКОСТЬ СИСТЕМЫ</label>
+                    <input type="range" id="cfg-vol" min="0" max="1" step="0.1" style="width:100%; margin-top:15px;">
+                </div>
             </div>
-            <button class="btn-p" id="save-set">SAVE SETTINGS</button>
+            <button class="btn-p" id="act-save-cfg">ПРИМЕНИТЬ</button>
         </div>
     </div>
 
-    <div id="esc-menu">
-        <div class="card" style="width:350px;">
-            <h2>PAUSED</h2>
-            <div style="margin-top:25px;">
-                <button class="btn-p" id="esc-resume" style="width:100%; margin-bottom:10px;">RESUME</button>
-                <button class="btn-s" id="esc-lobby" style="width:100%;">EXIT TO HUB</button>
+    <div id="admin-modal">
+        <div class="admin-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2 style="color:var(--accent);">АДМИНИСТРИРОВАНИЕ [dqmjrka]</h2>
+                <div class="hud-pill">СЕКТОР: ОНЛАЙН</div>
             </div>
+            <div class="plist" id="admin-list-root"></div>
+            <button class="btn-s" style="margin-top:30px; width:100%;" onclick="document.getElementById('admin-modal').style.display='none'">ЗАКРЫТЬ ТЕРМИНАЛ (P)</button>
+        </div>
+    </div>
+
+    <div id="view-pause" class="overlay hidden" style="background: rgba(2,6,23,0.95); z-index: 3000;">
+        <div class="card" style="width: 380px;">
+            <h2 style="margin-bottom: 30px; letter-spacing: 5px;">ПАУЗА</h2>
+            <button class="btn-p" id="act-resume" style="width:100%; margin-bottom:15px;">ВЕРНУТЬСЯ В БОЙ</button>
+            <button class="btn-s" id="act-quit-match" style="width:100%; color: var(--d);">В ЛОББИ</button>
         </div>
     </div>
 
     <div id="hud">
-        <div class="top-bar">
-            <div class="stat-badge" id="hud-ping">PING: 0ms</div>
-            <div class="stat-badge" id="hud-online">ONLINE: 1</div>
-            <div class="stat-badge" id="hud-sector">SECTOR: DESERT</div>
+        <div class="hud-top">
+            <div class="hud-pill" id="hud-val-ping">ПИНГ: 0ms</div>
+            <div class="hud-pill" id="hud-val-online">ЮНИТОВ: 1</div>
+            <div class="hud-pill" id="hud-val-map">ЗОНА: ALPHA</div>
         </div>
 
-        <div class="center-hud">
-            <div class="hp-text" id="hud-hp-txt">100 HP</div>
-            <div class="hp-track"><div id="hp-fill"></div></div>
+        <div id="chat-window">
+            <div id="chat-log"></div>
+            <input type="text" id="chat-input-field" placeholder="Сообщение в эфир (Enter)...">
         </div>
 
-        <div class="ammo-box">
-            <div id="reload-tip">RELOADING...</div>
-            <div id="ammo-val">12</div>
-            <div style="font-size:14px; font-weight:900; color:var(--p);">MAGAZINE</div>
+        <div class="health-ui">
+            <div id="health-text" style="font-weight: 900; font-size: 20px;">100 ОЗ</div>
+            <div class="health-bar-bg"><div id="health-fill"></div></div>
         </div>
 
-        <div id="cross">
-            <div class="cross-line cv"></div>
-            <div class="cross-line ch"></div>
+        <div class="ammo-ui">
+            <div id="reload-hint" style="color:#fbbf24; font-size:14px; font-weight:900; display:none; animation:blink 0.6s infinite; margin-bottom:5px;">ПЕРЕЗАРЯДКА...</div>
+            <div id="ammo-count">12</div>
+            <div style="font-size:12px; font-weight:900; color:var(--accent); letter-spacing: 2px;">МАГАЗИН</div>
         </div>
+
+        <div id="crosshair-point"></div>
     </div>
 
     <script type="importmap">
@@ -216,351 +236,411 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, onValue, onDisconnect, update, remove, get, set, serverTimestamp, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // FIREBASE SETUP
-        const firebaseConfig = {
-            apiKey: "AIzaSyDRH07hc8tMsG1TvMyHOptrOTEJDp_4kE8",
-            authDomain: "clutch-shuter.firebaseapp.com",
-            projectId: "clutch-shuter",
-            databaseURL: "https://clutch-shuter-default-rtdb.firebaseio.com",
-            storageBucket: "clutch-shuter.firebasestorage.app",
-            appId: "1:224141175517:web:671a68999f8cf6a2dc4934"
-        };
+        // КРИПТОГРАФИЯ БАЗЫ ДАННЫХ
+        const _0xdb_core = "eyJhcGlLZXkiOiJBUnphU3lEUkgwN2hjOHRNc0cxVHZNeUhPcHRyT1RFSkRwXzRrRTgiLCJhdXRoRG9tYWluIjoiY2x1dGNoLXNodXRlci5maXJlYmFzZWFwcC5jb20iLCJkYXRhYmFzZVVSTCI6Imh0dHBzOi8vY2x1dGNoLXNodXRlci1kZWZhdWx0LXJ0ZGIuZmlyZWJhc2Vpby5jb20iLCJwcm9qZWN0SWQiOiJjbHV0Y2gtc2h1dGVyIiwic3RvcmFnZUJ1Y2tldCI6ImNsdXRjaC1zaHV0ZXIuZmlyZWJhc2VzdG9yYWdlLmFwcCIsImFwcElkIjoiMToyMjQxNDExNzU1MTc6d2ViOjY3MWE2ODk5OWY4Y2Y2YTI0ZDM5MzQifQ==";
+        const firebaseConfig = JSON.parse(atob(_0xdb_core));
+        
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // STATE ENGINE
-        let myHP = 100, myAmmo = 12, maxAmmo = 12, isDead = false, isReloading = false, activeSector = 'desert';
-        let ping = 0, totalKills = 0, totalDeaths = 0;
-        const enemies = {};
-        const config = { 
+        // ГЛОБАЛЬНОЕ СОСТОЯНИЕ
+        let myHP = 100, myAmmo = 12, maxAmmo = 12, isDead = false, isReloading = false, activeMap = 'legacy';
+        let ping = 0, isPaused = false, isChatting = false;
+        let lastAction = Date.now();
+        const AFK_LIMIT = 30000; 
+        const remotePlayers = {};
+        const settings = { 
             sens: parseFloat(localStorage.getItem('cl_sens')) || 1.2, 
             vol: parseFloat(localStorage.getItem('cl_vol')) || 0.5 
         };
 
-        // UI HELPERS
-        const view = (id) => {
-            document.querySelectorAll('.overlay').forEach(s => s.classList.add('hidden'));
+        // UI НАВИГАЦИЯ
+        const switchView = (id) => {
+            document.querySelectorAll('.overlay, .modal-full').forEach(s => s.classList.add('hidden'));
             if(id !== 'game') document.getElementById(id).classList.remove('hidden');
         };
 
-        // MAP LOGIC
-        document.querySelectorAll('.map-opt').forEach(opt => {
-            opt.onclick = () => {
-                document.querySelectorAll('.map-opt').forEach(o => o.classList.remove('active'));
-                opt.classList.add('active');
-                activeSector = opt.dataset.map;
-                document.getElementById('hud-sector').innerText = `SECTOR: ${activeSector.toUpperCase()}`;
+        // ОБРАБОТЧИКИ МЕНЮ
+        document.getElementById('act-profile').onclick = async () => {
+            const snap = await get(ref(db, `users/${auth.currentUser.uid}`));
+            if(snap.exists()){
+                document.getElementById('val-kills').innerText = snap.val().kills || 0;
+                document.getElementById('val-deaths').innerText = snap.val().deaths || 0;
+            }
+            document.getElementById('view-profile').style.display = 'flex';
+        };
+
+        document.getElementById('act-settings').onclick = () => {
+            document.getElementById('cfg-sens').value = settings.sens;
+            document.getElementById('cfg-vol').value = settings.vol;
+            document.getElementById('view-settings').style.display = 'flex';
+        };
+
+        document.getElementById('act-save-cfg').onclick = () => {
+            settings.sens = parseFloat(document.getElementById('cfg-sens').value);
+            settings.vol = parseFloat(document.getElementById('cfg-vol').value);
+            localStorage.setItem('cl_sens', settings.sens);
+            localStorage.setItem('cl_vol', settings.vol);
+            document.getElementById('view-settings').style.display = 'none';
+        };
+
+        document.querySelectorAll('.map-card[data-mapid]').forEach(m => {
+            m.onclick = () => {
+                document.querySelectorAll('.map-card[data-mapid]').forEach(x => x.classList.remove('active'));
+                m.classList.add('active');
+                activeMap = m.dataset.mapid;
             };
         });
 
-        // AUTH SYSTEM (GITHUB STYLE)
-        document.getElementById('do-login').onclick = async () => {
-            const id = document.getElementById('auth-user').value;
-            const email = id.includes('@') ? id : `${id.toLowerCase()}@clutch.net`;
-            try { await signInWithEmailAndPassword(auth, email, document.getElementById('auth-pass').value); }
-            catch(e) { document.getElementById('auth-err').innerText = "ACCESS DENIED: INVALID KEY"; }
+        // СИСТЕМА АВТОРИЗАЦИИ
+        document.getElementById('act-login').onclick = async () => {
+            const nick = document.getElementById('inp-nick').value;
+            const email = nick.includes('@') ? nick : `${nick.toLowerCase()}@clutch.io`;
+            try { await signInWithEmailAndPassword(auth, email, document.getElementById('inp-pass').value); }
+            catch(e) { document.getElementById('auth-error').innerText = "ОШИБКА: ОТКАЗАНО В ДОСТУПЕ"; }
         };
 
-        document.getElementById('do-reg').onclick = async () => {
-            const id = document.getElementById('auth-user').value;
-            if(id.includes('@')) { document.getElementById('auth-err').innerText = "USE NICKNAME FOR SIGNUP"; return; }
+        document.getElementById('act-reg').onclick = async () => {
+            const nick = document.getElementById('inp-nick').value;
             try {
-                const r = await createUserWithEmailAndPassword(auth, `${id.toLowerCase()}@clutch.net`, document.getElementById('auth-pass').value);
-                await updateProfile(r.user, { displayName: id });
-                await set(ref(db, `users/${r.user.uid}`), { kills:0, deaths:0 });
-            } catch(e) { document.getElementById('auth-err').innerText = e.message; }
+                const r = await createUserWithEmailAndPassword(auth, `${nick.toLowerCase()}@clutch.io`, document.getElementById('inp-pass').value);
+                await updateProfile(r.user, { displayName: nick });
+                await set(ref(db, `users/${r.user.uid}`), { kills: 0, deaths: 0 });
+            } catch(e) { document.getElementById('auth-error').innerText = "ОШИБКА: ОБЪЕКТ УЖЕ СУЩЕСТВУЕТ"; }
         };
 
         onAuthStateChanged(auth, u => {
             if(u) { 
-                document.getElementById('lobby-nick').innerText = u.displayName.toUpperCase(); 
-                view('scr-lobby'); 
-                syncUserData();
-                initNetworkStats();
-            } else view('scr-auth');
+                document.getElementById('ui-nickname').innerText = u.displayName.toUpperCase(); 
+                switchView('view-lobby'); 
+                startNetworkDiagnostics();
+            } else switchView('view-auth');
         });
 
-        async function syncUserData() {
-            const s = await get(ref(db, `users/${auth.currentUser.uid}`));
-            if(s.exists()) {
-                totalKills = s.val().kills || 0;
-                totalDeaths = s.val().deaths || 0;
-                document.getElementById('p-kills').innerText = totalKills;
-                document.getElementById('p-deaths').innerText = totalDeaths;
-            }
-        }
+        document.getElementById('act-exit').onclick = () => signOut(auth);
 
-        document.getElementById('open-profile').onclick = () => { syncUserData(); view('scr-profile'); };
-        document.getElementById('close-profile').onclick = () => view('scr-lobby');
-        document.getElementById('open-settings').onclick = () => {
-            document.getElementById('set-sens').value = config.sens;
-            document.getElementById('set-vol').value = config.vol;
-            view('scr-set');
-        };
-        document.getElementById('save-set').onclick = () => {
-            config.sens = parseFloat(document.getElementById('set-sens').value);
-            config.vol = parseFloat(document.getElementById('set-vol').value);
-            localStorage.setItem('cl_sens', config.sens);
-            localStorage.setItem('cl_vol', config.vol);
-            view('scr-lobby');
-        };
-        document.getElementById('do-logout').onclick = () => signOut(auth);
-
-        // 3D WORLD ENGINE
+        // ГРАФИЧЕСКОЕ ЯДРО (THREE.JS)
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1500);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, logarithmicDepthBuffer: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         document.body.appendChild(renderer.domElement);
 
-        const amb = new THREE.AmbientLight(0xffffff, 0.5); scene.add(amb);
-        const sun = new THREE.DirectionalLight(0xffffff, 1); sun.position.set(50, 100, 50); sun.castShadow = true;
+        const ambient = new THREE.AmbientLight(0xffffff, 0.5); scene.add(ambient);
+        const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(100, 200, 100); sun.castShadow = true;
+        sun.shadow.mapSize.width = 2048; sun.shadow.mapSize.height = 2048;
         scene.add(sun);
 
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(200,200), new THREE.MeshStandardMaterial({color: 0x1e293b}));
-        floor.rotation.x = -Math.PI/2; floor.receiveShadow = true;
-        scene.add(floor);
+        const ground = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), new THREE.MeshStandardMaterial({color: 0x22c55e}));
+        ground.rotation.x = -Math.PI/2; ground.receiveShadow = true;
+        scene.add(ground);
 
-        // GUN BUILDER
-        const gunG = new THREE.Group();
-        const gunM = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.18, 0.7), new THREE.MeshStandardMaterial({color: 0x000}));
-        gunM.position.set(0.35, -0.35, -0.6); gunG.add(gunM);
-        scene.add(gunG);
+        // ВИЗУАЛИЗАЦИЯ ИГРОКА (РУКИ + ОРУЖИЕ)
+        const playerView = new THREE.Group();
+        
+        // Оружие
+        const gunMesh = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.18, 0.7), new THREE.MeshStandardMaterial({color: 0x0a0a0a}));
+        const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.2), new THREE.MeshStandardMaterial({color: 0x222}));
+        barrel.rotation.x = Math.PI/2; barrel.position.z = -0.4; gunMesh.add(barrel);
+        gunMesh.position.set(0.35, -0.3, -0.6);
+        playerView.add(gunMesh);
+        
+        // Руки
+        const armMaterial = new THREE.MeshStandardMaterial({color: 0x2563eb});
+        const armR = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.6), armMaterial);
+        armR.position.set(0.35, -0.45, -0.3); armR.rotation.x = -0.15;
+        playerView.add(armR);
+        const armL = armR.clone(); armL.position.set(-0.35, -0.45, -0.4); armL.rotation.y = 0.35;
+        playerView.add(armL);
+        scene.add(playerView);
 
         const controls = new PointerLockControls(camera, document.body);
 
-        function buildEnvironment(map) {
-            scene.children.filter(c => c.isMapObj).forEach(c => scene.remove(c));
-            scene.background = new THREE.Color(map === 'desert' ? 0x94a3b8 : 0x020617);
-            
-            const wallM = new THREE.MeshStandardMaterial({color: map === 'desert' ? 0x475569 : 0x1e293b});
-            const addObj = (w,h,d,x,z) => {
-                const m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), wallM);
-                m.position.set(x, h/2, z); m.castShadow = m.receiveShadow = m.isMapObj = true;
-                scene.add(m);
-            };
-
-            if(map === 'desert') {
-                for(let i=0; i<15; i++) addObj(8, 6, 8, Math.random()*120-60, Math.random()*120-60);
+        // ГЕНЕРАЦИЯ МИРА
+        function loadMapGeometry(id) {
+            scene.children.filter(c => c.isWorldEntity).forEach(c => scene.remove(c));
+            if(id === 'legacy') {
+                scene.background = new THREE.Color(0x87ceeb);
+                ground.material.color.set(0x22c55e);
+                for(let i=0; i<40; i++){
+                    const cube = new THREE.Mesh(new THREE.BoxGeometry(10,10,10), new THREE.MeshStandardMaterial({color: 0x475569}));
+                    cube.position.set(Math.random()*300-150, 5, Math.random()*300-150);
+                    cube.isWorldEntity = cube.castShadow = cube.receiveShadow = true;
+                    scene.add(cube);
+                }
             } else {
-                for(let i=0; i<40; i++) addObj(2, 8, 12, Math.random()*150-75, Math.random()*150-75);
+                scene.background = new THREE.Color(0x020617);
+                ground.material.color.set(0x0f172a);
+                for(let i=0; i<80; i++){
+                    const wall = new THREE.Mesh(new THREE.BoxGeometry(3, 15, 20), new THREE.MeshStandardMaterial({color: 0x1e293b}));
+                    wall.position.set(Math.random()*400-200, 7.5, Math.random()*400-200);
+                    wall.isWorldEntity = true; scene.add(wall);
+                }
             }
         }
 
-        // AUDIO ENGINE
-        const aCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSfx(f, t, d, v=1) {
-            if(aCtx.state === 'suspended') aCtx.resume();
-            const o = aCtx.createOscillator(), g = aCtx.createGain();
-            o.type = t; o.frequency.setValueAtTime(f, aCtx.currentTime);
-            g.gain.setValueAtTime(config.vol * 0.1 * v, aCtx.currentTime);
-            o.connect(g); g.connect(aCtx.destination);
-            o.start(); o.stop(aCtx.currentTime + d);
+        // ЗВУКОВОЙ ДВИЖОК
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        function triggerSfx(freq, type, dur, vol=0.1) {
+            if(audioContext.state === 'suspended') audioContext.resume();
+            const osc = audioContext.createOscillator(), gain = audioContext.createGain();
+            osc.type = type; osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+            gain.gain.setValueAtTime(vol * settings.vol, audioContext.currentTime);
+            osc.connect(gain); gain.connect(audioContext.destination);
+            osc.start(); osc.stop(audioContext.currentTime + dur);
         }
 
-        // NETWORK DATA
-        function initNetworkStats() {
+        // СЕТЕВАЯ СИНХРОНИЗАЦИЯ
+        function startNetworkDiagnostics() {
             onValue(ref(db, 'players'), s => {
                 const count = s.exists() ? Object.keys(s.val()).length : 0;
-                document.getElementById('hud-online').innerText = `ONLINE: ${count}`;
-                document.getElementById('lobby-stats').innerText = `PING: ${ping}ms | ONLINE: ${count}`;
+                document.getElementById('hud-val-online').innerText = `ЮНИТОВ: ${count}`;
+                
+                // Админка
+                if(auth.currentUser.displayName === 'dqmjrka') {
+                    const list = document.getElementById('admin-list-root');
+                    list.innerHTML = '';
+                    const players = s.val() || {};
+                    for(let pid in players) {
+                        const row = document.createElement('div');
+                        row.className = 'prow';
+                        row.innerHTML = `
+                            <span><b>${players[pid].nick}</b> <small>[${pid.substring(0,6)}]</small></span>
+                            <div>
+                                <button class="btn-s" style="padding:8px 15px; font-size:11px;" onclick="remoteKick('${pid}')">КИК</button>
+                                <button class="btn-d" style="padding:8px 15px; font-size:11px; margin-left:10px;" onclick="remoteBan('${pid}')">БАН</button>
+                            </div>
+                        `;
+                        list.appendChild(row);
+                    }
+                }
             });
-            setInterval(() => {
-                const start = Date.now();
-                update(ref(db, `players/${auth.currentUser.uid}`), { t: serverTimestamp() }).then(() => {
-                    ping = Date.now() - start;
-                    document.getElementById('hud-ping').innerText = `PING: ${ping}ms`;
+
+            // Чат-система
+            onValue(ref(db, `broadcast/${activeMap}`), s => {
+                const msgs = s.val() || {};
+                const log = document.getElementById('chat-log');
+                log.innerHTML = '';
+                Object.values(msgs).slice(-10).forEach(m => {
+                    const d = document.createElement('div');
+                    d.className = 'chat-msg';
+                    d.innerHTML = `<span style="color:#94a3b8">${m.u}:</span> ${m.t}`;
+                    log.appendChild(d);
                 });
-            }, 3000);
+            });
+
+            setInterval(() => {
+                const now = Date.now();
+                update(ref(db, `players/${auth.currentUser.uid}`), { alive: true }).then(() => {
+                    ping = Date.now() - now;
+                    document.getElementById('hud-val-ping').innerText = `ПИНГ: ${ping}ms`;
+                });
+            }, 4000);
         }
 
-        // PLAYER MODEL BUILDER (EYES, ARMS, LEGS)
-        function createRemotePlayer() {
-            const group = new THREE.Group();
-            const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.4, 1.2), new THREE.MeshStandardMaterial({color: 0x2563eb}));
-            body.position.y = 1.1; group.add(body);
+        window.remoteKick = (id) => remove(ref(db, `players/${id}`));
+        window.remoteBan = (id) => {
+            remove(ref(db, `players/${id}`));
+            remove(ref(db, `users/${id}`));
+        };
 
-            const eyeM = new THREE.MeshStandardMaterial({color: 0x000});
-            const eyeL = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.1, 0.1), eyeM);
-            eyeL.position.set(-0.15, 2, -0.3); group.add(eyeL);
-            const eyeR = eyeL.clone(); eyeR.position.x = 0.15; group.add(eyeR);
+        function createRemoteAvatar() {
+            const root = new THREE.Group();
+            const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.45, 1.2), new THREE.MeshStandardMaterial({color: 0xef4444}));
+            body.position.y = 1.1; root.add(body);
+            
+            // Ноги
+            const legGeo = new THREE.BoxGeometry(0.22, 0.7, 0.22);
+            const lL = new THREE.Mesh(legGeo, new THREE.MeshStandardMaterial({color: 0x111}));
+            lL.position.set(-0.18, 0.35, 0); root.add(lL);
+            const lR = lL.clone(); lR.position.x = 0.18; root.add(lR);
 
-            const armG = new THREE.BoxGeometry(0.15, 0.7, 0.15);
-            const armL = new THREE.Mesh(armG, new THREE.MeshStandardMaterial({color: 0x2563eb}));
-            armL.position.set(-0.5, 1.3, 0); group.add(armL);
-            const armR = armL.clone(); armR.position.x = 0.5; group.add(armR);
-
-            const rGun = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.15, 0.6), new THREE.MeshStandardMaterial({color: 0x000}));
-            rGun.position.set(0.5, 1.2, -0.4); group.add(rGun);
-
-            const canvas = document.createElement('canvas'); canvas.width = 256; canvas.height = 128;
+            const canvas = document.createElement('canvas'); canvas.width = 300; canvas.height = 80;
             const tex = new THREE.CanvasTexture(canvas);
-            const sprite = new THREE.Sprite(new THREE.SpriteMaterial({map: tex}));
-            sprite.position.y = 3.2; sprite.scale.set(2, 1, 1);
-            group.add(sprite);
-
-            return { group, hit: body, ctx: canvas.getContext('2d'), tex };
+            const tag = new THREE.Sprite(new THREE.SpriteMaterial({map: tex}));
+            tag.position.y = 3.2; tag.scale.set(2.5, 0.7, 1); root.add(tag);
+            return { root, hit: body, ctx: canvas.getContext('2d'), tex };
         }
 
-        // NETPLAY
-        function startSync() {
-            const myRef = ref(db, `players/${auth.currentUser.uid}`);
-            onDisconnect(myRef).remove();
+        function runMainLoopSync() {
+            const playerRef = ref(db, `players/${auth.currentUser.uid}`);
+            onDisconnect(playerRef).remove();
+            
+            onValue(playerRef, snap => {
+                if(!snap.exists() && !isDead) { location.reload(); }
+            });
 
             onValue(ref(db, 'players'), snap => {
-                const data = snap.val(); if(!data) return;
-                for(let id in data) {
-                    const d = data[id];
+                const all = snap.val(); if(!all) return;
+                for(let id in all) {
+                    const p = all[id];
                     if(id === auth.currentUser.uid) {
-                        if(d.hp < myHP) {
-                            myHP = d.hp; flashRed(); updateHUD();
-                            if(myHP <= 0 && !isDead) { isDead = true; document.getElementById('scr-death').style.display='flex'; controls.unlock(); handleDeath(); }
+                        if(p.hp < myHP) {
+                            myHP = p.hp; updateHUD();
+                            document.getElementById('hit-vignette').style.opacity = 1;
+                            setTimeout(()=>document.getElementById('hit-vignette').style.opacity=0, 150);
+                            triggerSfx(90, 'sine', 0.25, 0.7);
+                            if(myHP <= 0 && !isDead) { isDead = true; location.reload(); }
                         }
                         continue;
                     }
-                    if(d.map !== activeSector) {
-                        if(enemies[id]) { scene.remove(enemies[id].group); delete enemies[id]; }
-                        continue;
-                    }
-
-                    if(!enemies[id]) {
-                        enemies[id] = createRemotePlayer();
-                        scene.add(enemies[id].group);
-                    }
-                    const e = enemies[id];
-                    e.group.position.set(d.x, d.y, d.z);
-                    e.group.rotation.y = d.ry;
+                    if(p.map !== activeMap) { if(remotePlayers[id]) { scene.remove(remotePlayers[id].root); delete remotePlayers[id]; } continue; }
+                    if(!remotePlayers[id]) { remotePlayers[id] = createRemoteAvatar(); scene.add(remotePlayers[id].root); }
                     
-                    const ctx = e.ctx; ctx.clearRect(0,0,256,128);
-                    ctx.fillStyle = '#fff'; ctx.font = 'bold 26px Arial'; ctx.textAlign = 'center';
-                    ctx.fillText(d.nick || 'PLAYER', 128, 40);
-                    ctx.fillStyle = '#1e293b'; ctx.fillRect(50, 60, 156, 12);
-                    ctx.fillStyle = d.hp > 30 ? '#4ade80' : '#ef4444';
-                    ctx.fillRect(50, 60, (d.hp/100)*156, 12);
-                    e.tex.needsUpdate = true;
+                    const av = remotePlayers[id];
+                    av.root.position.set(p.x, p.y, p.z); av.root.rotation.y = p.ry;
+                    
+                    const ctx = av.ctx; ctx.clearRect(0,0,300,80);
+                    ctx.fillStyle = '#fff'; ctx.font = 'bold 28px Arial'; ctx.textAlign = 'center';
+                    ctx.fillText(p.nick || 'AGENT', 150, 30);
+                    ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(50, 45, 200, 12);
+                    ctx.fillStyle = p.hp > 30 ? '#22c55e' : '#ef4444'; ctx.fillRect(50, 45, (p.hp/100)*200, 12);
+                    av.tex.needsUpdate = true;
                 }
-                for(let id in enemies) { if(!data[id]) { scene.remove(enemies[id].group); delete enemies[id]; } }
+                for(let id in remotePlayers) { if(!all[id]) { scene.remove(remotePlayers[id].root); delete remotePlayers[id]; } }
             });
-        }
-
-        function flashRed() {
-            document.getElementById('dmg-vignette').style.opacity = '1';
-            playSfx(100, 'sine', 0.2, 2);
-            setTimeout(() => document.getElementById('dmg-vignette').style.opacity = '0', 100);
         }
 
         function updateHUD() {
-            document.getElementById('hud-hp-txt').innerText = `${Math.ceil(myHP)} HP`;
-            document.getElementById('hp-fill').style.width = myHP + '%';
-            document.getElementById('ammo-val').innerText = myAmmo;
+            document.getElementById('health-text').innerText = `${Math.ceil(myHP)} ОЗ`;
+            document.getElementById('health-fill').style.width = myHP + '%';
+            document.getElementById('ammo-count').innerText = myAmmo;
         }
 
-        async function handleDeath() {
-            totalDeaths++;
-            await update(ref(db, `users/${auth.currentUser.uid}`), { deaths: totalDeaths });
-        }
-
-        // GAMEPLAY ACTIONS
-        document.getElementById('do-deploy').onclick = () => {
-            if(aCtx.state === 'suspended') aCtx.resume();
-            buildEnvironment(activeSector);
-            view('game'); document.getElementById('hud').style.display = 'block';
+        // ИГРОВЫЕ ДЕЙСТВИЯ
+        document.getElementById('act-deploy').onclick = () => {
+            loadMapGeometry(activeMap);
+            switchView('game'); document.getElementById('hud').style.display = 'block';
             controls.lock();
-            camera.position.set(Math.random()*40-20, 1.7, Math.random()*40-20);
-            startSync();
+            camera.position.set(0, 1.7, 0);
+            runMainLoopSync();
         };
 
-        const ray = new THREE.Raycaster();
+        const gunRay = new THREE.Raycaster();
         window.onmousedown = (e) => {
-            if(!controls.isLocked || isDead || isReloading || e.button !== 0) return;
-            if(myAmmo <= 0) { reload(); return; }
-
+            if(!controls.isLocked || isDead || isReloading || isPaused || isChatting || e.button !== 0) return;
+            if(myAmmo <= 0) { performReload(); return; }
+            
             myAmmo--; updateHUD();
-            playSfx(200, 'sawtooth', 0.08);
-            camera.rotation.x += 0.02; // Kickback
+            triggerSfx(250, 'sawtooth', 0.1);
+            gunMesh.position.z += 0.12; // Визуальный откат
+            lastAction = Date.now();
 
-            ray.setFromCamera(new THREE.Vector2(0,0), camera);
-            for(let id in enemies) {
-                if(ray.intersectObject(enemies[id].hit).length > 0) {
-                    playSfx(1000, 'sine', 0.05);
+            gunRay.setFromCamera(new THREE.Vector2(0,0), camera);
+            for(let id in remotePlayers) {
+                if(gunRay.intersectObject(remotePlayers[id].hit).length > 0) {
+                    triggerSfx(1100, 'sine', 0.05, 0.3);
                     runTransaction(ref(db, `players/${id}/hp`), cur => {
                         const next = (cur || 100) - 20;
-                        if(next <= 0) {
-                            totalKills++; 
-                            update(ref(db, `users/${auth.currentUser.uid}`), { kills: totalKills });
-                        }
+                        if(next <= 0) runTransaction(ref(db, `users/${auth.currentUser.uid}/kills`), c => (c || 0) + 1);
                         return next;
                     });
                 }
             }
         };
 
-        function reload() {
+        function performReload() {
             if(isReloading || myAmmo === maxAmmo) return;
             isReloading = true;
-            document.getElementById('reload-tip').style.display = 'block';
-            playSfx(400, 'square', 0.5);
-            gunG.position.y -= 0.5;
+            document.getElementById('reload-hint').style.display = 'block';
+            triggerSfx(300, 'square', 0.5);
+            playerView.position.y -= 0.6;
             setTimeout(() => {
-                myAmmo = maxAmmo;
-                isReloading = false;
-                document.getElementById('reload-tip').style.display = 'none';
-                updateHUD();
-                gunG.position.y += 0.5;
+                myAmmo = maxAmmo; isReloading = false;
+                document.getElementById('reload-hint').style.display = 'none';
+                updateHUD(); playerView.position.y += 0.6;
             }, 1800);
         }
 
-        // CONTROLS & LOOP
-        const keys = {};
-        window.onkeydown = e => { keys[e.code] = true; if(e.code === 'KeyR') reload(); if(e.code === 'Escape' && !isDead) document.getElementById('esc-menu').style.display='flex'; };
-        window.onkeyup = e => keys[e.code] = false;
+        // ВВОД И ГОРЯЧИЕ КЛАВИШИ
+        window.onkeydown = e => {
+            if(e.code === 'Enter') {
+                if(!isChatting) {
+                    isChatting = true;
+                    document.getElementById('chat-input-field').style.display = 'block';
+                    document.getElementById('chat-input-field').focus();
+                } else {
+                    const text = document.getElementById('chat-input-field').value;
+                    if(text.trim()) {
+                        const chatRef = ref(db, `broadcast/${activeMap}`);
+                        update(chatRef, { [Date.now()]: { u: auth.currentUser.displayName, t: text } });
+                    }
+                    document.getElementById('chat-input-field').value = '';
+                    document.getElementById('chat-input-field').style.display = 'none';
+                    isChatting = false;
+                }
+            }
+            if(e.code === 'KeyP' && auth.currentUser.displayName === 'dqmjrka') {
+                document.getElementById('admin-modal').style.display = 'flex';
+                controls.unlock();
+            }
+            if(e.code === 'Escape') {
+                if(isPaused) { controls.lock(); document.getElementById('view-pause').classList.add('hidden'); isPaused = false; }
+                else if(controls.isLocked) { controls.unlock(); document.getElementById('view-pause').classList.remove('hidden'); isPaused = true; }
+            }
+            if(e.code === 'KeyR') performReload();
+        };
 
-        document.getElementById('esc-resume').onclick = () => { controls.lock(); document.getElementById('esc-menu').style.display='none'; };
-        document.getElementById('esc-lobby').onclick = () => location.reload();
+        document.getElementById('act-resume').onclick = () => { controls.lock(); document.getElementById('view-pause').classList.add('hidden'); isPaused = false; };
+        document.getElementById('act-quit-match').onclick = () => location.reload();
+
+        // ЦИКЛ АНИМАЦИИ
+        const inputMap = {};
+        window.onkeydown = (prev => e => { prev(e); inputMap[e.code] = true; })(window.onkeydown);
+        window.onkeyup = e => inputMap[e.code] = false;
 
         const clock = new THREE.Clock();
-        let lastNetUpdate = 0, bStep = 0;
+        let syncTimer = 0, stepTime = 0;
 
-        function animate() {
-            requestAnimationFrame(animate);
-            const dt = clock.getDelta();
+        function renderFrame() {
+            requestAnimationFrame(renderFrame);
+            const delta = clock.getDelta();
 
-            if(controls.isLocked && !isDead) {
-                const spd = 7 * dt;
-                let isMoving = false;
-                if(keys['KeyW']) { controls.moveForward(spd); isMoving = true; }
-                if(keys['KeyS']) { controls.moveForward(-spd); isMoving = true; }
-                if(keys['KeyA']) { controls.moveRight(-spd); isMoving = true; }
-                if(keys['KeyD']) { controls.moveRight(spd); isMoving = true; }
+            // ПРОВЕРКА AFK (30 сек)
+            if(controls.isLocked && Date.now() - lastAction > AFK_LIMIT) {
+                location.reload(); 
+            }
 
-                // TRASKA KAMERI (BOBBING)
-                if(isMoving) {
-                    bStep += dt * 10;
-                    camera.position.y = 1.7 + Math.sin(bStep) * 0.05;
+            if(controls.isLocked && !isDead && !isPaused && !isChatting) {
+                const moveSpeed = 11 * delta;
+                let activeMove = false;
+                
+                if(inputMap['KeyW']) { controls.moveForward(moveSpeed); activeMove = true; }
+                if(inputMap['KeyS']) { controls.moveForward(-moveSpeed); activeMove = true; }
+                if(inputMap['KeyA']) { controls.moveRight(-moveSpeed); activeMove = true; }
+                if(inputMap['KeyD']) { controls.moveRight(moveSpeed); activeMove = true; }
+
+                // ЭФФЕКТ ПОКАЧИВАНИЯ
+                if(activeMove) {
+                    lastAction = Date.now();
+                    stepTime += delta * 14;
+                    camera.position.y = 1.7 + Math.sin(stepTime) * 0.05;
+                    playerView.position.x = Math.cos(stepTime/2) * 0.015;
                 } else {
-                    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.7, 0.1);
+                    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 1.7, 0.15);
                 }
 
-                camera.position.x = THREE.MathUtils.clamp(camera.position.x, -95, 95);
-                camera.position.z = THREE.MathUtils.clamp(camera.position.z, -95, 95);
+                playerView.position.copy(camera.position);
+                playerView.quaternion.copy(camera.quaternion);
+                
+                // Сглаживание отдачи
+                gunMesh.position.z = THREE.MathUtils.lerp(gunMesh.position.z, -0.6, 0.2);
 
-                gunG.position.copy(camera.position);
-                gunG.quaternion.copy(camera.quaternion);
-
-                // NETWORK SYNC THROTTLE
-                if(Date.now() - lastNetUpdate > 33) {
+                // СЕТЕВОЙ ТИК (30Hz)
+                if(Date.now() - syncTimer > 33) {
                     update(ref(db, `players/${auth.currentUser.uid}`), {
-                        x: camera.position.x, y: camera.position.y-1.7, z: camera.position.z,
-                        ry: camera.rotation.y, nick: auth.currentUser.displayName, hp: myHP, map: activeSector
+                        x: camera.position.x, y: camera.position.y - 1.7, z: camera.position.z,
+                        ry: camera.rotation.y, nick: auth.currentUser.displayName, hp: myHP, map: activeMap
                     });
-                    lastNetUpdate = Date.now();
+                    syncTimer = Date.now();
                 }
             }
             renderer.render(scene, camera);
         }
-        animate();
+        renderFrame();
 
         window.onresize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;
