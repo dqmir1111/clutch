@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLUTCH | ULTIMATE COMMAND v24.0</title>
+    <title>CLUTCH | ULTIMATE COMMAND v25.0</title>
     <style>
         :root {
             --p: #2563eb; --s: #64748b; --d: #ef4444; --success: #22c55e;
@@ -14,7 +14,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; font-family: var(--font); }
         body, html { width: 100%; height: 100%; overflow: hidden; background: #000; color: #fff; }
 
-        /* СКРИНЫ И ОВЕРЛЕИ */
+        /* ОВЕРЛЕИ И ОКНА */
         .overlay {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; 
             z-index: 5000; background: radial-gradient(circle at center, #1e293b, #020617);
@@ -26,7 +26,7 @@
             text-align: center;
         }
         
-        h1 { font-size: 80px; font-weight: 900; letter-spacing: -5px; line-height: 1; margin-bottom: 10px; }
+        h1 { font-size: 80px; font-weight: 900; letter-spacing: -5px; line-height: 1; margin-bottom: 10px; text-transform: uppercase; }
         .badge { background: var(--p); padding: 5px 15px; border-radius: 10px; font-size: 11px; font-weight: 900; letter-spacing: 2px; }
 
         /* ИНПУТЫ И КНОПКИ */
@@ -47,7 +47,7 @@
         .btn-d { background: var(--d); color: #fff; }
         .btn:hover { filter: brightness(1.2); transform: translateY(-3px); }
 
-        /* КАРТЫ */
+        /* ВЫБОР КАРТЫ */
         .maps { display: flex; gap: 20px; margin: 30px 0; }
         .map-card {
             flex: 1; padding: 20px; border-radius: 20px; background: rgba(255,255,255,0.05);
@@ -58,7 +58,7 @@
         .mp-alpha { background: linear-gradient(45deg, #15803d, #22c55e); }
         .mp-void { background: linear-gradient(45deg, #020617, #1e293b); color: var(--p); }
 
-        /* НАСТРОЙКИ (ПОЛЗУНКИ) */
+        /* НАСТРОЙКИ */
         .settings-block { text-align: left; margin-bottom: 30px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; }
         .range-wrap { margin-bottom: 20px; }
         .range-wrap label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--s); margin-bottom: 10px; }
@@ -82,13 +82,16 @@
         .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
         .tab-btn { flex: 1; padding: 15px; background: rgba(255,255,255,0.05); border: none; color: #fff; cursor: pointer; border-radius: 10px; font-weight: 900; transition: 0.3s; }
         .tab-btn.active { background: var(--p); }
-        .tab-content { display: none; height: 350px; overflow-y: auto; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 10px; }
+        .tab-content { display: none; height: 400px; overflow-y: auto; background: rgba(0,0,0,0.4); border-radius: 15px; padding: 10px; }
         .tab-content.active { display: block; }
         
-        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .list-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); margin-bottom: 5px; border-radius: 10px; }
         
         /* МОДАЛКА БАНА */
-        #ban-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.9); z-index: 6000; display: none; align-items: center; justify-content: center; }
+        #ban-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.95); z-index: 6000; display: none; align-items: center; justify-content: center; }
+        
+        /* ЭКРАН НАКАЗАНИЯ (КИК/БАН В ИГРЕ) */
+        #punish-screen { position: absolute; inset: 0; background: #b91c1c; z-index: 9999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
         
         .hidden { display: none !important; }
     </style>
@@ -97,21 +100,29 @@
 
     <div id="damage-fx" style="position:absolute; inset:0; background: radial-gradient(circle, transparent, rgba(239,68,68,0.5)); opacity:0; pointer-events:none; z-index:4000; transition:0.1s;"></div>
 
+    <div id="punish-screen" class="hidden">
+        <h1 id="punish-title" style="color: #ffffff; font-size: 80px; letter-spacing: -2px; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">ВЫ БЫЛИ КИКНУТЫ</h1>
+        <p style="color: #ffffff; font-size: 24px; font-weight: 800; margin-top: 10px; opacity: 0.8;">АДМИНИСТРАТОРОМ СЕРВЕРА</p>
+        <div id="punish-timer" style="margin-top: 50px; font-size: 40px; font-weight: 900; color: #fff; background: rgba(0,0,0,0.5); padding: 20px 40px; border-radius: 20px;">
+            ВЫХОД ИЗ ИГРЫ ЧЕРЕЗ 5 СЕК...
+        </div>
+    </div>
+
     <div id="ui-auth" class="overlay">
         <div class="window">
             <h1>CLUTCH</h1>
-            <div class="badge" style="margin-bottom: 40px;">v24.0 COMMAND</div>
-            <input type="text" id="inp-nick" placeholder="ПОЗЫВНОЙ">
-            <input type="password" id="inp-pass" placeholder="ПАРОЛЬ">
+            <div class="badge" style="margin-bottom: 40px;">v25.0 JUSTICE UPDATE</div>
+            <input type="text" id="inp-nick" placeholder="ПОЗЫВНОЙ ИГРОКА">
+            <input type="password" id="inp-pass" placeholder="СЕКРЕТНЫЙ ПАРОЛЬ">
             <button class="btn btn-p" id="btn-login">ВОЙТИ В СИСТЕМУ</button>
-            <button class="btn btn-s" id="btn-reg">РЕГИСТРАЦИЯ</button>
-            <p id="auth-err" style="color:var(--d); font-size:12px; font-weight:900; margin-top:15px;"></p>
+            <button class="btn btn-s" id="btn-reg">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+            <p id="auth-err" style="color:var(--d); font-size:14px; font-weight:900; margin-top:20px; line-height:1.5; text-transform:uppercase;"></p>
         </div>
     </div>
 
     <div id="ui-lobby" class="overlay hidden">
         <div class="window" style="width: 800px;">
-            <h2 id="lobby-name" style="font-size: 50px; text-transform: uppercase;">AGENT</h2>
+            <h2 id="lobby-name" style="font-size: 50px; text-transform: uppercase; margin-bottom: 10px;">AGENT</h2>
             <div class="maps">
                 <div class="map-card active" data-map="alpha">
                     <div class="map-preview mp-alpha">ALPHA</div>
@@ -133,8 +144,8 @@
                 </div>
             </div>
             <div style="display:flex; gap:15px;">
-                <button class="btn btn-p" id="btn-deploy" style="flex:2; font-size:24px; height:80px;">ВЫСАДКА</button>
-                <button class="btn btn-s" id="btn-logout" style="flex:1; height:80px;">ВЫХОД</button>
+                <button class="btn btn-p" id="btn-deploy" style="flex:2; font-size:24px; height:80px;">НАЧАТЬ ВЫСАДКУ</button>
+                <button class="btn btn-s" id="btn-logout" style="flex:1; height:80px;">ВЫХОД ИЗ СЕТИ</button>
             </div>
         </div>
     </div>
@@ -158,15 +169,25 @@
     </div>
 
     <div id="ui-admin" class="overlay hidden" style="background: rgba(0,0,0,0.95); z-index: 5500;">
-        <div class="window" style="width: 900px; border-color: var(--p);">
-            <h2 style="color: var(--p); margin-bottom: 20px;">COMMAND TERMINAL [dqmjrka]</h2>
+        <div class="window" style="width: 1000px; border-color: var(--p); max-height: 90vh; display: flex; flex-direction: column;">
+            <h2 style="color: var(--p); margin-bottom: 20px; text-transform: uppercase;">COMMAND TERMINAL [dqmjrka]</h2>
             
             <div class="tabs">
-                <button class="tab-btn active" data-tab="tab-active">АКТИВНЫЕ ОБЪЕКТЫ</button>
-                <button class="tab-btn" data-tab="tab-banned">ЧЕРНЫЙ СПИСОК</button>
+                <button class="tab-btn active" data-tab="tab-active">ОНЛАЙН</button>
+                <button class="tab-btn" data-tab="tab-search">ПОИСК БАЗЫ</button>
+                <button class="tab-btn" data-tab="tab-banned">БАН-ЛИСТ</button>
             </div>
 
             <div id="tab-active" class="tab-content active"></div>
+            
+            <div id="tab-search" class="tab-content">
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <input type="text" id="admin-search-input" placeholder="Введите точный ник для поиска..." style="margin-bottom:0; flex:1;">
+                    <button class="btn btn-p" id="btn-admin-search" style="margin-bottom:0; width:150px;">НАЙТИ</button>
+                </div>
+                <div id="search-results"></div>
+            </div>
+
             <div id="tab-banned" class="tab-content"></div>
 
             <button class="btn btn-s" style="margin-top:20px;" onclick="document.getElementById('ui-admin').classList.add('hidden')">ЗАКРЫТЬ (P)</button>
@@ -174,12 +195,12 @@
     </div>
 
     <div id="ban-modal">
-        <div class="window" style="width: 400px; padding: 30px;">
-            <h3 style="margin-bottom: 20px; color: var(--d);">РЕЖИМ БЛОКИРОВКИ</h3>
-            <p id="ban-target-name" style="margin-bottom: 20px; font-weight: 900;"></p>
-            <button class="btn btn-s" id="btn-ban-temp">НА 24 ЧАСА</button>
-            <button class="btn btn-d" id="btn-ban-perm">НАВСЕГДА</button>
-            <button class="btn btn-s" onclick="document.getElementById('ban-modal').style.display='none'" style="background: transparent; margin-top: 10px;">ОТМЕНА</button>
+        <div class="window" style="width: 450px; padding: 40px;">
+            <h3 style="margin-bottom: 20px; color: var(--d); font-size: 24px;">РЕЖИМ БЛОКИРОВКИ</h3>
+            <p id="ban-target-name" style="margin-bottom: 25px; font-weight: 900; font-size: 18px;"></p>
+            <button class="btn btn-s" id="btn-ban-temp">ЗАБАНИТЬ НА 24 ЧАСА</button>
+            <button class="btn btn-d" id="btn-ban-perm">ЗАБАНИТЬ НАВСЕГДА</button>
+            <button class="btn btn-s" onclick="document.getElementById('ban-modal').style.display='none'" style="background: transparent; margin-top: 10px; border:none;">ОТМЕНА</button>
         </div>
     </div>
 
@@ -215,14 +236,18 @@
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, onValue, onDisconnect, update, remove, set, get, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // ЗАЩИТА КОДА
+        // ==========================================
+        // БЛОК БЕЗОПАСНОСТИ (F12 / ПКМ)
+        // ==========================================
         window.addEventListener('keydown', e => {
             if (e.key === "F12" || (e.ctrlKey && e.shiftKey && (e.key === "I"||e.key === "J"||e.key === "C")) || (e.ctrlKey && e.key === "u")) {
                 e.preventDefault(); return false;
             }
         });
 
+        // ==========================================
         // КОНФИГ FIREBASE
+        // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyDRH07hc8tMsG1TvMyHOptrOTEJDp_4kE8",
             authDomain: "clutch-shuter.firebaseapp.com",
@@ -232,7 +257,6 @@
             messagingSenderId: "224141175517",
             appId: "1:224141175517:web:671a68999f8cf6a2dc4934"
         };
-
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
@@ -243,24 +267,21 @@
         let activeMap = 'alpha';
         let currentBanTarget = null;
         let playersData = {}, enemies = {};
+        let isPunished = false; // Флаг, чтобы не дублировать таймер
         
-        // НАСТРОЙКИ
+        // ==========================================
+        // НАСТРОЙКИ СИНХРОНИЗАЦИИ (ЗВУК / СЕНСА)
+        // ==========================================
         const cfg = {
             sens: parseFloat(localStorage.getItem('cl_sens')) || 1.2,
             vol: parseFloat(localStorage.getItem('cl_vol')) || 0.5
         };
 
-        // СИНХРОНИЗАЦИЯ ПОЛЗУНКОВ
         const updateCfgUI = () => {
-            document.getElementById('sl-sens').value = cfg.sens;
-            document.getElementById('sl-sens-p').value = cfg.sens;
-            document.getElementById('lbl-sens').innerText = cfg.sens.toFixed(1);
-            document.getElementById('lbl-sens-p').innerText = cfg.sens.toFixed(1);
-            
-            document.getElementById('sl-vol').value = cfg.vol;
-            document.getElementById('sl-vol-p').value = cfg.vol;
-            document.getElementById('lbl-vol').innerText = Math.round(cfg.vol * 100) + '%';
-            document.getElementById('lbl-vol-p').innerText = Math.round(cfg.vol * 100) + '%';
+            document.getElementById('sl-sens').value = cfg.sens; document.getElementById('sl-sens-p').value = cfg.sens;
+            document.getElementById('lbl-sens').innerText = cfg.sens.toFixed(1); document.getElementById('lbl-sens-p').innerText = cfg.sens.toFixed(1);
+            document.getElementById('sl-vol').value = cfg.vol; document.getElementById('sl-vol-p').value = cfg.vol;
+            document.getElementById('lbl-vol').innerText = Math.round(cfg.vol * 100) + '%'; document.getElementById('lbl-vol-p').innerText = Math.round(cfg.vol * 100) + '%';
         };
         updateCfgUI();
 
@@ -269,49 +290,53 @@
             localStorage.setItem('cl_' + type, cfg[type]);
             updateCfgUI();
         };
-        document.getElementById('sl-sens').oninput = e => applyCfg(e, 'sens');
-        document.getElementById('sl-sens-p').oninput = e => applyCfg(e, 'sens');
-        document.getElementById('sl-vol').oninput = e => applyCfg(e, 'vol');
-        document.getElementById('sl-vol-p').oninput = e => applyCfg(e, 'vol');
+        document.getElementById('sl-sens').oninput = e => applyCfg(e, 'sens'); document.getElementById('sl-sens-p').oninput = e => applyCfg(e, 'sens');
+        document.getElementById('sl-vol').oninput = e => applyCfg(e, 'vol'); document.getElementById('sl-vol-p').oninput = e => applyCfg(e, 'vol');
 
         // ВЫБОР КАРТЫ
         document.querySelectorAll('.map-card').forEach(c => {
             c.onclick = () => {
                 document.querySelectorAll('.map-card').forEach(x => x.classList.remove('active'));
-                c.classList.add('active');
-                activeMap = c.dataset.map;
+                c.classList.add('active'); activeMap = c.dataset.map;
             };
         });
 
-        // АВТОРИЗАЦИЯ И ПРОВЕРКА БАНОВ
+        // ==========================================
+        // СИСТЕМА НАКАЗАНИЙ (БАН И КИК) И АВТОРИЗАЦИЯ
+        // ==========================================
         const showUI = id => {
             document.querySelectorAll('.overlay').forEach(el => el.classList.add('hidden'));
             if(id !== 'game') document.getElementById(id).classList.remove('hidden');
         };
 
-        const checkBan = async (uid) => {
+        // ПРОДВИНУТАЯ ПРОВЕРКА БАНА ПРИ ВХОДЕ
+        const checkDetailedBan = async (uid) => {
             const snap = await get(ref(db, `banned/${uid}`));
             if(snap.exists()) {
                 const data = snap.val();
-                if(data.expires === -1 || data.expires > Date.now()) {
-                    return true;
+                if(data.expires === -1) {
+                    return "НАВСЕГДА";
+                } else if (data.expires > Date.now()) {
+                    return `ДО ${new Date(data.expires).toLocaleString('ru-RU')}`;
                 } else {
-                    await remove(ref(db, `banned/${uid}`)); // Истек
-                    return false;
+                    // Бан истек, удаляем из базы
+                    await remove(ref(db, `banned/${uid}`));
+                    return null;
                 }
             }
-            return false;
+            return null;
         };
 
         document.getElementById('btn-login').onclick = async () => {
             const nick = document.getElementById('inp-nick').value;
             try {
                 const res = await signInWithEmailAndPassword(auth, `${nick.toLowerCase()}@clutch.io`, document.getElementById('inp-pass').value);
-                if(await checkBan(res.user.uid)) {
+                const banMsg = await checkDetailedBan(res.user.uid);
+                if(banMsg) {
                     signOut(auth);
-                    document.getElementById('auth-err').innerText = "АККАУНТ ЗАБЛОКИРОВАН АДМИНИСТРАТОРОМ";
+                    document.getElementById('auth-err').innerText = `ВЫ БЫЛИ ЗАБАНЕНЫ АДМИНИСТРАТОРОМ\n${banMsg}`;
                 }
-            } catch(e) { document.getElementById('auth-err').innerText = "ОШИБКА АВТОРИЗАЦИИ"; }
+            } catch(e) { document.getElementById('auth-err').innerText = "ОШИБКА АВТОРИЗАЦИИ. ПРОВЕРЬТЕ ДАННЫЕ."; }
         };
 
         document.getElementById('btn-reg').onclick = async () => {
@@ -319,14 +344,21 @@
             try {
                 const res = await createUserWithEmailAndPassword(auth, `${nick.toLowerCase()}@clutch.io`, document.getElementById('inp-pass').value);
                 await updateProfile(res.user, { displayName: nick });
-            } catch(e) { document.getElementById('auth-err').innerText = "ОШИБКА РЕГИСТРАЦИИ"; }
+                // Сохраняем в глобальную базу users для поиска
+                await set(ref(db, `users/${res.user.uid}`), { nick: nick, registeredAt: Date.now() });
+            } catch(e) { document.getElementById('auth-err').innerText = "ОШИБКА РЕГИСТРАЦИИ. ВОЗМОЖНО НИК ЗАНЯТ."; }
         };
 
         document.getElementById('btn-logout').onclick = () => signOut(auth);
 
         onAuthStateChanged(auth, async u => {
             if(u) {
-                if(await checkBan(u.uid)) { signOut(auth); return; }
+                const banMsg = await checkDetailedBan(u.uid);
+                if(banMsg) { 
+                    document.getElementById('auth-err').innerText = `ВЫ БЫЛИ ЗАБАНЕНЫ АДМИНИСТРАТОРОМ\n${banMsg}`;
+                    signOut(auth); 
+                    return; 
+                }
                 document.getElementById('lobby-name').innerText = u.displayName;
                 showUI('ui-lobby');
                 setupAdminPanel();
@@ -335,11 +367,11 @@
             }
         });
 
-        // ----------------------------------------------------
-        // THREE.JS CORE & ИСПРАВЛЕНИЕ ОРУЖИЯ
-        // ----------------------------------------------------
+        // ==========================================
+        // THREE.JS CORE (ГРАФИКА И ОРУЖИЕ)
+        // ==========================================
         const scene = new THREE.Scene();
-        // ВАЖНО: Камеру добавляем в сцену, чтобы жестко привязать к ней оружие
+        // КАМЕРА ПРИВЯЗАНА К СЦЕНЕ, ОРУЖИЕ К КАМЕРЕ (ФИКС БАГА)
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
         scene.add(camera); 
 
@@ -350,95 +382,63 @@
 
         const controls = new PointerLockControls(camera, document.body);
 
-        // ОРУЖИЕ (ПРИБИВАЕМ К КАМЕРЕ)
+        // ОРУЖИЕ В РУКАХ
         const weaponGroup = new THREE.Group();
         const gunMesh = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.15, 0.6), new THREE.MeshStandardMaterial({color: 0x222222}));
-        gunMesh.position.set(0.3, -0.3, -0.5); // Позиция относительно камеры
+        gunMesh.position.set(0.3, -0.3, -0.5); 
         weaponGroup.add(gunMesh);
         
-        // Руки
         const armGeo = new THREE.BoxGeometry(0.08, 0.08, 0.4);
         const armMat = new THREE.MeshStandardMaterial({color: 0x2563eb});
         const armR = new THREE.Mesh(armGeo, armMat);
-        armR.position.set(0.3, -0.4, -0.2);
-        weaponGroup.add(armR);
+        armR.position.set(0.3, -0.4, -0.2); weaponGroup.add(armR);
         const armL = new THREE.Mesh(armGeo, armMat);
-        armL.position.set(-0.2, -0.4, -0.3);
-        armL.rotation.y = 0.5;
-        weaponGroup.add(armL);
+        armL.position.set(-0.2, -0.4, -0.3); armL.rotation.y = 0.5; weaponGroup.add(armL);
 
-        camera.add(weaponGroup); // ФИКС БАГА: Оружие теперь часть камеры, не будет трястись!
+        camera.add(weaponGroup); // Жесткая фиксация к камере
 
-        // СВЕТ
-        const ambLight = new THREE.AmbientLight(0xffffff, 0.4);
-        scene.add(ambLight);
+        // ОСВЕЩЕНИЕ
+        const ambLight = new THREE.AmbientLight(0xffffff, 0.4); scene.add(ambLight);
         const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-        dirLight.position.set(50, 100, 50);
-        dirLight.castShadow = true;
-        scene.add(dirLight);
+        dirLight.position.set(50, 100, 50); dirLight.castShadow = true; scene.add(dirLight);
 
-        // ГРУППЫ КАРТЫ
-        const mapGroup = new THREE.Group();
-        scene.add(mapGroup);
+        // ГРУППЫ КАРТЫ И КОЛЛИЗИИ
+        const mapGroup = new THREE.Group(); scene.add(mapGroup);
         const collisionObjects = [];
 
-        // ГЕНЕРАЦИЯ КАРТ
         function buildMap(type) {
-            // Очистка старой карты
-            while(mapGroup.children.length > 0){ 
-                const obj = mapGroup.children[0];
-                mapGroup.remove(obj); 
-            }
+            while(mapGroup.children.length > 0){ mapGroup.remove(mapGroup.children[0]); }
             collisionObjects.length = 0;
 
             if(type === 'alpha') {
-                scene.background = new THREE.Color(0x87CEEB);
-                scene.fog = new THREE.FogExp2(0x87CEEB, 0.01);
+                scene.background = new THREE.Color(0x87CEEB); scene.fog = new THREE.FogExp2(0x87CEEB, 0.01);
                 
-                // Зеленый пол
                 const floor = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), new THREE.MeshStandardMaterial({color: 0x22c55e, roughness: 1}));
-                floor.rotation.x = -Math.PI/2; floor.receiveShadow = true;
-                mapGroup.add(floor);
+                floor.rotation.x = -Math.PI/2; floor.receiveShadow = true; mapGroup.add(floor);
 
-                // Генерация стен (Кирпичный цвет)
                 const wallMat = new THREE.MeshStandardMaterial({color: 0xb91c1c});
                 for(let i=0; i<30; i++) {
                     const w = new THREE.Mesh(new THREE.BoxGeometry(20, 10, 2), wallMat);
                     w.position.set((Math.random()-0.5)*200, 5, (Math.random()-0.5)*200);
-                    w.rotation.y = Math.random() * Math.PI;
-                    w.castShadow = true; w.receiveShadow = true;
+                    w.rotation.y = Math.random() * Math.PI; w.castShadow = true; w.receiveShadow = true;
                     mapGroup.add(w); collisionObjects.push(w);
                 }
 
-                // Генерация домиков
                 const houseMat = new THREE.MeshStandardMaterial({color: 0xfde047});
                 const roofMat = new THREE.MeshStandardMaterial({color: 0x991b1b});
                 for(let i=0; i<15; i++) {
-                    const x = (Math.random()-0.5)*300;
-                    const z = (Math.random()-0.5)*300;
-                    
-                    // База дома
+                    const x = (Math.random()-0.5)*300; const z = (Math.random()-0.5)*300;
                     const base = new THREE.Mesh(new THREE.BoxGeometry(15, 12, 15), houseMat);
-                    base.position.set(x, 6, z);
-                    base.castShadow = true; base.receiveShadow = true;
+                    base.position.set(x, 6, z); base.castShadow = true; base.receiveShadow = true;
                     mapGroup.add(base); collisionObjects.push(base);
-
-                    // Крыша
                     const roof = new THREE.Mesh(new THREE.ConeGeometry(12, 8, 4), roofMat);
-                    roof.position.set(x, 16, z);
-                    roof.rotation.y = Math.PI/4;
-                    roof.castShadow = true;
+                    roof.position.set(x, 16, z); roof.rotation.y = Math.PI/4; roof.castShadow = true;
                     mapGroup.add(roof);
                 }
             } else {
-                // VOID КАРТА
-                scene.background = new THREE.Color(0x020617);
-                scene.fog = new THREE.FogExp2(0x020617, 0.02);
-                
+                scene.background = new THREE.Color(0x020617); scene.fog = new THREE.FogExp2(0x020617, 0.02);
                 const floor = new THREE.Mesh(new THREE.PlaneGeometry(500, 500), new THREE.MeshStandardMaterial({color: 0x0f172a}));
-                floor.rotation.x = -Math.PI/2;
-                mapGroup.add(floor);
-
+                floor.rotation.x = -Math.PI/2; mapGroup.add(floor);
                 const blockMat = new THREE.MeshStandardMaterial({color: 0x1e293b});
                 for(let i=0; i<60; i++) {
                     const b = new THREE.Mesh(new THREE.BoxGeometry(10, Math.random()*20+5, 10), blockMat);
@@ -448,13 +448,13 @@
             }
         }
 
-        // ----------------------------------------------------
-        // СЕТЬ И АДМИНКА
-        // ----------------------------------------------------
+        // ==========================================
+        // АДМИН ПАНЕЛЬ И ПОИСК
+        // ==========================================
         function setupAdminPanel() {
-            if(auth.currentUser.displayName !== 'dqmjrka') return;
+            if(!auth.currentUser || auth.currentUser.displayName !== 'dqmjrka') return;
 
-            // Табы
+            // Переключение вкладок
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.onclick = () => {
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -464,7 +464,7 @@
                 };
             });
 
-            // Слушаем игроков
+            // Вкладка Онлайна
             onValue(ref(db, 'players'), s => {
                 const data = s.val() || {};
                 const list = document.getElementById('tab-active');
@@ -482,28 +482,56 @@
                 }
             });
 
-            // Слушаем забаненных
+            // Вкладка Забаненных
             onValue(ref(db, 'banned'), s => {
                 const data = s.val() || {};
                 const list = document.getElementById('tab-banned');
                 list.innerHTML = '';
                 for(let id in data) {
                     const div = document.createElement('div'); div.className = 'list-item';
-                    const exp = data[id].expires === -1 ? 'НАВСЕГДА' : new Date(data[id].expires).toLocaleString();
+                    const exp = data[id].expires === -1 ? 'НАВСЕГДА' : new Date(data[id].expires).toLocaleString('ru-RU');
                     div.innerHTML = `
-                        <span><b>${data[id].nick}</b> <span style="color:var(--d); font-size:11px;">[До: ${exp}]</span></span>
-                        <button class="btn btn-success" style="background:var(--success); color:#fff; width:auto; padding:8px 15px; margin:0; border:none; border-radius:10px; cursor:pointer;" onclick="window.unban('${id}')">РАЗБАН</button>
+                        <span><b>${data[id].nick}</b> <span style="color:var(--d); font-size:12px; margin-left:10px;">[До: ${exp}]</span></span>
+                        <button class="btn btn-success" style="background:var(--success); color:#fff; width:auto; padding:8px 15px; margin:0; border:none; border-radius:10px; cursor:pointer;" onclick="window.unban('${id}')">СНЯТЬ БАН</button>
                     `;
                     list.appendChild(div);
                 }
             });
+
+            // Вкладка Поиска (Кнопка НАЙТИ)
+            document.getElementById('btn-admin-search').onclick = async () => {
+                const query = document.getElementById('admin-search-input').value.toLowerCase().trim();
+                const resBox = document.getElementById('search-results');
+                resBox.innerHTML = '<div style="text-align:center; padding:20px;">Поиск...</div>';
+                
+                if(!query) { resBox.innerHTML = 'Введите ник.'; return; }
+                
+                const snap = await get(ref(db, 'users'));
+                const users = snap.val() || {};
+                resBox.innerHTML = '';
+                let found = 0;
+
+                for(let uid in users) {
+                    if(users[uid].nick.toLowerCase().includes(query)) {
+                        found++;
+                        const div = document.createElement('div'); div.className = 'list-item';
+                        div.innerHTML = `
+                            <span><b>${users[uid].nick}</b> <span style="font-size:10px; color:gray;">ID: ${uid.substring(0,8)}...</span></span>
+                            <button class="btn btn-d" style="width:auto; padding:8px 15px; margin:0;" onclick="window.openBanModal('${uid}', '${users[uid].nick}')">ВЫДАТЬ БАН</button>
+                        `;
+                        resBox.appendChild(div);
+                    }
+                }
+                if(found === 0) resBox.innerHTML = '<div style="text-align:center; padding:20px; color:var(--s);">Игрок не найден в базе.</div>';
+            };
         }
 
         window.kick = id => remove(ref(db, `players/${id}`));
         window.unban = id => remove(ref(db, `banned/${id}`));
+        
         window.openBanModal = (id, nick) => {
             currentBanTarget = { id, nick };
-            document.getElementById('ban-target-name').innerText = `ИГРОК: ${nick}`;
+            document.getElementById('ban-target-name').innerText = `ВЫБРАН: ${nick}`;
             document.getElementById('ban-modal').style.display = 'flex';
         };
 
@@ -511,23 +539,66 @@
             if(!currentBanTarget) return;
             const exp = type === 'temp' ? Date.now() + (24 * 60 * 60 * 1000) : -1;
             set(ref(db, `banned/${currentBanTarget.id}`), { nick: currentBanTarget.nick, expires: exp });
-            remove(ref(db, `players/${currentBanTarget.id}`)); // Кик из онлайна
+            remove(ref(db, `players/${currentBanTarget.id}`)); // Выкидываем если в онлайне
             document.getElementById('ban-modal').style.display = 'none';
         };
         document.getElementById('btn-ban-temp').onclick = () => executeBan('temp');
         document.getElementById('btn-ban-perm').onclick = () => executeBan('perm');
 
-        // ИГРОВОЙ СЕТЕВОЙ ЦИКЛ
+        // ==========================================
+        // ЭКРАН НАКАЗАНИЯ (АНИМАЦИЯ И ВЫХОД)
+        // ==========================================
+        function triggerPunishment(type) {
+            if(isPunished) return; // Чтобы таймер не запускался дважды
+            isPunished = true;
+            controls.unlock();
+            
+            // Скрываем все интерфейсы
+            document.getElementById('hud').style.display = 'none';
+            document.querySelectorAll('.overlay').forEach(e => e.classList.add('hidden'));
+            
+            // Показываем экран наказания
+            const screen = document.getElementById('punish-screen');
+            screen.classList.remove('hidden');
+            
+            document.getElementById('punish-title').innerText = type === 'ban' ? 'ВЫ БЫЛИ ЗАБАНЕНЫ' : 'ВЫ БЫЛИ КИКНУТЫ';
+            
+            let timeLeft = 5;
+            const timerEl = document.getElementById('punish-timer');
+            timerEl.innerText = `ВЫХОД ИЗ ИГРЫ ЧЕРЕЗ ${timeLeft} СЕК...`;
+            
+            const interval = setInterval(() => {
+                timeLeft--;
+                timerEl.innerText = `ВЫХОД ИЗ ИГРЫ ЧЕРЕЗ ${timeLeft} СЕК...`;
+                if(timeLeft <= 0) {
+                    clearInterval(interval);
+                    signOut(auth).then(() => location.reload());
+                }
+            }, 1000);
+        }
+
+        // ==========================================
+        // СЕТЕВАЯ ЧАСТЬ (ИГРА)
+        // ==========================================
         function startNetwork() {
             const myRef = ref(db, `players/${auth.currentUser.uid}`);
             onDisconnect(myRef).remove();
 
-            onValue(ref(db, 'players'), snap => {
+            onValue(ref(db, 'players'), async snap => {
                 playersData = snap.val() || {};
                 document.getElementById('hud-online').innerText = `ONLINE: ${Object.keys(playersData).length}`;
 
-                // Проверка себя
-                if(!playersData[auth.currentUser.uid] && !isDead) { location.reload(); }
+                // ПРОВЕРКА НА КИК/БАН
+                if(!playersData[auth.currentUser.uid] && !isDead && !isPunished) {
+                    // Нас удалили из players. Узнаем причину.
+                    const banCheck = await get(ref(db, `banned/${auth.currentUser.uid}`));
+                    if(banCheck.exists()) {
+                        triggerPunishment('ban');
+                    } else {
+                        triggerPunishment('kick');
+                    }
+                    return;
+                }
 
                 if(playersData[auth.currentUser.uid]) {
                     if(playersData[auth.currentUser.uid].hp < myHP) {
@@ -540,7 +611,7 @@
                     }
                 }
 
-                // Враги
+                // Рендер врагов
                 for(let id in playersData) {
                     if(id === auth.currentUser.uid || playersData[id].map !== activeMap) continue;
                     
@@ -552,19 +623,16 @@
                         const cvs = document.createElement('canvas'); cvs.width = 256; cvs.height = 64;
                         const tex = new THREE.CanvasTexture(cvs);
                         const spr = new THREE.Sprite(new THREE.SpriteMaterial({map: tex}));
-                        spr.position.y = 2.5; spr.scale.set(2, 0.5, 1);
-                        grp.add(spr);
+                        spr.position.y = 2.5; spr.scale.set(2, 0.5, 1); grp.add(spr);
                         
                         scene.add(grp);
                         enemies[id] = { group: grp, body: body, ctx: cvs.getContext('2d'), tex: tex };
                     }
 
-                    const e = enemies[id];
-                    const d = playersData[id];
+                    const e = enemies[id]; const d = playersData[id];
                     e.group.position.lerp(new THREE.Vector3(d.x, d.y, d.z), 0.3);
                     e.group.rotation.y = d.ry;
                     
-                    // Обновление имени и HP
                     const c = e.ctx; c.clearRect(0,0,256,64);
                     c.fillStyle = '#fff'; c.font = 'bold 24px Arial'; c.textAlign = 'center';
                     c.fillText(d.nick, 128, 25);
@@ -573,19 +641,17 @@
                     e.tex.needsUpdate = true;
                 }
 
-                // Удаление отключившихся
                 for(let id in enemies) {
                     if(!playersData[id] || playersData[id].map !== activeMap) {
-                        scene.remove(enemies[id].group);
-                        delete enemies[id];
+                        scene.remove(enemies[id].group); delete enemies[id];
                     }
                 }
             });
         }
 
-        // ----------------------------------------------------
-        // МЕХАНИКИ
-        // ----------------------------------------------------
+        // ==========================================
+        // ЗВУК И МЕХАНИКИ
+        // ==========================================
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSound(f, t, d) {
             if(audioCtx.state === 'suspended') audioCtx.resume();
@@ -593,8 +659,7 @@
             o.type = t; o.frequency.setValueAtTime(f, audioCtx.currentTime);
             g.gain.setValueAtTime(cfg.vol * 0.2, audioCtx.currentTime);
             g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + d);
-            o.connect(g); g.connect(audioCtx.destination);
-            o.start(); o.stop(audioCtx.currentTime + d);
+            o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime + d);
         }
 
         function updateHUD() {
@@ -606,12 +671,10 @@
         function reload() {
             if(isReloading || myAmmo === maxAmmo) return;
             isReloading = true; playSound(300, 'square', 0.4);
-            weaponGroup.position.y -= 0.5;
-            weaponGroup.rotation.x = -0.5;
+            weaponGroup.position.y -= 0.5; weaponGroup.rotation.x = -0.5;
             setTimeout(() => {
                 myAmmo = maxAmmo; isReloading = false;
-                weaponGroup.position.y += 0.5;
-                weaponGroup.rotation.x = 0;
+                weaponGroup.position.y += 0.5; weaponGroup.rotation.x = 0;
                 updateHUD();
             }, 1500);
         }
@@ -620,26 +683,18 @@
             controls.pointerSpeed = cfg.sens;
             buildMap(activeMap);
             showUI('game'); document.getElementById('hud').style.display = 'block';
-            controls.lock();
-            camera.position.set(0, 1.7, 0);
-            update(ref(db, `players/${auth.currentUser.uid}`), {
-                nick: auth.currentUser.displayName, map: activeMap, hp: 100, x:0, y:0, z:0, ry:0
-            });
+            controls.lock(); camera.position.set(0, 1.7, 0);
+            update(ref(db, `players/${auth.currentUser.uid}`), { nick: auth.currentUser.displayName, map: activeMap, hp: 100, x:0, y:0, z:0, ry:0 });
             startNetwork();
         };
 
         const ray = new THREE.Raycaster();
         window.addEventListener('mousedown', e => {
-            if(!controls.isLocked || isDead || isReloading) return;
+            if(!controls.isLocked || isDead || isReloading || isPunished) return;
             if(e.button === 0) {
                 if(myAmmo <= 0) { reload(); return; }
-                myAmmo--; updateHUD();
-                playSound(400, 'sawtooth', 0.1);
-                
-                // Отдача
-                weaponGroup.position.z += 0.15;
-                setTimeout(() => weaponGroup.position.z -= 0.15, 50);
-
+                myAmmo--; updateHUD(); playSound(400, 'sawtooth', 0.1);
+                weaponGroup.position.z += 0.15; setTimeout(() => weaponGroup.position.z -= 0.15, 50);
                 ray.setFromCamera(new THREE.Vector2(0,0), camera);
                 for(let id in enemies) {
                     if(ray.intersectObject(enemies[id].body).length > 0) {
@@ -650,78 +705,50 @@
             }
         });
 
-        // ESC МЕНЮ И КЛАВИШИ
-        controls.addEventListener('lock', () => { isPaused = false; document.getElementById('ui-pause').classList.add('hidden'); });
+        controls.addEventListener('lock', () => { if(!isPunished) { isPaused = false; document.getElementById('ui-pause').classList.add('hidden'); } });
         controls.addEventListener('unlock', () => { 
-            if(!isDead && document.getElementById('hud').style.display === 'block') {
-                isPaused = true; 
-                document.getElementById('ui-pause').classList.remove('hidden'); 
+            if(!isDead && !isPunished && document.getElementById('hud').style.display === 'block') {
+                isPaused = true; document.getElementById('ui-pause').classList.remove('hidden'); 
             }
         });
 
-        document.getElementById('btn-resume').onclick = () => {
-            controls.pointerSpeed = cfg.sens; // Применяем настройки из паузы
-            controls.lock();
-        };
+        document.getElementById('btn-resume').onclick = () => { controls.pointerSpeed = cfg.sens; controls.lock(); };
         document.getElementById('btn-quit').onclick = () => location.reload();
 
         const keys = {};
         window.onkeydown = e => {
             keys[e.code] = true;
             if(e.code === 'KeyR') reload();
-            if(e.code === 'KeyP' && auth.currentUser.displayName === 'dqmjrka') {
+            if(e.code === 'KeyP' && auth.currentUser && auth.currentUser.displayName === 'dqmjrka' && !isPunished) {
                 if(document.getElementById('ui-admin').classList.contains('hidden')){
-                    document.getElementById('ui-admin').classList.remove('hidden');
-                    controls.unlock();
+                    document.getElementById('ui-admin').classList.remove('hidden'); controls.unlock();
                 } else {
-                    document.getElementById('ui-admin').classList.add('hidden');
-                    controls.lock();
+                    document.getElementById('ui-admin').classList.add('hidden'); controls.lock();
                 }
             }
         };
         window.onkeyup = e => keys[e.code] = false;
 
-        // ИГРОВОЙ ЦИКЛ
-        const clock = new THREE.Clock();
-        let lastSync = 0, lastPos = new THREE.Vector3();
-
+        const clock = new THREE.Clock(); let lastSync = 0, lastPos = new THREE.Vector3();
         function loop() {
             requestAnimationFrame(loop);
-            if(!controls.isLocked || isDead) { renderer.render(scene, camera); return; }
+            if(!controls.isLocked || isDead || isPunished) { renderer.render(scene, camera); return; }
 
-            const dt = Math.min(clock.getDelta(), 0.1);
-            const speed = 15 * dt;
-
-            // Движение с простой коллизией (Raycaster вниз и вперед)
+            const dt = Math.min(clock.getDelta(), 0.1); const speed = 15 * dt;
             let moveX = 0, moveZ = 0;
-            if(keys['KeyW']) moveZ -= speed;
-            if(keys['KeyS']) moveZ += speed;
-            if(keys['KeyA']) moveX -= speed;
-            if(keys['KeyD']) moveX += speed;
+            if(keys['KeyW']) moveZ -= speed; if(keys['KeyS']) moveZ += speed;
+            if(keys['KeyA']) moveX -= speed; if(keys['KeyD']) moveX += speed;
 
-            if(moveX !== 0 || moveZ !== 0) {
-                controls.moveRight(moveX);
-                controls.moveForward(-moveZ);
-            }
+            if(moveX !== 0 || moveZ !== 0) { controls.moveRight(moveX); controls.moveForward(-moveZ); }
+            if(moveX !== 0 || moveZ !== 0) { weaponGroup.position.y = -0.3 + Math.sin(Date.now() * 0.01) * 0.02; } 
+            else { weaponGroup.position.y = THREE.MathUtils.lerp(weaponGroup.position.y, -0.3, 0.1); }
 
-            // Плавное возвращение оружия (Дыхание/Боббинг)
-            if(moveX !== 0 || moveZ !== 0) {
-                weaponGroup.position.y = -0.3 + Math.sin(Date.now() * 0.01) * 0.02;
-            } else {
-                weaponGroup.position.y = THREE.MathUtils.lerp(weaponGroup.position.y, -0.3, 0.1);
-            }
-
-            // Синхронизация (отправляем только если сдвинулись или повернулись)
             if(Date.now() - lastSync > 50) {
                 if(lastPos.distanceTo(camera.position) > 0.1 || Math.abs(camera.rotation.y) > 0.1) {
-                    update(ref(db, `players/${auth.currentUser.uid}`), {
-                        x: camera.position.x, y: camera.position.y - 1.7, z: camera.position.z, ry: camera.rotation.y
-                    });
-                    lastPos.copy(camera.position);
-                    lastSync = Date.now();
+                    update(ref(db, `players/${auth.currentUser.uid}`), { x: camera.position.x, y: camera.position.y - 1.7, z: camera.position.z, ry: camera.rotation.y });
+                    lastPos.copy(camera.position); lastSync = Date.now();
                 }
             }
-
             renderer.render(scene, camera);
         }
         loop();
