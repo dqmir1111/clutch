@@ -3,75 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0b0f19" id="metaThemeColor" />
+  <meta name="theme-color" content="#0e1017" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>BubaGO - Smart Swing Control</title>
+  <title>BubaGO</title>
   <style>
-    /* ---------------- ROOT & THEMES (2026 DESIGN SYSTEM) ---------------- */
+    /* ---------------- THEME STYLES (MATTE MINIMALIST DESIGN) ---------------- */
     :root {
-      --bg-gradient: radial-gradient(circle at 50% 0%, #151f38 0%, #0a0f1d 55%, #05070f 100%);
-      --bg-color: #080c16;
-      --card-bg: rgba(18, 26, 47, 0.78);
-      --card-bg-subtle: rgba(25, 36, 64, 0.6);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --card-border-glow: rgba(0, 229, 255, 0.35);
-      --text-main: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --accent-cyan: #00e5ff;
-      --accent-cyan-rgb: 0, 229, 255;
-      --accent-blue: #3b82f6;
-      --accent-glow: 0 0 20px rgba(0, 229, 255, 0.35);
-      --accent-glow-subtle: 0 0 12px rgba(0, 229, 255, 0.18);
-      --accent-purple: #a855f7;
-      --accent-green: #10b981;
+      --bg-color: #0e1017;
+      --card-bg: #181b26;
+      --card-bg-hover: #1f2333;
+      --card-border: #24283b;
+      --card-border-active: #5f57ea;
+      --text-main: #f1f3f9;
+      --text-muted: #828a9e;
+      --text-sub: #a4adc2;
+      --accent-purple: #6a62f5;
+      --accent-purple-hover: #7b74fa;
+      --accent-purple-tint: rgba(106, 98, 245, 0.16);
+      --accent-green: #22c55e;
       --accent-red: #ef4444;
-      --pill-inactive-bg: rgba(255, 255, 255, 0.05);
-      --pill-inactive-border: rgba(255, 255, 255, 0.08);
-      --pill-inactive-text: #94a3b8;
-      --pill-active-bg: linear-gradient(135deg, #00e5ff 0%, #2563eb 100%);
-      --pill-active-text: #05070f;
-      --shadow-sm: 0 3px 10px rgba(0,0,0,0.25);
-      --shadow-lg: 0 14px 35px rgba(0,0,0,0.5);
-      --modal-overlay: rgba(3, 6, 14, 0.8);
-      --logo-filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.25));
-      --clock-track: rgba(255, 255, 255, 0.06);
-      --clock-progress: #00e5ff;
+      --pill-bg: #202436;
+      --pill-text: #cad1e3;
+      --pill-active-bg: #6a62f5;
+      --pill-active-text: #ffffff;
+      --bottom-bar-bg: #12141e;
+      --bottom-bar-border: #1e2232;
+      --logo-filter: brightness(0) invert(1);
     }
 
     [data-theme="light"] {
-      --bg-gradient: radial-gradient(circle at 50% 0%, #e0e9fa 0%, #f1f5fb 50%, #f8fafc 100%);
-      --bg-color: #f1f5fb;
-      --card-bg: rgba(255, 255, 255, 0.9);
-      --card-bg-subtle: rgba(240, 244, 252, 0.85);
-      --card-border: rgba(0, 0, 0, 0.06);
-      --card-border-glow: rgba(37, 99, 235, 0.35);
-      --text-main: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #94a3b8;
-      --accent-cyan: #0284c7;
-      --accent-cyan-rgb: 2, 132, 199;
-      --accent-blue: #2563eb;
-      --accent-glow: 0 0 20px rgba(2, 132, 199, 0.25);
-      --accent-glow-subtle: 0 0 12px rgba(2, 132, 199, 0.15);
-      --accent-purple: #9333ea;
-      --accent-green: #059669;
+      --bg-color: #f3f5f9;
+      --card-bg: #ffffff;
+      --card-bg-hover: #f8f9fc;
+      --card-border: #e2e6f0;
+      --card-border-active: #5f57ea;
+      --text-main: #111420;
+      --text-muted: #647087;
+      --text-sub: #4b5569;
+      --accent-purple: #5e55e8;
+      --accent-purple-hover: #4e44db;
+      --accent-purple-tint: rgba(94, 85, 232, 0.1);
+      --accent-green: #16a34a;
       --accent-red: #dc2626;
-      --pill-inactive-bg: rgba(0, 0, 0, 0.04);
-      --pill-inactive-border: rgba(0, 0, 0, 0.08);
-      --pill-inactive-text: #475569;
-      --pill-active-bg: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+      --pill-bg: #eef1f8;
+      --pill-text: #475569;
+      --pill-active-bg: #5e55e8;
       --pill-active-text: #ffffff;
-      --shadow-sm: 0 3px 10px rgba(15, 23, 42, 0.05);
-      --shadow-lg: 0 14px 35px rgba(15, 23, 42, 0.1);
-      --modal-overlay: rgba(15, 23, 42, 0.5);
-      --logo-filter: none drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
-      --clock-track: rgba(0, 0, 0, 0.06);
-      --clock-progress: #0284c7;
+      --bottom-bar-bg: #ffffff;
+      --bottom-bar-border: #e2e6f0;
+      --logo-filter: none;
     }
 
-    /* ---------------- BASE RESET ---------------- */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -90,18 +73,16 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-color);
-      background-image: var(--bg-gradient);
-      background-attachment: fixed;
       color: var(--text-main);
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: background 0.4s ease, color 0.4s ease;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* App Shell Container (Responsive Mobile / Tablet / Desktop) */
+    /* App Shell */
     .app-shell {
       width: 100%;
       max-width: 440px;
@@ -112,37 +93,43 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      background: transparent;
+      background: var(--bg-color);
     }
 
     @media (min-width: 600px) {
       .app-shell {
-        height: 92vh;
-        max-height: 840px;
+        height: 94vh;
+        max-height: 860px;
         border-radius: 36px;
         border: 1px solid var(--card-border);
-        box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
       }
     }
 
-    /* Screen Transitions */
+    /* Screens Container */
+    .screen-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
     .screen {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
-      padding: 6px 12px 10px;
+      padding: 10px 14px 12px;
       opacity: 0;
       visibility: hidden;
-      transform: scale(0.97);
-      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-                  visibility 0.35s;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      gap: 7px;
+      gap: 10px;
     }
 
     .screen::-webkit-scrollbar {
@@ -152,833 +139,498 @@
     .screen.active {
       opacity: 1;
       visibility: visible;
-      transform: scale(1);
+      transform: translateY(0);
       z-index: 10;
     }
 
-    /* ---------------- SCREEN 1: SPLASH / LOADING ---------------- */
-    #screenSplash {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background: var(--bg-gradient);
-      gap: 14px;
-      padding: 24px;
-    }
-
-    .splash-glow-orb {
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 229, 255, 0.18) 0%, rgba(37, 99, 235, 0.08) 50%, transparent 70%);
-      filter: blur(40px);
-      animation: pulseOrb 4s ease-in-out infinite alternate;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    @keyframes pulseOrb {
-      0% { transform: scale(0.85); opacity: 0.5; }
-      100% { transform: scale(1.2); opacity: 0.9; }
-    }
-
-    .splash-content {
-      position: relative;
-      z-index: 2;
+    /* ---------------- TOP BAR ---------------- */
+    .top-bar {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      width: 100%;
+      justify-content: space-between;
+      min-height: 42px;
+      padding: 2px 4px 6px;
+      gap: 10px;
     }
 
-    .splash-logo-wrap {
-      width: 220px;
-      max-width: 80%;
-      animation: splashLogoEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .splash-logo {
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      filter: var(--logo-filter);
-      transition: filter 0.4s ease;
-    }
-
-    .splash-author {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--accent-cyan);
-      background: linear-gradient(90deg, var(--accent-cyan), #60a5fa, var(--accent-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: fadeInAuthor 1.2s ease forwards;
-    }
-
-    .splash-version-tag {
-      font-size: 11px;
-      color: var(--text-muted);
-      letter-spacing: 1.2px;
-      margin-bottom: 18px;
-    }
-
-    .splash-btn-wrap {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInBtn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
-      width: 100%;
-      max-width: 240px;
-    }
-
-    @keyframes splashLogoEntrance {
-      0% { opacity: 0; transform: translateY(-20px) scale(0.92); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes fadeInAuthor {
-      0% { opacity: 0; transform: translateY(8px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInBtn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ---------------- BUTTONS ---------------- */
-    .btn {
-      border: none;
-      outline: none;
-      cursor: pointer;
+    .top-status-badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
       font-weight: 600;
-      font-size: 15px;
-      border-radius: 18px;
-      padding: 12px 24px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      touch-action: manipulation;
-    }
-
-    .btn:active {
-      transform: scale(0.96);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 100%);
-      color: #050813;
-      box-shadow: 0 6px 20px rgba(var(--accent-cyan-rgb), 0.35);
-    }
-
-    [data-theme="light"] .btn-primary {
-      color: #ffffff;
-    }
-
-    .btn-glass {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .btn-block {
-      width: 100%;
-    }
-
-    /* ---------------- SCREEN 2: INSTRUCTIONS & CONNECT ---------------- */
-    #screenConnect {
-      justify-content: space-between;
-      gap: 10px;
-      padding: 14px 14px 14px;
-    }
-
-    .connect-header {
-      text-align: center;
-      margin-bottom: 2px;
-    }
-
-    .connect-title {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 2px;
-    }
-
-    .connect-subtitle {
-      font-size: 13px;
-      color: var(--text-secondary);
-    }
-
-    .instruction-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 14px 16px;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .instruction-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .instruction-badge {
-      width: 26px;
-      height: 26px;
-      min-width: 26px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, rgba(var(--accent-cyan-rgb), 0.15) 0%, rgba(59, 130, 246, 0.25) 100%);
-      border: 1px solid rgba(var(--accent-cyan-rgb), 0.35);
-      color: var(--accent-cyan);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    .instruction-text {
-      font-size: 13.5px;
-      line-height: 1.35;
-      color: var(--text-main);
-    }
-
-    /* Radar Search Box */
-    .search-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 22px;
-      padding: 16px 14px;
-      backdrop-filter: blur(20px);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-
-    .radar-circle-wrap {
-      width: 68px;
-      height: 68px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .radar-ring {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      border: 2px solid var(--accent-cyan);
-      opacity: 0;
-    }
-
-    .radar-ring.animating {
-      animation: radarWave 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
-    }
-
-    .radar-ring:nth-child(2).animating {
-      animation-delay: 0.75s;
-    }
-
-    .radar-ring:nth-child(3).animating {
-      animation-delay: 1.5s;
-    }
-
-    @keyframes radarWave {
-      0% { transform: scale(0.4); opacity: 0.9; }
-      100% { transform: scale(1.6); opacity: 0; }
-    }
-
-    .radar-center-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--card-bg-subtle);
-      border: 1px solid var(--card-border-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-cyan);
-      box-shadow: var(--accent-glow-subtle);
-      z-index: 2;
-    }
-
-    .search-status-text {
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      min-height: 20px;
-    }
-
-    .device-found-card {
-      display: none;
-      width: 100%;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      border-radius: 16px;
-      padding: 10px 14px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      animation: bounceIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes bounceIn {
-      0% { opacity: 0; transform: scale(0.92); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    .device-found-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-align: left;
-    }
-
-    .device-found-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
       background: var(--accent-green);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-
-    .device-name-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .device-name-sub {
-      font-size: 11.5px;
-      color: var(--accent-green);
-      font-weight: 600;
-    }
-
-    /* iOS Bluefy notice */
-    .ios-tip-box {
-      background: var(--card-bg-subtle);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 10px 14px;
-      font-size: 11.5px;
-      color: var(--text-muted);
-      line-height: 1.4;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .ios-tip-box strong {
-      color: var(--accent-cyan);
-    }
-
-    /* ---------------- SCREEN 3: MAIN DASHBOARD ---------------- */
-    #screenMain {
-      padding: 6px 10px 10px;
-      gap: 6px;
-    }
-
-    /* Header Bar */
-    .main-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2px 2px 4px;
-      gap: 8px;
-      min-height: 38px;
-    }
-
-    .header-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .header-btn:active {
-      transform: scale(0.92);
-    }
-
-    .header-logo-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header-logo {
-      height: 24px;
-      max-width: 120px;
-      object-fit: contain;
-      filter: var(--logo-filter);
-      transition: filter 0.4s ease;
-    }
-
-    .header-author-tag {
-      font-size: 9px;
-      color: var(--accent-cyan);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 1px;
-    }
-
-    /* Connection Status Badge */
-    .conn-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 600;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow-sm);
-      margin: 0 auto 2px;
-      align-self: center;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
       transition: all 0.3s ease;
     }
 
-    .conn-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-red);
-      transition: background 0.3s ease, box-shadow 0.3s ease;
+    .top-status-badge.disconnected {
+      background: #374151;
+      color: #9ca3af;
+      box-shadow: none;
     }
 
-    .conn-status-pill.connected .conn-dot {
-      background: var(--accent-green);
-      box-shadow: 0 0 8px var(--accent-green);
-      animation: pulseGreenDot 2s infinite;
+    .top-status-badge .badge-icon {
+      width: 14px;
+      height: 14px;
     }
 
-    @keyframes pulseGreenDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.55; transform: scale(0.85); }
+    .top-gear-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s ease;
     }
 
-    /* ---------------- CLOCK & TIMER CARD ---------------- */
-    .clock-card {
+    .top-gear-btn:active {
+      background: var(--card-bg);
+    }
+
+    /* ---------------- LOGO HEADER ---------------- */
+    .logo-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 0 2px;
+    }
+
+    .app-logo {
+      height: 38px;
+      max-width: 190px;
+      object-fit: contain;
+      filter: var(--logo-filter);
+      transition: filter 0.3s ease;
+    }
+
+    /* ---------------- MATTE CARDS ---------------- */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+    }
+
+    /* Status Summary Card */
+    .summary-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 10px 14px 8px;
-      backdrop-filter: blur(24px);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow: visible;
-    }
-
-    .clock-dial-wrap {
-      width: 126px;
-      height: 126px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 2px 0 4px;
-    }
-
-    .clock-svg {
-      width: 100%;
-      height: 100%;
-      transform: rotate(-90deg);
-    }
-
-    .clock-circle-bg {
-      fill: none;
-      stroke: var(--clock-track);
-      stroke-width: 9;
-    }
-
-    .clock-circle-progress {
-      fill: none;
-      stroke: var(--clock-progress);
-      stroke-width: 9;
-      stroke-linecap: round;
-      stroke-dasharray: 628;
-      stroke-dashoffset: 628;
-      transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.4s ease;
-      filter: drop-shadow(0 0 6px rgba(var(--accent-cyan-rgb), 0.5));
-    }
-
-    .clock-dial-center {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .clock-icon-svg {
-      width: 16px;
-      height: 16px;
-      color: var(--accent-cyan);
-      margin-bottom: 1px;
-      opacity: 0.85;
-    }
-
-    .clock-digits {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text-main);
-      font-variant-numeric: tabular-nums;
-      line-height: 1;
-      margin-bottom: 2px;
-      text-shadow: 0 2px 10px rgba(var(--accent-cyan-rgb), 0.25);
-    }
-
-    .clock-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    /* Auto Mode Chip inside Clock Card */
-    .auto-mode-badge {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      padding: 4px 10px;
-      border-radius: 16px;
-      font-size: 10.5px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      background: var(--pill-inactive-bg);
-      border: 1px solid var(--pill-inactive-border);
-      color: var(--pill-inactive-text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-      z-index: 5;
-    }
-
-    .auto-mode-badge.active {
-      background: linear-gradient(135deg, var(--accent-purple) 0%, #ec4899 100%);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 0 14px rgba(168, 85, 247, 0.45);
-    }
-
-    /* Music Counter (Under Clock) */
-    .music-counter-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 14px;
-      background: var(--card-bg-subtle);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      transition: all 0.3s ease;
-    }
-
-    .music-counter-pill.playing {
-      color: var(--text-main);
-      border-color: var(--card-border-glow);
-      background: rgba(var(--accent-cyan-rgb), 0.08);
-    }
-
-    .eq-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 12px;
-    }
-
-    .eq-bar {
-      width: 2.5px;
-      background: var(--accent-cyan);
-      border-radius: 2px;
-      height: 3px;
-      transition: height 0.2s ease;
-    }
-
-    .music-counter-pill.playing .eq-bar:nth-child(1) { animation: eqMove 0.8s ease-in-out infinite alternate; }
-    .music-counter-pill.playing .eq-bar:nth-child(2) { animation: eqMove 1.1s ease-in-out infinite 0.2s alternate; }
-    .music-counter-pill.playing .eq-bar:nth-child(3) { animation: eqMove 0.9s ease-in-out infinite 0.4s alternate; }
-
-    @keyframes eqMove {
-      0% { height: 3px; }
-      100% { height: 12px; }
-    }
-
-    .music-time-num {
-      font-variant-numeric: tabular-nums;
-      color: var(--accent-cyan);
-      font-weight: 700;
-    }
-
-    /* ---------------- SECTION CARDS (SPEED & TIMER) ---------------- */
-    .section-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 8px 12px 9px;
-      backdrop-filter: blur(20px);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .section-title-row {
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .section-title {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+    .summary-time-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .summary-time-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
       text-transform: uppercase;
-      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .summary-time-digits {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .summary-music-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 14px;
+      background: var(--card-bg-hover);
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .summary-music-badge.active {
+      background: var(--accent-purple-tint);
+      border-color: rgba(106, 98, 245, 0.3);
+      color: var(--accent-purple);
+    }
+
+    /* Grid Commands (2 Columns like in photo!) */
+    .grid-2x {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .cmd-tile {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .cmd-tile:active {
+      transform: scale(0.97);
+    }
+
+    .cmd-tile.active {
+      border-color: var(--accent-purple);
+      background: var(--accent-purple-tint);
+    }
+
+    .cmd-tile-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: rgba(106, 98, 245, 0.14);
+      color: var(--accent-purple);
       display: flex;
       align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .cmd-tile.active .cmd-tile-icon-wrap {
+      background: var(--accent-purple);
+      color: #ffffff;
+    }
+
+    .cmd-tile-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .cmd-tile-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: -6px;
+    }
+
+    /* ---------------- SPEED SELECTOR ---------------- */
+    .pill-row-8 {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
       gap: 6px;
     }
 
-    .section-badge {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: rgba(var(--accent-cyan-rgb), 0.1);
-    }
-
-    /* Speed Selector Grid / Row */
-    .pill-grid {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 5px;
-    }
-
-    .pill-btn {
-      height: 34px;
-      border-radius: 10px;
-      border: 1px solid var(--pill-inactive-border);
-      background: var(--pill-inactive-bg);
-      color: var(--pill-inactive-text);
-      font-size: 14px;
-      font-weight: 700;
+    .speed-pill-btn {
+      height: 38px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      touch-action: manipulation;
+      transition: all 0.2s ease;
     }
 
-    .pill-btn:active {
-      transform: scale(0.9);
+    .speed-pill-btn:active {
+      transform: scale(0.92);
     }
 
-    .pill-btn.active {
-      background: var(--pill-active-bg);
-      color: var(--pill-active-text);
-      border-color: transparent;
-      box-shadow: var(--accent-glow);
-      transform: translateY(-1px);
+    .speed-pill-btn.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      color: #ffffff;
     }
 
-    /* Timer Presets Grid */
-    .timer-preset-grid {
+    /* ---------------- TIMER PRESETS ---------------- */
+    .pill-row-5 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 6px;
     }
 
-    .timer-preset-btn {
-      height: 32px;
+    .timer-pill-btn {
+      height: 36px;
       border-radius: 12px;
-      border: 1px solid var(--pill-inactive-border);
-      background: var(--pill-inactive-bg);
-      color: var(--pill-inactive-text);
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      touch-action: manipulation;
-    }
-
-    .timer-preset-btn:active {
-      transform: scale(0.92);
-    }
-
-    .timer-preset-btn.active {
-      background: var(--pill-active-bg);
-      color: var(--pill-active-text);
-      border-color: transparent;
-      box-shadow: var(--accent-glow);
-      transform: translateY(-1px);
-    }
-
-    /* ---------------- CONTROLS PANEL ---------------- */
-    .controls-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .ctrl-action-btn {
-      background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 8px 6px;
-      height: 56px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: var(--text-main);
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 12.5px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: var(--shadow-sm);
-      touch-action: manipulation;
-    }
-
-    .ctrl-action-btn:active {
-      transform: scale(0.94);
-    }
-
-    .ctrl-action-btn.active {
-      border-color: var(--card-border-glow);
-      background: rgba(var(--accent-cyan-rgb), 0.12);
-      box-shadow: var(--accent-glow-subtle);
-      color: var(--accent-cyan);
-    }
-
-    .ctrl-icon-wrap {
-      width: 26px;
-      height: 26px;
-      border-radius: 8px;
-      background: var(--card-bg-subtle);
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
     }
 
-    .ctrl-action-btn.active .ctrl-icon-wrap {
-      background: var(--pill-active-bg);
-      color: var(--pill-active-text);
+    .timer-pill-btn:active {
+      transform: scale(0.94);
     }
 
-    .ctrl-btn-label {
+    .timer-pill-btn.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      color: #ffffff;
+    }
+
+    /* ---------------- VOLUME CONTROLS (ONLY LOUDER / QUIETER) ---------------- */
+    .volume-control-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 10px 14px;
+    }
+
+    .volume-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .volume-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .volume-status {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .volume-buttons-wrap {
+      display: flex;
+      gap: 8px;
+    }
+
+    .vol-step-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--pill-bg);
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .vol-step-btn:active {
+      transform: scale(0.94);
+      background: var(--accent-purple);
+      color: #fff;
+    }
+
+    /* ---------------- CONNECTION SCREEN (MATCHING SCREENSHOT 2) ---------------- */
+    #screenConnect {
+      justify-content: center;
+      align-items: center;
+      padding: 20px 16px;
+    }
+
+    .connect-center-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 34px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .connect-circle-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--card-bg-hover);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-purple);
+      margin-bottom: 4px;
+    }
+
+    .connect-center-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .connect-center-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      max-width: 260px;
+    }
+
+    .btn-solid-purple {
+      width: 100%;
+      height: 50px;
+      border-radius: 18px;
+      background: var(--accent-purple);
+      color: #ffffff;
+      font-size: 15.5px;
+      font-weight: 600;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-solid-purple:active {
+      transform: scale(0.97);
+      background: var(--accent-purple-hover);
+    }
+
+    .btn-solid-purple.connecting {
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .device-found-banner {
+      display: none;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-weight: 600;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Instructions Modal / Drawer */
+    .instructions-card {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-sub);
+    }
+
+    .inst-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .inst-num {
+      color: var(--accent-purple);
+      font-weight: 700;
+      min-width: 16px;
+    }
+
+    /* ---------------- BOTTOM NAVIGATION BAR (MATCHING PHOTOS) ---------------- */
+    .bottom-nav {
+      height: 64px;
+      background: var(--bottom-bar-bg);
+      border-top: 1px solid var(--bottom-bar-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 16px;
+      z-index: 20;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      min-width: 80px;
+    }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 58px;
+      height: 30px;
+      border-radius: 16px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-item.active .nav-pill {
+      background: var(--accent-purple-tint);
+      color: var(--accent-purple);
+    }
+
+    .nav-label {
       font-size: 11px;
       font-weight: 600;
     }
 
-    /* Primary Bottom Power Button Bar */
-    .bottom-power-bar {
-      margin-top: 1px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .nav-item.active .nav-label {
+      color: var(--accent-purple);
     }
 
-    .power-main-btn {
-      width: 100%;
-      height: 46px;
-      border-radius: 18px;
-      padding: 10px;
-      border: 1px solid var(--card-border);
-      background: var(--card-bg);
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      touch-action: manipulation;
-    }
-
-    .power-main-btn:active {
-      transform: scale(0.97);
-    }
-
-    .power-main-btn.active {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(5, 150, 105, 0.38) 100%);
-      border-color: rgba(16, 185, 129, 0.6);
-      color: var(--accent-green);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
-    }
-
-    .power-main-btn .power-status-indicator {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent-red);
-      transition: background 0.3s ease;
-    }
-
-    .power-main-btn.active .power-status-indicator {
-      background: var(--accent-green);
-      box-shadow: 0 0 8px var(--accent-green);
-    }
-
-    /* ---------------- MODALS (VOLUME & DISCONNECT) ---------------- */
+    /* ---------------- DISCONNECT MODAL ---------------- */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: var(--modal-overlay);
-      backdrop-filter: blur(14px);
+      background: rgba(8, 10, 16, 0.75);
+      backdrop-filter: blur(8px);
       z-index: 100;
       display: flex;
       align-items: center;
@@ -986,7 +638,7 @@
       padding: 20px;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
     .modal-overlay.active {
@@ -996,446 +648,227 @@
 
     .modal-card {
       width: 100%;
-      max-width: 360px;
+      max-width: 340px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 22px 20px;
-      backdrop-filter: blur(28px);
-      box-shadow: var(--shadow-lg);
-      transform: scale(0.92) translateY(20px);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 24px;
+      padding: 24px 20px;
       text-align: center;
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: scale(1) translateY(0);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .modal-title {
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 6px;
+      color: var(--accent-red);
     }
 
     .modal-desc {
       font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 18px;
-      line-height: 1.4;
-    }
-
-    /* Volume Popup Elements */
-    .volume-display-circle {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      background: rgba(var(--accent-cyan-rgb), 0.1);
-      border: 2px solid var(--accent-cyan);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      box-shadow: var(--accent-glow-subtle);
-    }
-
-    .volume-num {
-      font-size: 28px;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      line-height: 1;
-    }
-
-    .volume-pct-label {
-      font-size: 10px;
       color: var(--text-muted);
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .volume-slider-wrap {
-      width: 100%;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .volume-slider {
-      flex: 1;
-      -webkit-appearance: none;
-      height: 8px;
-      border-radius: 6px;
-      background: var(--pill-inactive-bg);
-      outline: none;
-    }
-
-    .volume-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--accent-cyan);
-      box-shadow: 0 0 12px var(--accent-cyan);
-      cursor: pointer;
-      border: 2px solid #fff;
-    }
-
-    .volume-stepper-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .volume-stepper-btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 14px;
-      background: var(--card-bg-subtle);
-      border: 1px solid var(--card-border);
-      color: var(--text-main);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      touch-action: manipulation;
-    }
-
-    .volume-stepper-btn:active {
-      transform: scale(0.95);
-    }
-
-    .volume-levels-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 5px;
-      margin-bottom: 20px;
-    }
-
-    .vol-level-btn {
-      flex: 1;
-      height: 32px;
-      border-radius: 10px;
-      background: var(--pill-inactive-bg);
-      border: 1px solid var(--pill-inactive-border);
-      color: var(--pill-inactive-text);
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      touch-action: manipulation;
-    }
-
-    .vol-level-btn.active {
-      background: var(--accent-cyan);
-      color: #05070f;
-      border-color: transparent;
-      box-shadow: var(--accent-glow-subtle);
-    }
-
-    /* Disconnect Modal Icon */
-    .disconnect-icon-wrap {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: rgba(239, 68, 68, 0.15);
-      border: 2px solid var(--accent-red);
-      color: var(--accent-red);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 14px;
-      box-shadow: 0 0 16px rgba(239, 68, 68, 0.35);
-      animation: shake 0.6s ease;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20%, 60% { transform: translateX(-6px); }
-      40%, 80% { transform: translateX(6px); }
+      line-height: 1.45;
     }
   </style>
 </head>
 <body data-theme="dark">
   <div class="app-shell">
 
-    <!-- ==================== SCREEN 1: SPLASH ==================== -->
-    <section class="screen active" id="screenSplash">
-      <div class="splash-glow-orb"></div>
-      <div class="splash-content">
-        <div class="splash-logo-wrap">
-          <img src="logo.png" id="splashLogoImg" class="splash-logo" alt="BubaGO" />
-        </div>
-        <div class="splash-author">by dqmjrka</div>
-        <div class="splash-version-tag">SMART SWING CONTROLLER &bull; 2026 EDITION</div>
-        <div class="splash-btn-wrap">
-          <button type="button" class="btn btn-primary btn-block" id="splashNextBtn">
-            <span>Далее</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SCREEN 2: INSTRUCTIONS & CONNECT ==================== -->
-    <section class="screen" id="screenConnect">
-      <div class="connect-header">
-        <h1 class="connect-title">Подключение</h1>
-        <p class="connect-subtitle">Следуйте простым шагам для синхронизации</p>
+    <!-- Top Status Header (like screenshot photo!) -->
+    <div class="top-bar">
+      <div></div>
+      <!-- Top Status Badge -->
+      <div class="top-status-badge" id="topStatusBadge">
+        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span id="topStatusText">BubaGO подключено</span>
       </div>
 
-      <div class="instruction-card">
-        <div class="instruction-item">
-          <div class="instruction-badge">1</div>
-          <div class="instruction-text">Подключите ваше устройство к электро-питанию</div>
-        </div>
-        <div class="instruction-item">
-          <div class="instruction-badge">2</div>
-          <div class="instruction-text">Нажмите в приложении кнопку «Поиск»</div>
-        </div>
-        <div class="instruction-item">
-          <div class="instruction-badge">3</div>
-          <div class="instruction-text">После того как нашлось ваше устройство нажмите продолжить и пользуйтесь приложением.</div>
-        </div>
-      </div>
+      <!-- Settings / Theme Toggle Gear Icon -->
+      <button type="button" class="top-gear-btn" id="btnThemeToggle" title="Сменить тему">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      </button>
+    </div>
 
-      <!-- Radar & Search Card -->
-      <div class="search-card">
-        <div class="radar-circle-wrap">
-          <div class="radar-ring" id="radarRing1"></div>
-          <div class="radar-ring" id="radarRing2"></div>
-          <div class="radar-ring" id="radarRing3"></div>
-          <div class="radar-center-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
+    <!-- Screen Container -->
+    <div class="screen-container">
+
+      <!-- ==================== SCREEN 1: CONTROL (MAIN) ==================== -->
+      <section class="screen active" id="screenControl">
+        <!-- Prominent BubaGO Logo (Bigger, NO by dqmjrka) -->
+        <div class="logo-header">
+          <img src="logo.png" class="app-logo" alt="BubaGO" />
+        </div>
+
+        <!-- Summary & Timer Card -->
+        <div class="summary-card">
+          <div class="summary-time-wrap">
+            <span class="summary-time-label">Осталось времени</span>
+            <span class="summary-time-digits" id="timerDigits">00:00</span>
+          </div>
+          <div class="summary-music-badge" id="musicCounterBadge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <span>Музыка: <strong id="musicTimerDigits">00:00</strong></span>
           </div>
         </div>
 
-        <div class="search-status-text" id="searchStatusText">Нажмите «Поиск» для обнаружения качелей</div>
+        <!-- Speed Section -->
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="section-label">Скорость</span>
+            <span style="font-size:12px; font-weight:600; color:var(--accent-purple);" id="speedBadgeText">Выкл</span>
+          </div>
+          <div class="pill-row-8" id="speedPillsGrid">
+            <button type="button" class="speed-pill-btn" data-speed="1">1</button>
+            <button type="button" class="speed-pill-btn" data-speed="2">2</button>
+            <button type="button" class="speed-pill-btn" data-speed="3">3</button>
+            <button type="button" class="speed-pill-btn" data-speed="4">4</button>
+            <button type="button" class="speed-pill-btn" data-speed="5">5</button>
+            <button type="button" class="speed-pill-btn" data-speed="6">6</button>
+            <button type="button" class="speed-pill-btn" data-speed="7">7</button>
+            <button type="button" class="speed-pill-btn" data-speed="8">8</button>
+          </div>
+        </div>
 
-        <div class="device-found-card" id="deviceFoundCard">
-          <div class="device-found-info">
-            <div class="device-found-icon">✓</div>
+        <!-- Timer Presets Section -->
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span class="section-label">Таймер</span>
+            <span style="font-size:12px; font-weight:600; color:var(--accent-purple);" id="timerBadgeText">Без таймера</span>
+          </div>
+          <div class="pill-row-5">
+            <button type="button" class="timer-pill-btn" data-preset="1" data-minutes="8">8min</button>
+            <button type="button" class="timer-pill-btn" data-preset="2" data-minutes="15">15min</button>
+            <button type="button" class="timer-pill-btn" data-preset="3" data-minutes="30">30min</button>
+            <button type="button" class="timer-pill-btn" data-preset="4" data-minutes="45">45min</button>
+            <button type="button" class="timer-pill-btn" data-preset="5" data-minutes="60">60min</button>
+          </div>
+        </div>
+
+        <!-- Volume Control Box (ONLY LOUDER / QUIETER) -->
+        <div class="volume-control-box">
+          <div class="volume-info">
+            <span class="volume-title">Громкость</span>
+            <span class="volume-status" id="volumeStatusText">Уровень 3 / 5</span>
+          </div>
+          <div class="volume-buttons-wrap">
+            <button type="button" class="vol-step-btn" id="btnVolDown">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Тише</span>
+            </button>
+            <button type="button" class="vol-step-btn" id="btnVolUp">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Громче</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Commands Grid (2 Columns, matching photo!) -->
+        <span class="section-label" style="margin-top:2px;">Быстрые команды</span>
+        <div class="grid-2x">
+          <!-- Power Tile -->
+          <div class="cmd-tile" id="tilePower">
+            <div class="cmd-tile-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+            </div>
             <div>
-              <div class="device-name-title" id="foundDeviceName">BubaGO Swing</div>
-              <div class="device-name-sub">Устройство найдено!</div>
+              <div class="cmd-tile-label" id="tilePowerLabel">Питание</div>
+              <div class="cmd-tile-sub" id="tilePowerSub">Выключено</div>
+            </div>
+          </div>
+
+          <!-- Music Toggle Tile -->
+          <div class="cmd-tile" id="tileMusic">
+            <div class="cmd-tile-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            </div>
+            <div>
+              <div class="cmd-tile-label">Музыка</div>
+              <div class="cmd-tile-sub" id="tileMusicSub">Пауза</div>
+            </div>
+          </div>
+
+          <!-- Next Track Tile -->
+          <div class="cmd-tile" id="tileNextTrack">
+            <div class="cmd-tile-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+            </div>
+            <div>
+              <div class="cmd-tile-label">След. трек</div>
+              <div class="cmd-tile-sub">Переключить песню</div>
+            </div>
+          </div>
+
+          <!-- Auto Mode Tile -->
+          <div class="cmd-tile" id="tileAuto">
+            <div class="cmd-tile-icon-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
+            </div>
+            <div>
+              <div class="cmd-tile-label">AUTO режим</div>
+              <div class="cmd-tile-sub" id="tileAutoSub">Выключен</div>
             </div>
           </div>
         </div>
+      </section>
 
-        <button type="button" class="btn btn-primary btn-block" id="btnSearchBle">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-          <span>Поиск</span>
-        </button>
-
-        <button type="button" class="btn btn-primary btn-block" id="btnContinueToMain" style="display: none;">
-          <span>Продолжить</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-        </button>
-
-        <button type="button" class="btn btn-glass btn-block" id="btnDemoMode" style="font-size: 12.5px; padding: 8px 14px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="m4.93 4.93 2.83 2.83"></path><path d="M2 12h4"></path><path d="m4.93 19.07 2.83-2.83"></path><path d="M12 18v4"></path><path d="m16.24 16.24 2.83 2.83"></path><path d="M18 12h4"></path><path d="m16.24 7.76 2.83-2.83"></path></svg>
-          <span>Проверка интерфейса (Демо режим)</span>
-        </button>
-      </div>
-
-      <!-- iOS Notice -->
-      <div class="ios-tip-box">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-        <div><strong>Для iOS (iPhone/iPad):</strong> Safari не поддерживает Web Bluetooth. Открывайте в бесплатном браузере <strong>Bluefy</strong> из App Store.</div>
-      </div>
-    </section>
-
-    <!-- ==================== SCREEN 3: MAIN APP ==================== -->
-    <section class="screen" id="screenMain">
-      <!-- Main Top Bar -->
-      <header class="main-header">
-        <button type="button" class="header-btn" id="btnBackToConnect" title="Назад к подключению">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-        </button>
-
-        <div class="header-logo-wrap">
-          <img src="logo.png" id="mainHeaderLogoImg" class="header-logo" alt="BubaGO" />
-          <div class="header-author-tag">by dqmjrka</div>
-        </div>
-
-        <button type="button" class="header-btn" id="btnThemeToggle" title="Сменить тему">
-          <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
-        </button>
-      </header>
-
-      <!-- Bluetooth status pill -->
-      <div class="conn-status-pill" id="btStatusPill">
-        <span class="conn-dot" id="btStatusDot"></span>
-        <span id="btStatusLabel">Bluetooth: Отключено</span>
-      </div>
-
-      <!-- Clock & Countdown Card -->
-      <div class="clock-card">
-        <!-- Auto mode badge -->
-        <button type="button" class="auto-mode-badge" id="autoModeBtn" title="Авто режим">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
-          <span>AUTO</span>
-        </button>
-
-        <!-- Clock Dial -->
-        <div class="clock-dial-wrap">
-          <svg class="clock-svg" viewBox="0 0 220 220">
-            <circle class="clock-circle-bg" cx="110" cy="110" r="100"></circle>
-            <circle class="clock-circle-progress" id="clockProgressCircle" cx="110" cy="110" r="100"></circle>
-          </svg>
-          <div class="clock-dial-center">
-            <svg class="clock-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            <div class="clock-digits" id="timerDigits">00:00</div>
-            <div class="clock-label">Таймер сна</div>
+      <!-- ==================== SCREEN 2: CONNECT (LIKE SCREENSHOT 2) ==================== -->
+      <section class="screen" id="screenConnect">
+        <div class="connect-center-card">
+          <div class="connect-circle-icon">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
           </div>
-        </div>
+          <div class="connect-center-title" id="connectTitle">Качели BubaGO</div>
+          <div class="connect-center-desc" id="connectDesc">Включите питание качелей и нажмите кнопку поиска по Bluetooth.</div>
 
-        <!-- Music duration counter -->
-        <div class="music-counter-pill" id="musicCounterPill">
-          <div class="eq-bars">
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
-            <div class="eq-bar"></div>
+          <div class="device-found-banner" id="deviceFoundBanner">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span id="foundDeviceText">babyswing подключено!</span>
           </div>
-          <span>Музыка: <span class="music-time-num" id="musicTimerDigits">00:00</span></span>
-        </div>
-      </div>
 
-      <!-- Speed Section -->
-      <div class="section-card">
-        <div class="section-title-row">
-          <span class="section-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-            Скорость
-          </span>
-          <span class="section-badge" id="speedBadge">Выкл</span>
-        </div>
-        <div class="pill-grid" id="speedPillGrid">
-          <button type="button" class="pill-btn" data-speed="1">1</button>
-          <button type="button" class="pill-btn" data-speed="2">2</button>
-          <button type="button" class="pill-btn" data-speed="3">3</button>
-          <button type="button" class="pill-btn" data-speed="4">4</button>
-          <button type="button" class="pill-btn" data-speed="5">5</button>
-          <button type="button" class="pill-btn" data-speed="6">6</button>
-          <button type="button" class="pill-btn" data-speed="7">7</button>
-          <button type="button" class="pill-btn" data-speed="8">8</button>
-        </div>
-      </div>
-
-      <!-- Timer Section -->
-      <div class="section-card">
-        <div class="section-title-row">
-          <span class="section-title">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            Таймер
-          </span>
-          <span class="section-badge" id="timerBadge">Без таймера</span>
-        </div>
-        <div class="timer-preset-grid" id="timerPresetGrid">
-          <button type="button" class="timer-preset-btn" data-preset="1" data-minutes="8">8min</button>
-          <button type="button" class="timer-preset-btn" data-preset="2" data-minutes="15">15min</button>
-          <button type="button" class="timer-preset-btn" data-preset="3" data-minutes="30">30min</button>
-          <button type="button" class="timer-preset-btn" data-preset="4" data-minutes="45">45min</button>
-          <button type="button" class="timer-preset-btn" data-preset="5" data-minutes="60">60min</button>
-        </div>
-      </div>
-
-      <!-- Action Controls Grid -->
-      <div class="controls-grid">
-        <!-- Music Toggle -->
-        <button type="button" class="ctrl-action-btn" id="btnMusicToggle">
-          <div class="ctrl-icon-wrap">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
-          </div>
-          <span class="ctrl-btn-label" id="musicBtnLabel">Музыка</span>
-        </button>
-
-        <!-- Volume Button (Opens popup) -->
-        <button type="button" class="ctrl-action-btn" id="btnVolumeOpen">
-          <div class="ctrl-icon-wrap">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-          </div>
-          <span class="ctrl-btn-label">Громкость</span>
-        </button>
-
-        <!-- Next Track Button -->
-        <button type="button" class="ctrl-action-btn" id="btnNextTrack">
-          <div class="ctrl-icon-wrap">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
-          </div>
-          <span class="ctrl-btn-label">След. трек</span>
-        </button>
-      </div>
-
-      <!-- Master Power Button -->
-      <div class="bottom-power-bar">
-        <button type="button" class="power-main-btn" id="btnPowerMaster">
-          <span class="power-status-indicator"></span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
-          <span id="powerLabel">ПИТАНИЕ: ВЫКЛ</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ==================== MODAL 1: VOLUME SELECTOR ==================== -->
-    <div class="modal-overlay" id="modalVolume">
-      <div class="modal-card">
-        <h2 class="modal-title">Громкость</h2>
-        <p class="modal-desc">Настройка уровня воспроизведения звука</p>
-
-        <div class="volume-display-circle">
-          <div class="volume-num" id="modalVolumeNum">3</div>
-          <div class="volume-pct-label">Уровень</div>
-        </div>
-
-        <div class="volume-slider-wrap">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon></svg>
-          <input type="range" class="volume-slider" id="modalVolSlider" min="0" max="5" step="1" value="3" />
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
-        </div>
-
-        <div class="volume-stepper-row">
-          <button type="button" class="volume-stepper-btn" id="btnVolDown">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span>Тише</span>
-          </button>
-          <button type="button" class="volume-stepper-btn" id="btnVolUp">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span>Громче</span>
+          <button type="button" class="btn-solid-purple" id="btnScanBle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
+            <span id="scanBtnText">Поиск качелей</span>
           </button>
         </div>
 
-        <div class="volume-levels-row">
-          <button type="button" class="vol-level-btn" data-v="0">0</button>
-          <button type="button" class="vol-level-btn" data-v="1">1</button>
-          <button type="button" class="vol-level-btn" data-v="2">2</button>
-          <button type="button" class="vol-level-btn" data-v="3">3</button>
-          <button type="button" class="vol-level-btn" data-v="4">4</button>
-          <button type="button" class="vol-level-btn" data-v="5">5</button>
+        <div class="instructions-card">
+          <span style="font-weight:700; color:var(--text-main);">Инструкция по подключению:</span>
+          <div class="inst-row"><span class="inst-num">1.</span><span>Подключите устройство к электро-питанию.</span></div>
+          <div class="inst-row"><span class="inst-num">2.</span><span>Нажмите кнопку «Поиск качелей».</span></div>
+          <div class="inst-row"><span class="inst-num">3.</span><span>Выберите устройство из списка и перейдите в «Управление».</span></div>
+          <div style="margin-top:4px; font-size:11.5px; color:var(--text-muted);">Для iOS используйте браузер <strong>Bluefy</strong>.</div>
         </div>
+      </section>
 
-        <button type="button" class="btn btn-primary btn-block" id="btnVolumeClose">
-          <span>Готово</span>
-        </button>
-      </div>
     </div>
 
-    <!-- ==================== MODAL 2: DISCONNECTED ALERT ==================== -->
+    <!-- ==================== BOTTOM NAVIGATION (LIKE SCREENSHOTS) ==================== -->
+    <nav class="bottom-nav">
+      <!-- Tab 1: Control -->
+      <button type="button" class="nav-item active" id="tabNavControl">
+        <div class="nav-pill">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <span class="nav-label">Управление</span>
+      </button>
+
+      <!-- Tab 2: Connect -->
+      <button type="button" class="nav-item" id="tabNavConnect">
+        <div class="nav-pill">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
+        </div>
+        <span class="nav-label">Подключение</span>
+      </button>
+    </nav>
+
+    <!-- Disconnected Alert Modal -->
     <div class="modal-overlay" id="modalDisconnect">
       <div class="modal-card">
-        <div class="disconnect-icon-wrap">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"></line><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
-        </div>
-        <h2 class="modal-title" style="color: var(--accent-red);">Устройство отключено!</h2>
-        <p class="modal-desc">Соединение по Bluetooth с BubaGO было потеряно. Проверьте питание и выполните поиск заново.</p>
-        <button type="button" class="btn btn-primary btn-block" id="btnDisconnectBack">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-          <span>Назад к инструкции</span>
+        <div class="modal-title">Устройство отключено!</div>
+        <div class="modal-desc">Связь по Bluetooth была прервана. Проверьте питание качелей.</div>
+        <button type="button" class="btn-solid-purple" id="btnModalBack">
+          <span>Назад к поиску</span>
         </button>
       </div>
     </div>
@@ -1450,19 +883,16 @@
     });
 
     /* =========================================================
-       APP STATE & BLUETOOTH CONSTANTS
+       STATE & BLE CONFIG
        ========================================================= */
     const state = {
       theme: localStorage.getItem('bubago_theme') || 'dark',
-      isDemo: false,
-      isScanning: false,
       isConnected: false,
       device: null,
       server: null,
       writeChars: [],
       primaryWriteChar: null,
-      notifyChar: null,
-      // Device state
+      // Device states
       power: false,
       music: false,
       autoMode: false,
@@ -1471,8 +901,7 @@
       timerPreset: 0,
       djsM: 0,
       djsS: 0,
-      baifenbi: 0,
-      // Local timers
+      // Stopwatch & Countdown
       countdownInterval: null,
       musicSeconds: 0,
       musicTimerInterval: null
@@ -1481,58 +910,47 @@
     /* =========================================================
        DOM ELEMENTS
        ========================================================= */
-    const screenSplash = document.getElementById('screenSplash');
+    const screenControl = document.getElementById('screenControl');
     const screenConnect = document.getElementById('screenConnect');
-    const screenMain = document.getElementById('screenMain');
+    const tabNavControl = document.getElementById('tabNavControl');
+    const tabNavConnect = document.getElementById('tabNavConnect');
 
-    const splashNextBtn = document.getElementById('splashNextBtn');
-    const btnSearchBle = document.getElementById('btnSearchBle');
-    const btnContinueToMain = document.getElementById('btnContinueToMain');
-    const btnDemoMode = document.getElementById('btnDemoMode');
-    const searchStatusText = document.getElementById('searchStatusText');
-    const deviceFoundCard = document.getElementById('deviceFoundCard');
-    const foundDeviceName = document.getElementById('foundDeviceName');
-    const radarRings = [
-      document.getElementById('radarRing1'),
-      document.getElementById('radarRing2'),
-      document.getElementById('radarRing3')
-    ];
-
-    const btnBackToConnect = document.getElementById('btnBackToConnect');
+    const topStatusBadge = document.getElementById('topStatusBadge');
+    const topStatusText = document.getElementById('topStatusText');
     const btnThemeToggle = document.getElementById('btnThemeToggle');
-    const btStatusPill = document.getElementById('btStatusPill');
-    const btStatusDot = document.getElementById('btStatusDot');
-    const btStatusLabel = document.getElementById('btStatusLabel');
 
-    const autoModeBtn = document.getElementById('autoModeBtn');
     const timerDigits = document.getElementById('timerDigits');
-    const clockProgressCircle = document.getElementById('clockProgressCircle');
-    const musicCounterPill = document.getElementById('musicCounterPill');
+    const musicCounterBadge = document.getElementById('musicCounterBadge');
     const musicTimerDigits = document.getElementById('musicTimerDigits');
 
-    const speedBadge = document.getElementById('speedBadge');
-    const speedPills = document.querySelectorAll('.pill-btn');
+    const speedBadgeText = document.getElementById('speedBadgeText');
+    const speedPills = document.querySelectorAll('.speed-pill-btn');
 
-    const timerBadge = document.getElementById('timerBadge');
-    const timerPresetBtns = document.querySelectorAll('.timer-preset-btn');
+    const timerBadgeText = document.getElementById('timerBadgeText');
+    const timerPills = document.querySelectorAll('.timer-pill-btn');
 
-    const btnMusicToggle = document.getElementById('btnMusicToggle');
-    const musicBtnLabel = document.getElementById('musicBtnLabel');
-    const btnVolumeOpen = document.getElementById('btnVolumeOpen');
-    const btnNextTrack = document.getElementById('btnNextTrack');
-    const btnPowerMaster = document.getElementById('btnPowerMaster');
-    const powerLabel = document.getElementById('powerLabel');
-
-    const modalVolume = document.getElementById('modalVolume');
-    const modalVolumeNum = document.getElementById('modalVolumeNum');
-    const modalVolSlider = document.getElementById('modalVolSlider');
+    const volumeStatusText = document.getElementById('volumeStatusText');
     const btnVolDown = document.getElementById('btnVolDown');
     const btnVolUp = document.getElementById('btnVolUp');
-    const volLevelBtns = document.querySelectorAll('.vol-level-btn');
-    const btnVolumeClose = document.getElementById('btnVolumeClose');
+
+    const tilePower = document.getElementById('tilePower');
+    const tilePowerSub = document.getElementById('tilePowerSub');
+
+    const tileMusic = document.getElementById('tileMusic');
+    const tileMusicSub = document.getElementById('tileMusicSub');
+
+    const tileNextTrack = document.getElementById('tileNextTrack');
+
+    const tileAuto = document.getElementById('tileAuto');
+    const tileAutoSub = document.getElementById('tileAutoSub');
+
+    const btnScanBle = document.getElementById('btnScanBle');
+    const scanBtnText = document.getElementById('scanBtnText');
+    const deviceFoundBanner = document.getElementById('deviceFoundBanner');
+    const foundDeviceText = document.getElementById('foundDeviceText');
 
     const modalDisconnect = document.getElementById('modalDisconnect');
-    const btnDisconnectBack = document.getElementById('btnDisconnectBack');
+    const btnModalBack = document.getElementById('btnModalBack');
 
     /* =========================================================
        THEME MANAGEMENT
@@ -1542,7 +960,7 @@
       document.body.setAttribute('data-theme', t);
       localStorage.setItem('bubago_theme', t);
       const meta = document.getElementById('metaThemeColor');
-      if (meta) meta.setAttribute('content', t === 'dark' ? '#0b0f19' : '#f1f5fb');
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#0e1017' : '#f3f5f9');
     }
 
     applyTheme(state.theme);
@@ -1554,68 +972,47 @@
     });
 
     /* =========================================================
-       HAPTIC & AUDIO FEEDBACK
+       NAVIGATION TABS
        ========================================================= */
-    function triggerHaptic(duration) {
-      if (!duration) duration = 25;
-      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-        try { navigator.vibrate(duration); } catch (e) {}
+    function switchTab(tabName) {
+      triggerHaptic(20);
+      if (tabName === 'control') {
+        tabNavControl.classList.add('active');
+        tabNavConnect.classList.remove('active');
+        screenControl.classList.add('active');
+        screenConnect.classList.remove('active');
+      } else {
+        tabNavConnect.classList.add('active');
+        tabNavControl.classList.remove('active');
+        screenConnect.classList.add('active');
+        screenControl.classList.remove('active');
       }
     }
 
-    /* =========================================================
-       SCREEN NAVIGATION
-       ========================================================= */
-    function switchScreen(targetScreen) {
-      triggerHaptic(25);
-      [screenSplash, screenConnect, screenMain].forEach(function(s) {
-        s.classList.remove('active');
-      });
-      targetScreen.classList.add('active');
-    }
+    tabNavControl.addEventListener('click', function() { switchTab('control'); });
+    tabNavConnect.addEventListener('click', function() { switchTab('connect'); });
 
-    splashNextBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      switchScreen(screenConnect);
-    });
-
-    btnBackToConnect.addEventListener('click', function(e) {
-      e.stopPropagation();
-      switchScreen(screenConnect);
-    });
-
-    btnContinueToMain.addEventListener('click', function(e) {
-      e.stopPropagation();
-      switchScreen(screenMain);
-    });
-
-    btnDisconnectBack.addEventListener('click', function(e) {
-      e.stopPropagation();
+    btnModalBack.addEventListener('click', function() {
       modalDisconnect.classList.remove('active');
-      switchScreen(screenConnect);
+      switchTab('connect');
     });
 
-    /* =========================================================
-       RADAR SCANNING ANIMATION
-       ========================================================= */
-    function setRadarActive(active) {
-      radarRings.forEach(function(ring) {
-        if (active) ring.classList.add('animating');
-        else ring.classList.remove('animating');
-      });
+    function triggerHaptic(duration) {
+      if (!duration) duration = 25;
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        try { navigator.vibrate(duration); } catch(e) {}
+      }
     }
 
     /* =========================================================
        BLUETOOTH PROTOCOL & COMMANDS (NON-BLOCKING)
        ========================================================= */
     async function sendBleCommand(cmdCode, valCode) {
-      triggerHaptic(30);
+      triggerHaptic(25);
       const buf = new Uint8Array([99, 109, 100, cmdCode, valCode]).buffer;
       console.log('[BLE TX]', cmdCode, valCode, Array.from(new Uint8Array(buf)));
 
-      if (state.isDemo || !state.server) {
-        return true;
-      }
+      if (!state.server) return true;
 
       const charsToTry = state.primaryWriteChar
         ? [state.primaryWriteChar, ...state.writeChars.filter(function(c) { return c !== state.primaryWriteChar; })]
@@ -1626,42 +1023,32 @@
         try {
           if (ch.properties.writeWithoutResponse) {
             await ch.writeValueWithoutResponse(buf);
-            console.log('[BLE TX Success withoutResponse]', ch.uuid);
             return true;
           } else if (ch.properties.write) {
             await ch.writeValue(buf);
-            console.log('[BLE TX Success with write]', ch.uuid);
             return true;
           }
-        } catch (err) {
-          console.warn('[BLE TX Fail on ' + ch.uuid + ']', err);
+        } catch(err) {
+          console.warn('[BLE TX write fail]', ch.uuid, err);
         }
       }
       return false;
     }
 
-    /* =========================================================
-       INCOMING BLE TELEMETRY PARSER
-       ========================================================= */
     function handleIncomingData(dataView) {
       if (!dataView || dataView.byteLength < 9) return;
       const n = new Uint8Array(dataView.buffer);
       console.log('[BLE RX Telemetry]', Array.from(n));
 
-      const isPowerOn = (n[1] !== 0);
-      const isMusicOn = !(n[2] === 128 || n[2] === 0);
-      const isAutoOn = (n[6] !== 0);
-
-      state.power = isPowerOn;
-      state.music = isMusicOn;
-      state.autoMode = isAutoOn;
+      state.power = (n[1] !== 0);
+      state.music = !(n[2] === 128 || n[2] === 0);
+      state.autoMode = (n[6] !== 0);
 
       state.volume = Math.min(5, Math.max(0, n[3]));
       state.speed = n[4];
       state.timerPreset = n[5];
       state.djsM = n[7];
       state.djsS = n[8];
-      state.baifenbi = n[9] || 0;
 
       updateUIFromState();
     }
@@ -1670,56 +1057,52 @@
        UI UPDATE & SYNCHRONIZATION
        ========================================================= */
     function updateUIFromState() {
-      // Bluetooth status pill
+      // Top status badge
       if (state.isConnected) {
-        btStatusPill.classList.add('connected');
-        btStatusLabel.textContent = 'Bluetooth: Подключено';
+        topStatusBadge.classList.remove('disconnected');
+        topStatusText.textContent = 'BubaGO подключено';
       } else {
-        btStatusPill.classList.remove('connected');
-        btStatusLabel.textContent = 'Bluetooth: Отключено';
+        topStatusBadge.classList.add('disconnected');
+        topStatusText.textContent = 'Отключено';
       }
 
-      // Master Power Button
+      // Power tile
       if (state.power) {
-        btnPowerMaster.classList.add('active');
-        powerLabel.textContent = 'ПИТАНИЕ: ВКЛ';
+        tilePower.classList.add('active');
+        tilePowerSub.textContent = 'Включено';
       } else {
-        btnPowerMaster.classList.remove('active');
-        powerLabel.textContent = 'ПИТАНИЕ: ВЫКЛ';
+        tilePower.classList.remove('active');
+        tilePowerSub.textContent = 'Выключено';
+      }
+
+      // Music tile & badge
+      if (state.music) {
+        tileMusic.classList.add('active');
+        tileMusicSub.textContent = 'Играет';
+        musicCounterBadge.classList.add('active');
+        startMusicTimer();
+      } else {
+        tileMusic.classList.remove('active');
+        tileMusicSub.textContent = 'Пауза';
+        musicCounterBadge.classList.remove('active');
+        stopMusicTimer();
       }
 
       // Auto Mode
       if (state.autoMode) {
-        autoModeBtn.classList.add('active');
+        tileAuto.classList.add('active');
+        tileAutoSub.textContent = 'Включен';
       } else {
-        autoModeBtn.classList.remove('active');
+        tileAuto.classList.remove('active');
+        tileAutoSub.textContent = 'Выключен';
       }
 
-      // Music Button & Stopwatch
-      if (state.music) {
-        btnMusicToggle.classList.add('active');
-        musicBtnLabel.textContent = 'Музыка: Играет';
-        musicCounterPill.classList.add('playing');
-        startMusicTimer();
-      } else {
-        btnMusicToggle.classList.remove('active');
-        musicBtnLabel.textContent = 'Музыка: Пауза';
-        musicCounterPill.classList.remove('playing');
-        stopMusicTimer();
-      }
-
-      // Clock Countdown Display
+      // Countdown Timer Digits
       const mStr = String(state.djsM).padStart(2, '0');
       const sStr = String(state.djsS).padStart(2, '0');
       timerDigits.textContent = mStr + ':' + sStr;
 
-      // Circular Clock Ring Progress (baifenbi 0..100)
-      const circum = 628;
-      const pct = Math.min(100, Math.max(0, state.baifenbi));
-      const offset = circum - (pct / 100) * circum;
-      clockProgressCircle.style.strokeDashoffset = offset;
-
-      // Speed pills (1..8)
+      // Speed selector
       speedPills.forEach(function(pill) {
         const val = parseInt(pill.getAttribute('data-speed'));
         if (state.power && state.speed === val) {
@@ -1728,10 +1111,10 @@
           pill.classList.remove('active');
         }
       });
-      speedBadge.textContent = (state.power && state.speed > 0) ? ('Уровень ' + state.speed) : 'Выкл';
+      speedBadgeText.textContent = (state.power && state.speed > 0) ? ('Уровень ' + state.speed) : 'Выкл';
 
-      // Timer presets (8min, 15min, 30min, 45min, 60min)
-      timerPresetBtns.forEach(function(btn) {
+      // Timer presets
+      timerPills.forEach(function(btn) {
         const val = parseInt(btn.getAttribute('data-preset'));
         if (state.power && state.timerPreset === val) {
           btn.classList.add('active');
@@ -1740,22 +1123,16 @@
         }
       });
       const presetMinutes = [0, 8, 15, 30, 45, 60];
-      timerBadge.textContent = (state.power && state.timerPreset > 0)
+      timerBadgeText.textContent = (state.power && state.timerPreset > 0)
         ? ((presetMinutes[state.timerPreset] || 0) + ' мин')
         : 'Без таймера';
 
-      // Volume in Modal
-      modalVolumeNum.textContent = state.volume;
-      modalVolSlider.value = state.volume;
-      volLevelBtns.forEach(function(btn) {
-        const v = parseInt(btn.getAttribute('data-v'));
-        if (v === state.volume) btn.classList.add('active');
-        else btn.classList.remove('active');
-      });
+      // Volume display
+      volumeStatusText.textContent = 'Уровень ' + state.volume + ' / 5';
     }
 
     /* =========================================================
-       LOCAL STOPWATCH & COUNTDOWN TICKERS
+       TIMERS & TICKERS
        ========================================================= */
     function startMusicTimer() {
       if (state.musicTimerInterval) return;
@@ -1777,8 +1154,7 @@
 
     function startCountdownTick(totalMinutes) {
       if (state.countdownInterval) clearInterval(state.countdownInterval);
-      const totalSecs = totalMinutes * 60;
-      let remainingSecs = totalSecs;
+      let remainingSecs = totalMinutes * 60;
 
       state.countdownInterval = setInterval(function() {
         if (!state.power || state.timerPreset === 0) {
@@ -1790,14 +1166,12 @@
           remainingSecs--;
           state.djsM = Math.floor(remainingSecs / 60);
           state.djsS = remainingSecs % 60;
-          state.baifenbi = Math.round((remainingSecs / totalSecs) * 100);
           updateUIFromState();
         } else {
           clearInterval(state.countdownInterval);
           state.countdownInterval = null;
           state.djsM = 0;
           state.djsS = 0;
-          state.baifenbi = 0;
           state.timerPreset = 0;
           updateUIFromState();
         }
@@ -1805,10 +1179,10 @@
     }
 
     /* =========================================================
-       INTERACTIVE CONTROLS (ALWAYS RESPONSIVE!)
+       USER INTERACTION HANDLERS (INSTANT RESPONSIVE)
        ========================================================= */
-    // 1. Power Master Button
-    btnPowerMaster.addEventListener('click', function(e) {
+    // Power Toggle
+    tilePower.addEventListener('click', function(e) {
       e.stopPropagation();
       state.power = !state.power;
       if (!state.power) {
@@ -1816,7 +1190,6 @@
         state.speed = 0;
         state.timerPreset = 0;
         state.autoMode = false;
-        state.baifenbi = 0;
         state.djsM = 0;
         state.djsS = 0;
       } else {
@@ -1826,30 +1199,17 @@
       sendBleCommand(48, state.power ? 49 : 48);
     });
 
-    // 2. Auto Mode Button
-    autoModeBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      state.autoMode = !state.autoMode;
-      if (state.autoMode && !state.power) {
-        state.power = true;
-      }
-      updateUIFromState();
-      sendBleCommand(53, state.autoMode ? 49 : 48);
-    });
-
-    // 3. Music Toggle
-    btnMusicToggle.addEventListener('click', function(e) {
+    // Music Toggle
+    tileMusic.addEventListener('click', function(e) {
       e.stopPropagation();
       state.music = !state.music;
-      if (state.music && !state.power) {
-        state.power = true;
-      }
+      if (state.music && !state.power) state.power = true;
       updateUIFromState();
       sendBleCommand(49, state.music ? 49 : 48);
     });
 
-    // 4. Next Track
-    btnNextTrack.addEventListener('click', function(e) {
+    // Next Track
+    tileNextTrack.addEventListener('click', function(e) {
       e.stopPropagation();
       if (!state.power) state.power = true;
       if (!state.music) state.music = true;
@@ -1859,40 +1219,43 @@
       sendBleCommand(49, 52);
     });
 
-    // 5. Speed Selection (1..8)
+    // Auto Mode Toggle
+    tileAuto.addEventListener('click', function(e) {
+      e.stopPropagation();
+      state.autoMode = !state.autoMode;
+      if (state.autoMode && !state.power) state.power = true;
+      updateUIFromState();
+      sendBleCommand(53, state.autoMode ? 49 : 48);
+    });
+
+    // Speed Selection (1..8)
     speedPills.forEach(function(pill) {
       pill.addEventListener('click', function(e) {
         e.stopPropagation();
         const targetSpeed = parseInt(pill.getAttribute('data-speed'));
-        const isCurrent = (state.speed === targetSpeed);
-        state.speed = isCurrent ? 0 : targetSpeed;
-        if (state.speed > 0 && !state.power) {
-          state.power = true;
-        }
+        state.speed = (state.speed === targetSpeed) ? 0 : targetSpeed;
+        if (state.speed > 0 && !state.power) state.power = true;
         updateUIFromState();
         sendBleCommand(51, 48 + state.speed);
       });
     });
 
-    // 6. Timer Presets Selection (8m, 15m, 30m, 45m, 60m)
-    timerPresetBtns.forEach(function(btn) {
+    // Timer Presets Selection
+    timerPills.forEach(function(btn) {
       btn.addEventListener('click', function(e) {
         e.stopPropagation();
         const targetPreset = parseInt(btn.getAttribute('data-preset'));
         const minutes = parseInt(btn.getAttribute('data-minutes'));
-        const isCurrent = (state.timerPreset === targetPreset);
-        state.timerPreset = isCurrent ? 0 : targetPreset;
+        state.timerPreset = (state.timerPreset === targetPreset) ? 0 : targetPreset;
 
         if (state.timerPreset > 0) {
           state.power = true;
           state.djsM = minutes;
           state.djsS = 0;
-          state.baifenbi = 100;
           startCountdownTick(minutes);
         } else {
           state.djsM = 0;
           state.djsS = 0;
-          state.baifenbi = 0;
           if (state.countdownInterval) clearInterval(state.countdownInterval);
         }
         updateUIFromState();
@@ -1900,73 +1263,32 @@
       });
     });
 
-    // 7. Volume Modal Open & Close
-    btnVolumeOpen.addEventListener('click', function(e) {
-      e.stopPropagation();
-      triggerHaptic(20);
-      modalVolume.classList.add('active');
-    });
-
-    btnVolumeClose.addEventListener('click', function(e) {
-      e.stopPropagation();
-      triggerHaptic(20);
-      modalVolume.classList.remove('active');
-    });
-
-    function setVolumeLevel(vol) {
-      vol = Math.max(0, Math.min(5, vol));
-      state.volume = vol;
-      updateUIFromState();
-      sendBleCommand(50, 53);
-    }
-
-    modalVolSlider.addEventListener('input', function(e) {
-      setVolumeLevel(parseInt(e.target.value));
-    });
-
+    // Volume Step Buttons: Quieter / Louder
     btnVolDown.addEventListener('click', function(e) {
       e.stopPropagation();
-      setVolumeLevel(state.volume - 1);
+      state.volume = Math.max(0, state.volume - 1);
+      updateUIFromState();
+      sendBleCommand(50, 53);
     });
 
     btnVolUp.addEventListener('click', function(e) {
       e.stopPropagation();
-      setVolumeLevel(state.volume + 1);
-    });
-
-    volLevelBtns.forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        setVolumeLevel(parseInt(btn.getAttribute('data-v')));
-      });
+      state.volume = Math.min(5, state.volume + 1);
+      updateUIFromState();
+      sendBleCommand(50, 53);
     });
 
     /* =========================================================
-       BLUETOOTH CONNECTION & SCANNING (WEB BLE API)
+       BLUETOOTH CONNECTION
        ========================================================= */
-    let autoRetryTimer = null;
-
     async function startBleScan() {
       if (!navigator.bluetooth) {
-        searchStatusText.innerHTML = '<span style="color: var(--accent-red);">Web Bluetooth недоступен. На iOS открывайте в браузере <strong>Bluefy</strong>.</span>';
+        alert('Web Bluetooth не поддерживается. На iOS используйте браузер Bluefy.');
         return;
       }
 
-      state.isScanning = true;
-      setRadarActive(true);
-      searchStatusText.textContent = 'Поиск устройства... (каждые 10 секунд будет обновлять поиск)';
-      btnSearchBle.disabled = true;
-
-      if (autoRetryTimer) clearInterval(autoRetryTimer);
-      let secondsCount = 0;
-      autoRetryTimer = setInterval(function() {
-        if (!state.isScanning) {
-          clearInterval(autoRetryTimer);
-          return;
-        }
-        secondsCount += 10;
-        searchStatusText.textContent = 'Поиск устройства... (' + secondsCount + ' сек.)';
-      }, 10000);
+      btnScanBle.classList.add('connecting');
+      scanBtnText.textContent = 'Поиск устройства...';
 
       try {
         const optionalServices = [
@@ -1993,7 +1315,6 @@
             optionalServices: optionalServices
           });
         } catch (filterErr) {
-          console.log('Filtered requestDevice fallback to all devices:', filterErr);
           device = await navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
             optionalServices: optionalServices
@@ -2002,36 +1323,33 @@
 
         if (!device) throw new Error('Устройство не выбрано');
 
-        clearInterval(autoRetryTimer);
         state.device = device;
-        foundDeviceName.textContent = device.name || 'BubaGO Swing';
-        deviceFoundCard.style.display = 'flex';
-        btnContinueToMain.style.display = 'flex';
-        btnSearchBle.style.display = 'none';
-        searchStatusText.textContent = 'Устройство найдено!';
-        setRadarActive(false);
-
         device.addEventListener('gattserverdisconnected', onDeviceDisconnected);
 
-        searchStatusText.textContent = 'Подключение...';
+        scanBtnText.textContent = 'Подключение...';
         const server = await device.gatt.connect();
         state.server = server;
 
         await discoverServicesAndChars(server);
 
         state.isConnected = true;
-        searchStatusText.textContent = 'Устройство подключено! Нажмите «Продолжить».';
+        foundDeviceText.textContent = (device.name || 'BubaGO') + ' подключено!';
+        deviceFoundBanner.style.display = 'flex';
+        scanBtnText.textContent = 'Подключено ✓';
+        btnScanBle.classList.remove('connecting');
+
         updateUIFromState();
+        // Switch to Control tab automatically
+        setTimeout(function() {
+          switchTab('control');
+        }, 800);
 
       } catch (err) {
         console.error('Scan error:', err);
-        clearInterval(autoRetryTimer);
-        setRadarActive(false);
-        btnSearchBle.disabled = false;
-        if (err.name === 'NotFoundError') {
-          searchStatusText.textContent = 'Поиск отменён. Нажмите «Поиск» ещё раз.';
-        } else {
-          searchStatusText.textContent = 'Ошибка: ' + (err.message || 'Не удалось подключиться');
+        btnScanBle.classList.remove('connecting');
+        scanBtnText.textContent = 'Поиск качелей';
+        if (err.name !== 'NotFoundError') {
+          alert('Ошибка подключения: ' + (err.message || 'Проверьте питание'));
         }
       }
     }
@@ -2042,8 +1360,6 @@
 
       try {
         const services = await server.getPrimaryServices();
-        console.log('Discovered services:', services.map(function(s) { return s.uuid; }));
-
         for (let sIdx = 0; sIdx < services.length; sIdx++) {
           const service = services[sIdx];
           try {
@@ -2051,7 +1367,6 @@
             for (let cIdx = 0; cIdx < chars.length; cIdx++) {
               const ch = chars[cIdx];
               const uuid = ch.uuid.toLowerCase();
-              console.log('Service:', service.uuid, 'Char:', ch.uuid, 'Props:', ch.properties);
 
               if (ch.properties.write || ch.properties.writeWithoutResponse) {
                 state.writeChars.push(ch);
@@ -2068,70 +1383,40 @@
                   ch.addEventListener('characteristicvaluechanged', function(e) {
                     handleIncomingData(e.target.value);
                   });
-                  console.log('Started notifications on:', ch.uuid);
-                } catch (ne) {
-                  console.warn('Could not start notify on:', ch.uuid, ne);
+                } catch(ne) {
+                  console.warn('Notify error:', ch.uuid, ne);
                 }
               }
             }
-          } catch (ce) {
-            console.warn('Error reading chars:', service.uuid, ce);
+          } catch(ce) {
+            console.warn('Chars error:', service.uuid, ce);
           }
         }
-      } catch (se) {
-        console.warn('Could not enumerate services:', se);
+      } catch(se) {
+        console.warn('Services error:', se);
       }
     }
 
     function onDeviceDisconnected() {
-      console.warn('Device disconnected!');
       state.isConnected = false;
       state.server = null;
       state.primaryWriteChar = null;
       state.writeChars = [];
-      state.notifyChar = null;
       updateUIFromState();
 
-      if (screenMain.classList.contains('active')) {
+      if (screenControl.classList.contains('active')) {
         modalDisconnect.classList.add('active');
-        triggerHaptic([100, 50, 100]);
+        triggerHaptic(100);
       }
     }
 
-    btnSearchBle.addEventListener('click', function(e) {
+    btnScanBle.addEventListener('click', function(e) {
       e.stopPropagation();
       triggerHaptic(20);
       startBleScan();
     });
 
-    /* =========================================================
-       DEMO / SIMULATION MODE
-       ========================================================= */
-    btnDemoMode.addEventListener('click', function(e) {
-      e.stopPropagation();
-      triggerHaptic(25);
-      state.isDemo = true;
-      state.isConnected = true;
-      state.power = true;
-      state.speed = 2;
-      state.timerPreset = 1;
-      state.djsM = 8;
-      state.djsS = 0;
-      state.baifenbi = 95;
-      state.music = true;
-      state.volume = 3;
-
-      foundDeviceName.textContent = 'BubaGO Demo Swing';
-      deviceFoundCard.style.display = 'flex';
-      btnContinueToMain.style.display = 'flex';
-      btnSearchBle.style.display = 'none';
-      searchStatusText.textContent = 'Устройство найдено! (Демо-режим)';
-
-      startCountdownTick(8);
-      updateUIFromState();
-    });
-
-    // Init UI
+    // Default init
     updateUIFromState();
   </script>
 </body>
