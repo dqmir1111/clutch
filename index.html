@@ -3,56 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#0e1017" id="metaThemeColor" />
+  <meta name="theme-color" content="#0c0e15" id="metaThemeColor" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>BubaGO</title>
   <style>
-    /* ---------------- THEME STYLES (MATTE MINIMALIST DESIGN) ---------------- */
+    /* ---------------- THEME SYSTEM (MATTE PREMIUM SLATE) ---------------- */
     :root {
-      --bg-color: #0e1017;
-      --card-bg: #181b26;
-      --card-bg-hover: #1f2333;
-      --card-border: #24283b;
-      --card-border-active: #5f57ea;
-      --text-main: #f1f3f9;
-      --text-muted: #828a9e;
-      --text-sub: #a4adc2;
-      --accent-purple: #6a62f5;
-      --accent-purple-hover: #7b74fa;
-      --accent-purple-tint: rgba(106, 98, 245, 0.16);
+      --bg-color: #0c0e15;
+      --card-bg: #151824;
+      --card-bg-subtle: #1c2030;
+      --card-border: rgba(255, 255, 255, 0.07);
+      --card-border-active: #6960f5;
+      --text-main: #f3f5fa;
+      --text-muted: #788299;
+      --text-sub: #9ca6bd;
+      --accent-purple: #6960f5;
+      --accent-purple-tint: rgba(105, 96, 245, 0.15);
+      --accent-purple-glow: rgba(105, 96, 245, 0.3);
       --accent-green: #22c55e;
       --accent-red: #ef4444;
-      --pill-bg: #202436;
-      --pill-text: #cad1e3;
-      --pill-active-bg: #6a62f5;
+      --pill-bg: #1c2030;
+      --pill-text: #b1bad1;
+      --pill-active-bg: #6960f5;
       --pill-active-text: #ffffff;
-      --bottom-bar-bg: #12141e;
-      --bottom-bar-border: #1e2232;
+      --bottom-bar-bg: #0f111a;
+      --bottom-bar-border: rgba(255, 255, 255, 0.05);
       --logo-filter: brightness(0) invert(1);
+      --dial-track: rgba(255, 255, 255, 0.06);
+      --dial-fill: #6960f5;
     }
 
     [data-theme="light"] {
-      --bg-color: #f3f5f9;
+      --bg-color: #f1f3f8;
       --card-bg: #ffffff;
-      --card-bg-hover: #f8f9fc;
-      --card-border: #e2e6f0;
-      --card-border-active: #5f57ea;
-      --text-main: #111420;
+      --card-bg-subtle: #f4f6fb;
+      --card-border: rgba(0, 0, 0, 0.07);
+      --card-border-active: #5c52e8;
+      --text-main: #0f131f;
       --text-muted: #647087;
-      --text-sub: #4b5569;
-      --accent-purple: #5e55e8;
-      --accent-purple-hover: #4e44db;
-      --accent-purple-tint: rgba(94, 85, 232, 0.1);
+      --text-sub: #475569;
+      --accent-purple: #5c52e8;
+      --accent-purple-tint: rgba(92, 82, 232, 0.1);
+      --accent-purple-glow: rgba(92, 82, 232, 0.2);
       --accent-green: #16a34a;
       --accent-red: #dc2626;
-      --pill-bg: #eef1f8;
+      --pill-bg: #eaf0fa;
       --pill-text: #475569;
-      --pill-active-bg: #5e55e8;
+      --pill-active-bg: #5c52e8;
       --pill-active-text: #ffffff;
       --bottom-bar-bg: #ffffff;
-      --bottom-bar-border: #e2e6f0;
+      --bottom-bar-border: rgba(0, 0, 0, 0.07);
       --logo-filter: none;
+      --dial-track: rgba(0, 0, 0, 0.06);
+      --dial-fill: #5c52e8;
     }
 
     * {
@@ -82,7 +86,6 @@
       transition: background 0.3s ease, color 0.3s ease;
     }
 
-    /* App Shell */
     .app-shell {
       width: 100%;
       max-width: 440px;
@@ -102,11 +105,11 @@
         max-height: 860px;
         border-radius: 36px;
         border: 1px solid var(--card-border);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 12px 45px rgba(0, 0, 0, 0.45);
       }
     }
 
-    /* Screens Container */
+    /* Screen Container */
     .screen-container {
       flex: 1;
       position: relative;
@@ -120,16 +123,16 @@
       inset: 0;
       display: flex;
       flex-direction: column;
-      padding: 10px 14px 12px;
+      padding: 6px 14px 10px;
       opacity: 0;
       visibility: hidden;
-      transform: translateY(8px);
+      transform: translateY(6px);
       transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
-      gap: 10px;
+      gap: 9px;
     }
 
     .screen::-webkit-scrollbar {
@@ -149,15 +152,32 @@
       align-items: center;
       justify-content: space-between;
       min-height: 42px;
-      padding: 2px 4px 6px;
+      padding: 4px 6px 4px;
       gap: 10px;
+    }
+
+    .top-back-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .top-back-btn:active {
+      background: var(--card-bg);
     }
 
     .top-status-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 6px 15px;
       border-radius: 30px;
       font-size: 13px;
       font-weight: 600;
@@ -179,8 +199,8 @@
     }
 
     .top-gear-btn {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 12px;
       background: transparent;
       border: none;
@@ -189,116 +209,281 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: background 0.2s ease;
     }
 
     .top-gear-btn:active {
       background: var(--card-bg);
     }
 
-    /* ---------------- LOGO HEADER ---------------- */
+    /* ---------------- BIG CLEAN LOGO ---------------- */
     .logo-header {
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 6px 0 2px;
+      padding: 4px 0 2px;
     }
 
     .app-logo {
-      height: 38px;
-      max-width: 190px;
+      height: 44px;
+      max-width: 220px;
       object-fit: contain;
       filter: var(--logo-filter);
       transition: filter 0.3s ease;
     }
 
-    /* ---------------- MATTE CARDS ---------------- */
-    .card {
+    /* ---------------- HERO CARD: ОСТАЛОСЬ ВРЕМЕНИ ---------------- */
+    .hero-timer-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 26px;
+      padding: 16px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-timer-top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .hero-timer-title {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    .hero-status-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 10px;
+      background: var(--card-bg-subtle);
+      color: var(--text-sub);
+    }
+
+    .hero-status-pill.active {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-green);
+    }
+
+    .hero-dial-wrap {
+      width: 130px;
+      height: 130px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 4px 0 8px;
+    }
+
+    .hero-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .hero-circle-bg {
+      fill: none;
+      stroke: var(--dial-track);
+      stroke-width: 7;
+    }
+
+    .hero-circle-bar {
+      fill: none;
+      stroke: var(--dial-fill);
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-dasharray: 628;
+      stroke-dashoffset: 628;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-dial-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-digits {
+      font-size: 34px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .hero-digits-sub {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* Music Playback Badge inside Hero Card */
+    .hero-music-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 14px;
+      border-radius: 14px;
+      background: var(--card-bg-subtle);
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+      transition: all 0.25s ease;
+    }
+
+    .hero-music-badge.playing {
+      background: var(--accent-purple-tint);
+      border-color: rgba(105, 96, 245, 0.3);
+      color: var(--accent-purple);
+    }
+
+    .hero-music-badge strong {
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-music-badge.playing strong {
+      color: var(--accent-purple);
+    }
+
+    /* ---------------- SECTION CARDS ---------------- */
+    .section-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 22px;
-      padding: 14px;
+      padding: 10px 14px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .section-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.3px;
-    }
-
-    /* Status Summary Card */
-    .summary-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 14px 16px;
+    .section-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .summary-time-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .summary-time-label {
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .summary-time-digits {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--text-main);
-      font-variant-numeric: tabular-nums;
-      line-height: 1.1;
-    }
-
-    .summary-music-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 14px;
-      background: var(--card-bg-hover);
-      border: 1px solid var(--card-border);
+    .section-title {
       font-size: 12px;
       font-weight: 600;
-      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
     }
 
-    .summary-music-badge.active {
-      background: var(--accent-purple-tint);
-      border-color: rgba(106, 98, 245, 0.3);
+    .section-badge-val {
+      font-size: 12px;
+      font-weight: 600;
       color: var(--accent-purple);
     }
 
-    /* Grid Commands (2 Columns like in photo!) */
-    .grid-2x {
+    /* Speed Pills Row (1..8) */
+    .speed-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 5px;
+    }
+
+    .speed-btn {
+      height: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .speed-btn:active {
+      transform: scale(0.92);
+    }
+
+    .speed-btn.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      color: #ffffff;
+    }
+
+    /* Timer Presets Row (5 items) */
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .timer-btn {
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .timer-btn:active {
+      transform: scale(0.93);
+    }
+
+    .timer-btn.active {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+      color: #ffffff;
+    }
+
+    /* ---------------- QUICK COMMANDS TILES (2 COLUMNS, EXACTLY LIKE PHOTO) ---------------- */
+    .commands-header {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+
+    .tiles-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 9px;
     }
 
     .cmd-tile {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 20px;
-      padding: 16px 14px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
@@ -312,11 +497,11 @@
       background: var(--accent-purple-tint);
     }
 
-    .cmd-tile-icon-wrap {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: rgba(106, 98, 245, 0.14);
+    .cmd-tile-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 13px;
+      background: rgba(105, 96, 245, 0.12);
       color: var(--accent-purple);
       display: flex;
       align-items: center;
@@ -324,184 +509,69 @@
       transition: all 0.2s ease;
     }
 
-    .cmd-tile.active .cmd-tile-icon-wrap {
+    .cmd-tile.active .cmd-tile-icon-box {
       background: var(--accent-purple);
       color: #ffffff;
     }
 
-    .cmd-tile-label {
+    .cmd-tile-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cmd-tile-title {
       font-size: 14px;
       font-weight: 600;
       color: var(--text-main);
     }
 
     .cmd-tile-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: -6px;
-    }
-
-    /* ---------------- SPEED SELECTOR ---------------- */
-    .pill-row-8 {
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      gap: 6px;
-    }
-
-    .speed-pill-btn {
-      height: 38px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: var(--pill-bg);
-      color: var(--pill-text);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .speed-pill-btn:active {
-      transform: scale(0.92);
-    }
-
-    .speed-pill-btn.active {
-      background: var(--accent-purple);
-      border-color: var(--accent-purple);
-      color: #ffffff;
-    }
-
-    /* ---------------- TIMER PRESETS ---------------- */
-    .pill-row-5 {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-    }
-
-    .timer-pill-btn {
-      height: 36px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: var(--pill-bg);
-      color: var(--pill-text);
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .timer-pill-btn:active {
-      transform: scale(0.94);
-    }
-
-    .timer-pill-btn.active {
-      background: var(--accent-purple);
-      border-color: var(--accent-purple);
-      color: #ffffff;
-    }
-
-    /* ---------------- VOLUME CONTROLS (ONLY LOUDER / QUIETER) ---------------- */
-    .volume-control-box {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 10px 14px;
-    }
-
-    .volume-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .volume-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .volume-status {
       font-size: 11.5px;
       color: var(--text-muted);
     }
 
-    .volume-buttons-wrap {
-      display: flex;
-      gap: 8px;
-    }
-
-    .vol-step-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      height: 38px;
-      padding: 0 16px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      background: var(--pill-bg);
-      color: var(--text-main);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .vol-step-btn:active {
-      transform: scale(0.94);
-      background: var(--accent-purple);
-      color: #fff;
-    }
-
-    /* ---------------- CONNECTION SCREEN (MATCHING SCREENSHOT 2) ---------------- */
+    /* ---------------- CONNECTION SCREEN ---------------- */
     #screenConnect {
       justify-content: center;
       align-items: center;
-      padding: 20px 16px;
+      padding: 16px;
+      gap: 14px;
     }
 
-    .connect-center-card {
+    .connect-card {
       width: 100%;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 28px;
-      padding: 34px 22px;
+      padding: 30px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 16px;
+      gap: 14px;
     }
 
-    .connect-circle-icon {
-      width: 76px;
-      height: 76px;
+    .connect-icon-circle {
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
-      background: var(--card-bg-hover);
+      background: var(--card-bg-subtle);
       border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent-purple);
-      margin-bottom: 4px;
     }
 
-    .connect-center-title {
+    .connect-title {
       font-size: 20px;
       font-weight: 700;
       color: var(--text-main);
     }
 
-    .connect-center-desc {
-      font-size: 13.5px;
+    .connect-sub {
+      font-size: 13px;
       color: var(--text-muted);
       line-height: 1.45;
       max-width: 260px;
@@ -509,11 +579,11 @@
 
     .btn-solid-purple {
       width: 100%;
-      height: 50px;
-      border-radius: 18px;
+      height: 48px;
+      border-radius: 16px;
       background: var(--accent-purple);
       color: #ffffff;
-      font-size: 15.5px;
+      font-size: 15px;
       font-weight: 600;
       border: none;
       display: flex;
@@ -526,30 +596,24 @@
 
     .btn-solid-purple:active {
       transform: scale(0.97);
-      background: var(--accent-purple-hover);
     }
 
-    .btn-solid-purple.connecting {
-      opacity: 0.8;
-      pointer-events: none;
-    }
-
-    .device-found-banner {
+    .connected-banner {
       display: none;
       width: 100%;
-      padding: 12px 14px;
-      border-radius: 16px;
+      padding: 10px 14px;
+      border-radius: 14px;
       background: rgba(34, 197, 94, 0.12);
       border: 1px solid rgba(34, 197, 94, 0.3);
       color: var(--text-main);
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       align-items: center;
       gap: 8px;
     }
 
-    /* Instructions Modal / Drawer */
-    .instructions-card {
+    /* Instructions Drawer/Box */
+    .inst-card {
       width: 100%;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -566,7 +630,7 @@
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     .inst-num {
@@ -575,9 +639,9 @@
       min-width: 16px;
     }
 
-    /* ---------------- BOTTOM NAVIGATION BAR (MATCHING PHOTOS) ---------------- */
+    /* ---------------- BOTTOM NAVIGATION BAR ---------------- */
     .bottom-nav {
-      height: 64px;
+      height: 62px;
       background: var(--bottom-bar-bg);
       border-top: 1px solid var(--bottom-bar-border);
       display: flex;
@@ -592,7 +656,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 3px;
       background: transparent;
       border: none;
       color: var(--text-muted);
@@ -605,9 +669,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 58px;
-      height: 30px;
-      border-radius: 16px;
+      width: 56px;
+      height: 28px;
+      border-radius: 14px;
       transition: background 0.2s ease, color 0.2s ease;
     }
 
@@ -648,11 +712,11 @@
 
     .modal-card {
       width: 100%;
-      max-width: 340px;
+      max-width: 320px;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 24px 20px;
+      padding: 22px 18px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -675,16 +739,20 @@
 <body data-theme="dark">
   <div class="app-shell">
 
-    <!-- Top Status Header (like screenshot photo!) -->
+    <!-- Top Bar -->
     <div class="top-bar">
-      <div></div>
-      <!-- Top Status Badge -->
+      <!-- Back button (switches to connect tab) -->
+      <button type="button" class="top-back-btn" id="btnTopBack" title="К подключению">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+      </button>
+
+      <!-- Centered Status Badge (Command sent / Connected) -->
       <div class="top-status-badge" id="topStatusBadge">
         <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         <span id="topStatusText">BubaGO подключено</span>
       </div>
 
-      <!-- Settings / Theme Toggle Gear Icon -->
+      <!-- Theme Toggle Settings Gear -->
       <button type="button" class="top-gear-btn" id="btnThemeToggle" title="Сменить тему">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
       </button>
@@ -695,133 +763,151 @@
 
       <!-- ==================== SCREEN 1: CONTROL (MAIN) ==================== -->
       <section class="screen active" id="screenControl">
-        <!-- Prominent BubaGO Logo (Bigger, NO by dqmjrka) -->
+        <!-- Prominent Big BubaGO Logo (WITHOUT by dqmjrka) -->
         <div class="logo-header">
           <img src="logo.png" class="app-logo" alt="BubaGO" />
         </div>
 
-        <!-- Summary & Timer Card -->
-        <div class="summary-card">
-          <div class="summary-time-wrap">
-            <span class="summary-time-label">Осталось времени</span>
-            <span class="summary-time-digits" id="timerDigits">00:00</span>
+        <!-- HERO CARD: Осталось времени -->
+        <div class="hero-timer-card">
+          <div class="hero-timer-top">
+            <span class="hero-timer-title">Осталось времени</span>
+            <span class="hero-status-pill" id="heroStatusPill">Ожидание</span>
           </div>
-          <div class="summary-music-badge" id="musicCounterBadge">
+
+          <!-- Dial with sleek circular arc -->
+          <div class="hero-dial-wrap">
+            <svg class="hero-svg" viewBox="0 0 220 220">
+              <circle class="hero-circle-bg" cx="110" cy="110" r="100"></circle>
+              <circle class="hero-circle-bar" id="heroCircleBar" cx="110" cy="110" r="100"></circle>
+            </svg>
+            <div class="hero-dial-inner">
+              <div class="hero-digits" id="timerDigits">00:00</div>
+              <div class="hero-digits-sub">Таймер сна</div>
+            </div>
+          </div>
+
+          <!-- Music playback tracker capsule -->
+          <div class="hero-music-badge" id="musicBadge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
             <span>Музыка: <strong id="musicTimerDigits">00:00</strong></span>
           </div>
         </div>
 
         <!-- Speed Section -->
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span class="section-label">Скорость</span>
-            <span style="font-size:12px; font-weight:600; color:var(--accent-purple);" id="speedBadgeText">Выкл</span>
+        <div class="section-card">
+          <div class="section-header-row">
+            <span class="section-title">Скорость</span>
+            <span class="section-badge-val" id="speedBadgeText">Выкл</span>
           </div>
-          <div class="pill-row-8" id="speedPillsGrid">
-            <button type="button" class="speed-pill-btn" data-speed="1">1</button>
-            <button type="button" class="speed-pill-btn" data-speed="2">2</button>
-            <button type="button" class="speed-pill-btn" data-speed="3">3</button>
-            <button type="button" class="speed-pill-btn" data-speed="4">4</button>
-            <button type="button" class="speed-pill-btn" data-speed="5">5</button>
-            <button type="button" class="speed-pill-btn" data-speed="6">6</button>
-            <button type="button" class="speed-pill-btn" data-speed="7">7</button>
-            <button type="button" class="speed-pill-btn" data-speed="8">8</button>
+          <div class="speed-grid">
+            <button type="button" class="speed-btn" data-speed="1">1</button>
+            <button type="button" class="speed-btn" data-speed="2">2</button>
+            <button type="button" class="speed-btn" data-speed="3">3</button>
+            <button type="button" class="speed-btn" data-speed="4">4</button>
+            <button type="button" class="speed-btn" data-speed="5">5</button>
+            <button type="button" class="speed-btn" data-speed="6">6</button>
+            <button type="button" class="speed-btn" data-speed="7">7</button>
+            <button type="button" class="speed-btn" data-speed="8">8</button>
           </div>
         </div>
 
         <!-- Timer Presets Section -->
-        <div class="card">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span class="section-label">Таймер</span>
-            <span style="font-size:12px; font-weight:600; color:var(--accent-purple);" id="timerBadgeText">Без таймера</span>
+        <div class="section-card">
+          <div class="section-header-row">
+            <span class="section-title">Таймер</span>
+            <span class="section-badge-val" id="timerBadgeText">Без таймера</span>
           </div>
-          <div class="pill-row-5">
-            <button type="button" class="timer-pill-btn" data-preset="1" data-minutes="8">8min</button>
-            <button type="button" class="timer-pill-btn" data-preset="2" data-minutes="15">15min</button>
-            <button type="button" class="timer-pill-btn" data-preset="3" data-minutes="30">30min</button>
-            <button type="button" class="timer-pill-btn" data-preset="4" data-minutes="45">45min</button>
-            <button type="button" class="timer-pill-btn" data-preset="5" data-minutes="60">60min</button>
-          </div>
-        </div>
-
-        <!-- Volume Control Box (ONLY LOUDER / QUIETER) -->
-        <div class="volume-control-box">
-          <div class="volume-info">
-            <span class="volume-title">Громкость</span>
-            <span class="volume-status" id="volumeStatusText">Уровень 3 / 5</span>
-          </div>
-          <div class="volume-buttons-wrap">
-            <button type="button" class="vol-step-btn" id="btnVolDown">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              <span>Тише</span>
-            </button>
-            <button type="button" class="vol-step-btn" id="btnVolUp">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              <span>Громче</span>
-            </button>
+          <div class="timer-grid">
+            <button type="button" class="timer-btn" data-preset="1" data-minutes="8">8min</button>
+            <button type="button" class="timer-btn" data-preset="2" data-minutes="15">15min</button>
+            <button type="button" class="timer-btn" data-preset="3" data-minutes="30">30min</button>
+            <button type="button" class="timer-btn" data-preset="4" data-minutes="45">45min</button>
+            <button type="button" class="timer-btn" data-preset="5" data-minutes="60">60min</button>
           </div>
         </div>
 
-        <!-- Quick Commands Grid (2 Columns, matching photo!) -->
-        <span class="section-label" style="margin-top:2px;">Быстрые команды</span>
-        <div class="grid-2x">
-          <!-- Power Tile -->
+        <!-- Quick Commands Grid (2 Columns, matching photo style!) -->
+        <div class="commands-header">Быстрые команды</div>
+        <div class="tiles-grid">
+          <!-- 1. Power Tile -->
           <div class="cmd-tile" id="tilePower">
-            <div class="cmd-tile-icon-wrap">
+            <div class="cmd-tile-icon-box">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
             </div>
-            <div>
-              <div class="cmd-tile-label" id="tilePowerLabel">Питание</div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">Питание</div>
               <div class="cmd-tile-sub" id="tilePowerSub">Выключено</div>
             </div>
           </div>
 
-          <!-- Music Toggle Tile -->
+          <!-- 2. Music Toggle Tile -->
           <div class="cmd-tile" id="tileMusic">
-            <div class="cmd-tile-icon-wrap">
+            <div class="cmd-tile-icon-box">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
             </div>
-            <div>
-              <div class="cmd-tile-label">Музыка</div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">Музыка</div>
               <div class="cmd-tile-sub" id="tileMusicSub">Пауза</div>
             </div>
           </div>
 
-          <!-- Next Track Tile -->
-          <div class="cmd-tile" id="tileNextTrack">
-            <div class="cmd-tile-icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+          <!-- 3. Volume Tile (JUST ONE BUTTON, increments level 0..5!) -->
+          <div class="cmd-tile" id="tileVolume">
+            <div class="cmd-tile-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
             </div>
-            <div>
-              <div class="cmd-tile-label">След. трек</div>
-              <div class="cmd-tile-sub">Переключить песню</div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">Громкость</div>
+              <div class="cmd-tile-sub" id="tileVolumeSub">Уровень 3 / 5</div>
             </div>
           </div>
 
-          <!-- Auto Mode Tile -->
+          <!-- 4. Next Track Tile -->
+          <div class="cmd-tile" id="tileNextTrack">
+            <div class="cmd-tile-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+            </div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">След. трек</div>
+              <div class="cmd-tile-sub">Следующая песня</div>
+            </div>
+          </div>
+
+          <!-- 5. Auto Mode Tile -->
           <div class="cmd-tile" id="tileAuto">
-            <div class="cmd-tile-icon-wrap">
+            <div class="cmd-tile-icon-box">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
             </div>
-            <div>
-              <div class="cmd-tile-label">AUTO режим</div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">AUTO режим</div>
               <div class="cmd-tile-sub" id="tileAutoSub">Выключен</div>
+            </div>
+          </div>
+
+          <!-- 6. Demo / Test Tile -->
+          <div class="cmd-tile" id="tileDemo">
+            <div class="cmd-tile-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="m4.93 4.93 2.83 2.83"></path><path d="M2 12h4"></path><path d="m4.93 19.07 2.83-2.83"></path><path d="M12 18v4"></path><path d="m16.24 16.24 2.83 2.83"></path><path d="M18 12h4"></path><path d="m16.24 7.76 2.83-2.83"></path></svg>
+            </div>
+            <div class="cmd-tile-texts">
+              <div class="cmd-tile-title">Тест режим</div>
+              <div class="cmd-tile-sub" id="tileDemoSub">Демо симуляция</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ==================== SCREEN 2: CONNECT (LIKE SCREENSHOT 2) ==================== -->
+      <!-- ==================== SCREEN 2: CONNECT ==================== -->
       <section class="screen" id="screenConnect">
-        <div class="connect-center-card">
-          <div class="connect-circle-icon">
+        <div class="connect-card">
+          <div class="connect-icon-circle">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
           </div>
-          <div class="connect-center-title" id="connectTitle">Качели BubaGO</div>
-          <div class="connect-center-desc" id="connectDesc">Включите питание качелей и нажмите кнопку поиска по Bluetooth.</div>
+          <div class="connect-title" id="connectTitle">Качели BubaGO</div>
+          <div class="connect-sub">Включите питание качелей и выполните поиск по Bluetooth.</div>
 
-          <div class="device-found-banner" id="deviceFoundBanner">
+          <div class="connected-banner" id="deviceFoundBanner">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span id="foundDeviceText">babyswing подключено!</span>
           </div>
@@ -832,20 +918,19 @@
           </button>
         </div>
 
-        <div class="instructions-card">
-          <span style="font-weight:700; color:var(--text-main);">Инструкция по подключению:</span>
+        <div class="inst-card">
+          <span style="font-weight:700; color:var(--text-main);">Инструкция:</span>
           <div class="inst-row"><span class="inst-num">1.</span><span>Подключите устройство к электро-питанию.</span></div>
           <div class="inst-row"><span class="inst-num">2.</span><span>Нажмите кнопку «Поиск качелей».</span></div>
-          <div class="inst-row"><span class="inst-num">3.</span><span>Выберите устройство из списка и перейдите в «Управление».</span></div>
-          <div style="margin-top:4px; font-size:11.5px; color:var(--text-muted);">Для iOS используйте браузер <strong>Bluefy</strong>.</div>
+          <div class="inst-row"><span class="inst-num">3.</span><span>Выберите устройство и перейдите во вкладку «Управление».</span></div>
+          <div style="margin-top:2px; font-size:11.5px; color:var(--text-muted);">Для iOS используйте браузер <strong>Bluefy</strong>.</div>
         </div>
       </section>
 
     </div>
 
-    <!-- ==================== BOTTOM NAVIGATION (LIKE SCREENSHOTS) ==================== -->
+    <!-- Bottom Navigation Bar (like reference photo) -->
     <nav class="bottom-nav">
-      <!-- Tab 1: Control -->
       <button type="button" class="nav-item active" id="tabNavControl">
         <div class="nav-pill">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
@@ -853,7 +938,6 @@
         <span class="nav-label">Управление</span>
       </button>
 
-      <!-- Tab 2: Connect -->
       <button type="button" class="nav-item" id="tabNavConnect">
         <div class="nav-pill">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 7 10 10-5 5V2l5 5L7 17"></path></svg>
@@ -862,11 +946,11 @@
       </button>
     </nav>
 
-    <!-- Disconnected Alert Modal -->
+    <!-- Disconnect Alert Modal -->
     <div class="modal-overlay" id="modalDisconnect">
       <div class="modal-card">
         <div class="modal-title">Устройство отключено!</div>
-        <div class="modal-desc">Связь по Bluetooth была прервана. Проверьте питание качелей.</div>
+        <div class="modal-desc">Связь по Bluetooth с BubaGO была потеряна. Проверьте питание качелей.</div>
         <button type="button" class="btn-solid-purple" id="btnModalBack">
           <span>Назад к поиску</span>
         </button>
@@ -883,10 +967,11 @@
     });
 
     /* =========================================================
-       STATE & BLE CONFIG
+       STATE
        ========================================================= */
     const state = {
       theme: localStorage.getItem('bubago_theme') || 'dark',
+      isDemo: false,
       isConnected: false,
       device: null,
       server: null,
@@ -901,7 +986,8 @@
       timerPreset: 0,
       djsM: 0,
       djsS: 0,
-      // Stopwatch & Countdown
+      baifenbi: 0,
+      // Local timers
       countdownInterval: null,
       musicSeconds: 0,
       musicTimerInterval: null
@@ -917,21 +1003,20 @@
 
     const topStatusBadge = document.getElementById('topStatusBadge');
     const topStatusText = document.getElementById('topStatusText');
+    const btnTopBack = document.getElementById('btnTopBack');
     const btnThemeToggle = document.getElementById('btnThemeToggle');
 
+    const heroStatusPill = document.getElementById('heroStatusPill');
     const timerDigits = document.getElementById('timerDigits');
-    const musicCounterBadge = document.getElementById('musicCounterBadge');
+    const heroCircleBar = document.getElementById('heroCircleBar');
+    const musicBadge = document.getElementById('musicBadge');
     const musicTimerDigits = document.getElementById('musicTimerDigits');
 
     const speedBadgeText = document.getElementById('speedBadgeText');
-    const speedPills = document.querySelectorAll('.speed-pill-btn');
+    const speedPills = document.querySelectorAll('.speed-btn');
 
     const timerBadgeText = document.getElementById('timerBadgeText');
-    const timerPills = document.querySelectorAll('.timer-pill-btn');
-
-    const volumeStatusText = document.getElementById('volumeStatusText');
-    const btnVolDown = document.getElementById('btnVolDown');
-    const btnVolUp = document.getElementById('btnVolUp');
+    const timerPills = document.querySelectorAll('.timer-btn');
 
     const tilePower = document.getElementById('tilePower');
     const tilePowerSub = document.getElementById('tilePowerSub');
@@ -939,10 +1024,16 @@
     const tileMusic = document.getElementById('tileMusic');
     const tileMusicSub = document.getElementById('tileMusicSub');
 
+    const tileVolume = document.getElementById('tileVolume');
+    const tileVolumeSub = document.getElementById('tileVolumeSub');
+
     const tileNextTrack = document.getElementById('tileNextTrack');
 
     const tileAuto = document.getElementById('tileAuto');
     const tileAutoSub = document.getElementById('tileAutoSub');
+
+    const tileDemo = document.getElementById('tileDemo');
+    const tileDemoSub = document.getElementById('tileDemoSub');
 
     const btnScanBle = document.getElementById('btnScanBle');
     const scanBtnText = document.getElementById('scanBtnText');
@@ -960,7 +1051,7 @@
       document.body.setAttribute('data-theme', t);
       localStorage.setItem('bubago_theme', t);
       const meta = document.getElementById('metaThemeColor');
-      if (meta) meta.setAttribute('content', t === 'dark' ? '#0e1017' : '#f3f5f9');
+      if (meta) meta.setAttribute('content', t === 'dark' ? '#0c0e15' : '#f1f3f8');
     }
 
     applyTheme(state.theme);
@@ -972,7 +1063,7 @@
     });
 
     /* =========================================================
-       NAVIGATION TABS
+       TABS NAVIGATION
        ========================================================= */
     function switchTab(tabName) {
       triggerHaptic(20);
@@ -991,6 +1082,7 @@
 
     tabNavControl.addEventListener('click', function() { switchTab('control'); });
     tabNavConnect.addEventListener('click', function() { switchTab('connect'); });
+    btnTopBack.addEventListener('click', function() { switchTab('connect'); });
 
     btnModalBack.addEventListener('click', function() {
       modalDisconnect.classList.remove('active');
@@ -1005,14 +1097,14 @@
     }
 
     /* =========================================================
-       BLUETOOTH PROTOCOL & COMMANDS (NON-BLOCKING)
+       BLE TRANSMISSION (NON-BLOCKING)
        ========================================================= */
     async function sendBleCommand(cmdCode, valCode) {
       triggerHaptic(25);
       const buf = new Uint8Array([99, 109, 100, cmdCode, valCode]).buffer;
       console.log('[BLE TX]', cmdCode, valCode, Array.from(new Uint8Array(buf)));
 
-      if (!state.server) return true;
+      if (state.isDemo || !state.server) return true;
 
       const charsToTry = state.primaryWriteChar
         ? [state.primaryWriteChar, ...state.writeChars.filter(function(c) { return c !== state.primaryWriteChar; })]
@@ -1029,12 +1121,15 @@
             return true;
           }
         } catch(err) {
-          console.warn('[BLE TX write fail]', ch.uuid, err);
+          console.warn('[BLE TX Fail]', ch.uuid, err);
         }
       }
       return false;
     }
 
+    /* =========================================================
+       INCOMING BLE TELEMETRY
+       ========================================================= */
     function handleIncomingData(dataView) {
       if (!dataView || dataView.byteLength < 9) return;
       const n = new Uint8Array(dataView.buffer);
@@ -1049,6 +1144,7 @@
       state.timerPreset = n[5];
       state.djsM = n[7];
       state.djsS = n[8];
+      state.baifenbi = n[9] || 0;
 
       updateUIFromState();
     }
@@ -1060,41 +1156,19 @@
       // Top status badge
       if (state.isConnected) {
         topStatusBadge.classList.remove('disconnected');
-        topStatusText.textContent = 'BubaGO подключено';
+        topStatusText.textContent = state.isDemo ? 'Демо режим' : 'BubaGO подключено';
       } else {
         topStatusBadge.classList.add('disconnected');
         topStatusText.textContent = 'Отключено';
       }
 
-      // Power tile
+      // Hero status pill
       if (state.power) {
-        tilePower.classList.add('active');
-        tilePowerSub.textContent = 'Включено';
+        heroStatusPill.classList.add('active');
+        heroStatusPill.textContent = state.autoMode ? 'AUTO' : ('Скорость ' + (state.speed || 1));
       } else {
-        tilePower.classList.remove('active');
-        tilePowerSub.textContent = 'Выключено';
-      }
-
-      // Music tile & badge
-      if (state.music) {
-        tileMusic.classList.add('active');
-        tileMusicSub.textContent = 'Играет';
-        musicCounterBadge.classList.add('active');
-        startMusicTimer();
-      } else {
-        tileMusic.classList.remove('active');
-        tileMusicSub.textContent = 'Пауза';
-        musicCounterBadge.classList.remove('active');
-        stopMusicTimer();
-      }
-
-      // Auto Mode
-      if (state.autoMode) {
-        tileAuto.classList.add('active');
-        tileAutoSub.textContent = 'Включен';
-      } else {
-        tileAuto.classList.remove('active');
-        tileAutoSub.textContent = 'Выключен';
+        heroStatusPill.classList.remove('active');
+        heroStatusPill.textContent = 'Ожидание';
       }
 
       // Countdown Timer Digits
@@ -1102,7 +1176,22 @@
       const sStr = String(state.djsS).padStart(2, '0');
       timerDigits.textContent = mStr + ':' + sStr;
 
-      // Speed selector
+      // Circular Progress Arc (circumference = 628)
+      const circum = 628;
+      const pct = Math.min(100, Math.max(0, state.baifenbi));
+      const offset = circum - (pct / 100) * circum;
+      heroCircleBar.style.strokeDashoffset = offset;
+
+      // Music pill & stopwatch
+      if (state.music) {
+        musicBadge.classList.add('playing');
+        startMusicTimer();
+      } else {
+        musicBadge.classList.remove('playing');
+        stopMusicTimer();
+      }
+
+      // Speed buttons (1..8)
       speedPills.forEach(function(pill) {
         const val = parseInt(pill.getAttribute('data-speed'));
         if (state.power && state.speed === val) {
@@ -1113,7 +1202,7 @@
       });
       speedBadgeText.textContent = (state.power && state.speed > 0) ? ('Уровень ' + state.speed) : 'Выкл';
 
-      // Timer presets
+      // Timer presets (8, 15, 30, 45, 60)
       timerPills.forEach(function(btn) {
         const val = parseInt(btn.getAttribute('data-preset'));
         if (state.power && state.timerPreset === val) {
@@ -1127,8 +1216,50 @@
         ? ((presetMinutes[state.timerPreset] || 0) + ' мин')
         : 'Без таймера';
 
-      // Volume display
-      volumeStatusText.textContent = 'Уровень ' + state.volume + ' / 5';
+      // Quick Command Tiles
+      // 1. Power
+      if (state.power) {
+        tilePower.classList.add('active');
+        tilePowerSub.textContent = 'Включено';
+      } else {
+        tilePower.classList.remove('active');
+        tilePowerSub.textContent = 'Выключено';
+      }
+
+      // 2. Music
+      if (state.music) {
+        tileMusic.classList.add('active');
+        tileMusicSub.textContent = 'Играет';
+      } else {
+        tileMusic.classList.remove('active');
+        tileMusicSub.textContent = 'Пауза';
+      }
+
+      // 3. Volume Tile (single button)
+      tileVolumeSub.textContent = 'Уровень ' + state.volume + ' / 5';
+      if (state.volume > 0) {
+        tileVolume.classList.add('active');
+      } else {
+        tileVolume.classList.remove('active');
+      }
+
+      // 5. Auto Mode
+      if (state.autoMode) {
+        tileAuto.classList.add('active');
+        tileAutoSub.textContent = 'Включен';
+      } else {
+        tileAuto.classList.remove('active');
+        tileAutoSub.textContent = 'Выключен';
+      }
+
+      // 6. Demo Tile
+      if (state.isDemo) {
+        tileDemo.classList.add('active');
+        tileDemoSub.textContent = 'Активен';
+      } else {
+        tileDemo.classList.remove('active');
+        tileDemoSub.textContent = 'Выключен';
+      }
     }
 
     /* =========================================================
@@ -1154,7 +1285,8 @@
 
     function startCountdownTick(totalMinutes) {
       if (state.countdownInterval) clearInterval(state.countdownInterval);
-      let remainingSecs = totalMinutes * 60;
+      const totalSecs = totalMinutes * 60;
+      let remainingSecs = totalSecs;
 
       state.countdownInterval = setInterval(function() {
         if (!state.power || state.timerPreset === 0) {
@@ -1166,12 +1298,14 @@
           remainingSecs--;
           state.djsM = Math.floor(remainingSecs / 60);
           state.djsS = remainingSecs % 60;
+          state.baifenbi = Math.round((remainingSecs / totalSecs) * 100);
           updateUIFromState();
         } else {
           clearInterval(state.countdownInterval);
           state.countdownInterval = null;
           state.djsM = 0;
           state.djsS = 0;
+          state.baifenbi = 0;
           state.timerPreset = 0;
           updateUIFromState();
         }
@@ -1179,9 +1313,9 @@
     }
 
     /* =========================================================
-       USER INTERACTION HANDLERS (INSTANT RESPONSIVE)
+       USER INTERACTION HANDLERS
        ========================================================= */
-    // Power Toggle
+    // 1. Power Master Tile
     tilePower.addEventListener('click', function(e) {
       e.stopPropagation();
       state.power = !state.power;
@@ -1192,6 +1326,7 @@
         state.autoMode = false;
         state.djsM = 0;
         state.djsS = 0;
+        state.baifenbi = 0;
       } else {
         if (state.speed === 0) state.speed = 1;
       }
@@ -1199,7 +1334,7 @@
       sendBleCommand(48, state.power ? 49 : 48);
     });
 
-    // Music Toggle
+    // 2. Music Toggle Tile
     tileMusic.addEventListener('click', function(e) {
       e.stopPropagation();
       state.music = !state.music;
@@ -1208,7 +1343,15 @@
       sendBleCommand(49, state.music ? 49 : 48);
     });
 
-    // Next Track
+    // 3. Volume Tile (ONE BUTTON: cycles 1 -> 2 -> 3 -> 4 -> 5 -> 0)
+    tileVolume.addEventListener('click', function(e) {
+      e.stopPropagation();
+      state.volume = (state.volume >= 5) ? 0 : (state.volume + 1);
+      updateUIFromState();
+      sendBleCommand(50, 53);
+    });
+
+    // 4. Next Track Tile
     tileNextTrack.addEventListener('click', function(e) {
       e.stopPropagation();
       if (!state.power) state.power = true;
@@ -1219,13 +1362,41 @@
       sendBleCommand(49, 52);
     });
 
-    // Auto Mode Toggle
+    // 5. Auto Mode Tile
     tileAuto.addEventListener('click', function(e) {
       e.stopPropagation();
       state.autoMode = !state.autoMode;
       if (state.autoMode && !state.power) state.power = true;
       updateUIFromState();
       sendBleCommand(53, state.autoMode ? 49 : 48);
+    });
+
+    // 6. Demo Tile (Instant interactive test on phone)
+    tileDemo.addEventListener('click', function(e) {
+      e.stopPropagation();
+      state.isDemo = !state.isDemo;
+      if (state.isDemo) {
+        state.isConnected = true;
+        state.power = true;
+        state.speed = 2;
+        state.timerPreset = 1;
+        state.djsM = 8;
+        state.djsS = 0;
+        state.baifenbi = 95;
+        state.music = true;
+        state.volume = 3;
+        startCountdownTick(8);
+      } else {
+        state.isConnected = false;
+        state.power = false;
+        state.music = false;
+        state.speed = 0;
+        state.timerPreset = 0;
+        state.djsM = 0;
+        state.djsS = 0;
+        state.baifenbi = 0;
+      }
+      updateUIFromState();
     });
 
     // Speed Selection (1..8)
@@ -1252,30 +1423,17 @@
           state.power = true;
           state.djsM = minutes;
           state.djsS = 0;
+          state.baifenbi = 100;
           startCountdownTick(minutes);
         } else {
           state.djsM = 0;
           state.djsS = 0;
+          state.baifenbi = 0;
           if (state.countdownInterval) clearInterval(state.countdownInterval);
         }
         updateUIFromState();
         sendBleCommand(52, 48 + state.timerPreset);
       });
-    });
-
-    // Volume Step Buttons: Quieter / Louder
-    btnVolDown.addEventListener('click', function(e) {
-      e.stopPropagation();
-      state.volume = Math.max(0, state.volume - 1);
-      updateUIFromState();
-      sendBleCommand(50, 53);
-    });
-
-    btnVolUp.addEventListener('click', function(e) {
-      e.stopPropagation();
-      state.volume = Math.min(5, state.volume + 1);
-      updateUIFromState();
-      sendBleCommand(50, 53);
     });
 
     /* =========================================================
@@ -1287,7 +1445,7 @@
         return;
       }
 
-      btnScanBle.classList.add('connecting');
+      btnScanBle.disabled = true;
       scanBtnText.textContent = 'Поиск устройства...';
 
       try {
@@ -1336,20 +1494,19 @@
         foundDeviceText.textContent = (device.name || 'BubaGO') + ' подключено!';
         deviceFoundBanner.style.display = 'flex';
         scanBtnText.textContent = 'Подключено ✓';
-        btnScanBle.classList.remove('connecting');
+        btnScanBle.disabled = false;
 
         updateUIFromState();
-        // Switch to Control tab automatically
         setTimeout(function() {
           switchTab('control');
-        }, 800);
+        }, 700);
 
       } catch (err) {
         console.error('Scan error:', err);
-        btnScanBle.classList.remove('connecting');
+        btnScanBle.disabled = false;
         scanBtnText.textContent = 'Поиск качелей';
         if (err.name !== 'NotFoundError') {
-          alert('Ошибка подключения: ' + (err.message || 'Проверьте питание'));
+          alert('Ошибка: ' + (err.message || 'Не удалось найти устройство'));
         }
       }
     }
